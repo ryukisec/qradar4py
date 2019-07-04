@@ -60,8 +60,8 @@ class Qvm(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('Range')
-    @request_vars('fields', 'filter')
-    def get_saved_search_groups(self, *, fields=None, Range=None, filter=None, **kwargs):
+    @request_vars('filter', 'fields')
+    def get_saved_search_groups(self, *, filter=None, Range=None, fields=None, **kwargs):
         """
         GET /qvm/saved_search_groups
         Retrieves a list of vulnerability saved search groups.
@@ -78,6 +78,14 @@ class Qvm(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'saved_search_groups/{group_id}'.format(group_id=group_id))
         return self._call('POST', function_endpoint, json=group, **kwargs)
 
+    def delete_saved_search_groups_by_group_id(self, group_id, **kwargs):
+        """
+        DELETE /qvm/saved_search_groups/{group_id}
+        Deletes a vulnerability saved search group.
+        """
+        function_endpoint = urljoin(self._baseurl, 'saved_search_groups/{group_id}'.format(group_id=group_id))
+        return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
+
     @request_vars('fields')
     def get_saved_search_groups_by_group_id(self, group_id, *, fields=None, **kwargs):
         """
@@ -87,17 +95,9 @@ class Qvm(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'saved_search_groups/{group_id}'.format(group_id=group_id))
         return self._call('GET', function_endpoint, **kwargs)
 
-    def delete_saved_search_groups_by_group_id(self, group_id, **kwargs):
-        """
-        DELETE /qvm/saved_search_groups/{group_id}
-        Deletes a vulnerability saved search group.
-        """
-        function_endpoint = urljoin(self._baseurl, 'saved_search_groups/{group_id}'.format(group_id=group_id))
-        return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
-
     @header_vars('Range')
-    @request_vars('fields', 'filter')
-    def get_saved_searches(self, *, fields=None, Range=None, filter=None, **kwargs):
+    @request_vars('filter', 'fields')
+    def get_saved_searches(self, *, filter=None, Range=None, fields=None, **kwargs):
         """
         GET /qvm/saved_searches
         Retrieves a list of  vulnerability instance saved searches.
@@ -106,9 +106,9 @@ class Qvm(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('Range')
-    @request_vars('fields', 'filter')
-    def get_saved_searches_vuln_instances_results_assets_by_task_id(self, task_id, *, fields=None, Range=None,
-                                                                    filter=None, **kwargs):
+    @request_vars('filter', 'fields')
+    def get_saved_searches_vuln_instances_results_assets_by_task_id(self, task_id, *, filter=None, Range=None,
+                                                                    fields=None, **kwargs):
         """
         GET /qvm/saved_searches/vuln_instances/{task_id}/results/assets
         Lists the Vulnerability Instances assets that are returned from the vulnerability instance saved search.
@@ -118,9 +118,9 @@ class Qvm(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('Range')
-    @request_vars('fields', 'filter')
-    def get_saved_searches_vuln_instances_results_vuln_instances_by_task_id(self, task_id, *, fields=None, Range=None,
-                                                                            filter=None, **kwargs):
+    @request_vars('filter', 'fields')
+    def get_saved_searches_vuln_instances_results_vuln_instances_by_task_id(self, task_id, *, filter=None, Range=None,
+                                                                            fields=None, **kwargs):
         """
         GET /qvm/saved_searches/vuln_instances/{task_id}/results/vuln_instances
         Lists the Vulnerability Instances returned from a vulnerability instance saved search.
@@ -131,9 +131,9 @@ class Qvm(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('Range')
-    @request_vars('fields', 'filter')
-    def get_saved_searches_vuln_instances_results_vulnerabilities_by_task_id(self, task_id, *, fields=None, Range=None,
-                                                                             filter=None, **kwargs):
+    @request_vars('filter', 'fields')
+    def get_saved_searches_vuln_instances_results_vulnerabilities_by_task_id(self, task_id, *, filter=None, Range=None,
+                                                                             fields=None, **kwargs):
         """
         GET /qvm/saved_searches/vuln_instances/{task_id}/results/vulnerabilities
         List the Vulnerability Instances vulnerabilities returned from the saved search.
@@ -141,6 +141,16 @@ class Qvm(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl,
                                     'saved_searches/vuln_instances/{task_id}/results/vulnerabilities'.format(
                                         task_id=task_id))
+        return self._call('GET', function_endpoint, **kwargs)
+
+    @request_vars('fields')
+    def get_saved_searches_vuln_instances_status_by_task_id(self, task_id, *, fields=None, **kwargs):
+        """
+        GET /qvm/saved_searches/vuln_instances/{task_id}/status
+        Retrieves the current status of a vulnerability instance search that was initiated.
+        """
+        function_endpoint = urljoin(self._baseurl,
+                                    'saved_searches/vuln_instances/{task_id}/status'.format(task_id=task_id))
         return self._call('GET', function_endpoint, **kwargs)
 
     @request_vars('status', 'retention_period_in_days', 'fields')
@@ -155,13 +165,13 @@ class Qvm(QRadarAPIEndpoint):
         return self._call('POST', function_endpoint, **kwargs)
 
     @request_vars('fields')
-    def get_saved_searches_vuln_instances_status_by_task_id(self, task_id, *, fields=None, **kwargs):
+    def get_saved_searches_by_saved_search_id(self, saved_search_id, *, fields=None, **kwargs):
         """
-        GET /qvm/saved_searches/vuln_instances/{task_id}/status
-        Retrieves the current status of a vulnerability instance search that was initiated.
+        GET /qvm/saved_searches/{saved_search_id}
+        Retrieves a vulnerability instance saved search.
         """
         function_endpoint = urljoin(self._baseurl,
-                                    'saved_searches/vuln_instances/{task_id}/status'.format(task_id=task_id))
+                                    'saved_searches/{saved_search_id}'.format(saved_search_id=saved_search_id))
         return self._call('GET', function_endpoint, **kwargs)
 
     def delete_saved_searches_by_saved_search_id(self, saved_search_id, **kwargs):
@@ -172,16 +182,6 @@ class Qvm(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl,
                                     'saved_searches/{saved_search_id}'.format(saved_search_id=saved_search_id))
         return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
-
-    @request_vars('fields')
-    def get_saved_searches_by_saved_search_id(self, saved_search_id, *, fields=None, **kwargs):
-        """
-        GET /qvm/saved_searches/{saved_search_id}
-        Retrieves a vulnerability instance saved search.
-        """
-        function_endpoint = urljoin(self._baseurl,
-                                    'saved_searches/{saved_search_id}'.format(saved_search_id=saved_search_id))
-        return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('fields')
     def post_saved_searches_by_saved_search_id(self, saved_search_id, *, saved_search, fields=None, **kwargs):
@@ -194,9 +194,9 @@ class Qvm(QRadarAPIEndpoint):
         return self._call('POST', function_endpoint, json=saved_search, **kwargs)
 
     @header_vars('Range')
-    @request_vars('fields', 'filter')
-    def get_saved_searches_vuln_instances_by_saved_search_id(self, saved_search_id, *, fields=None, Range=None,
-                                                             filter=None, **kwargs):
+    @request_vars('filter', 'fields')
+    def get_saved_searches_vuln_instances_by_saved_search_id(self, saved_search_id, *, filter=None, Range=None,
+                                                             fields=None, **kwargs):
         """
         GET /qvm/saved_searches/{saved_search_id}/vuln_instances
         Creates the Vulnerability Instances search. This search will return a maximum of 100,000 results.

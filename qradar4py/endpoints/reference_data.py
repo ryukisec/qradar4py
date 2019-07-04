@@ -52,6 +52,16 @@ class ReferenceData(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'map_dependent_tasks/{task_id}/results'.format(task_id=task_id))
         return self._call('GET', function_endpoint, **kwargs)
 
+    @header_vars('Range')
+    @request_vars('fields', 'filter')
+    def get_map_of_sets(self, *, fields=None, Range=None, filter=None, **kwargs):
+        """
+        GET /reference_data/map_of_sets
+        Retrieve a list of all reference map of sets.
+        """
+        function_endpoint = urljoin(self._baseurl, 'map_of_sets')
+        return self._call('GET', function_endpoint, **kwargs)
+
     @request_vars('name', 'element_type', 'key_label', 'value_label', 'timeout_type', 'time_to_live', 'fields')
     def post_map_of_sets(self, *, name, element_type, key_label=None, value_label=None, timeout_type=None,
                          time_to_live=None, fields=None, **kwargs):
@@ -61,16 +71,6 @@ class ReferenceData(QRadarAPIEndpoint):
         """
         function_endpoint = urljoin(self._baseurl, 'map_of_sets')
         return self._call('POST', function_endpoint, **kwargs)
-
-    @header_vars('Range')
-    @request_vars('fields', 'filter')
-    def get_map_of_sets(self, *, Range=None, fields=None, filter=None, **kwargs):
-        """
-        GET /reference_data/map_of_sets
-        Retrieve a list of all reference map of sets.
-        """
-        function_endpoint = urljoin(self._baseurl, 'map_of_sets')
-        return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('fields')
     def post_map_of_sets_bulk_load_by_name(self, name, *, data, fields=None, **kwargs):
@@ -82,16 +82,6 @@ class ReferenceData(QRadarAPIEndpoint):
             data = [data]
         function_endpoint = urljoin(self._baseurl, 'map_of_sets/bulk_load/{name}'.format(name=name))
         return self._call('POST', function_endpoint, json=data, **kwargs)
-
-    @header_vars('Range')
-    @request_vars('fields')
-    def get_map_of_sets_by_name(self, name, *, Range=None, fields=None, **kwargs):
-        """
-        GET /reference_data/map_of_sets/{name}
-        Return the reference map of sets identified by name.
-        """
-        function_endpoint = urljoin(self._baseurl, 'map_of_sets/{name}'.format(name=name))
-        return self._call('GET', function_endpoint, **kwargs)
 
     @request_vars('key', 'value', 'source', 'fields')
     def post_map_of_sets_by_name(self, name, *, key, value, source=None, fields=None, **kwargs):
@@ -110,6 +100,16 @@ class ReferenceData(QRadarAPIEndpoint):
         """
         function_endpoint = urljoin(self._baseurl, 'map_of_sets/{name}'.format(name=name))
         return self._call('DELETE', function_endpoint, **kwargs)
+
+    @header_vars('Range')
+    @request_vars('fields')
+    def get_map_of_sets_by_name(self, name, *, fields=None, Range=None, **kwargs):
+        """
+        GET /reference_data/map_of_sets/{name}
+        Return the reference map of sets identified by name.
+        """
+        function_endpoint = urljoin(self._baseurl, 'map_of_sets/{name}'.format(name=name))
+        return self._call('GET', function_endpoint, **kwargs)
 
     @request_vars('fields')
     def get_map_of_sets_dependents_by_name(self, name, *, fields=None, **kwargs):
@@ -179,7 +179,7 @@ class ReferenceData(QRadarAPIEndpoint):
 
     @header_vars('Range')
     @request_vars('fields', 'filter')
-    def get_maps(self, *, Range=None, fields=None, filter=None, **kwargs):
+    def get_maps(self, *, fields=None, Range=None, filter=None, **kwargs):
         """
         GET /reference_data/maps
         Retrieve a list of all reference maps.
@@ -208,6 +208,15 @@ class ReferenceData(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'maps/bulk_load/{name}'.format(name=name))
         return self._call('POST', function_endpoint, json=data, **kwargs)
 
+    @request_vars('key', 'value', 'source', 'fields')
+    def post_maps_by_name(self, name, *, key, value, source=None, fields=None, **kwargs):
+        """
+        POST /reference_data/maps/{name}
+        Add or update an element in a reference map.
+        """
+        function_endpoint = urljoin(self._baseurl, 'maps/{name}'.format(name=name))
+        return self._call('POST', function_endpoint, **kwargs)
+
     @request_vars('purge_only', 'fields')
     def delete_maps_by_name(self, name, *, purge_only=None, fields=None, **kwargs):
         """
@@ -219,22 +228,13 @@ class ReferenceData(QRadarAPIEndpoint):
 
     @header_vars('Range')
     @request_vars('fields', 'filter')
-    def get_maps_by_name(self, name, *, Range=None, fields=None, filter=None, **kwargs):
+    def get_maps_by_name(self, name, *, fields=None, Range=None, filter=None, **kwargs):
         """
         GET /reference_data/maps/{name}
         Retrieve the reference map identified by name.
         """
         function_endpoint = urljoin(self._baseurl, 'maps/{name}'.format(name=name))
         return self._call('GET', function_endpoint, **kwargs)
-
-    @request_vars('key', 'value', 'source', 'fields')
-    def post_maps_by_name(self, name, *, key, value, source=None, fields=None, **kwargs):
-        """
-        POST /reference_data/maps/{name}
-        Add or update an element in a reference map.
-        """
-        function_endpoint = urljoin(self._baseurl, 'maps/{name}'.format(name=name))
-        return self._call('POST', function_endpoint, **kwargs)
 
     @request_vars('fields')
     def get_maps_dependents_by_name(self, name, *, fields=None, **kwargs):
@@ -274,15 +274,6 @@ class ReferenceData(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'set_delete_tasks/{task_id}'.format(task_id=task_id))
         return self._call('GET', function_endpoint, **kwargs)
 
-    @header_vars('fields')
-    def post_set_dependent_tasks_by_task_id(self, task_id, *, task, fields=None, **kwargs):
-        """
-        POST /reference_data/set_dependent_tasks/{task_id}
-        Cancels the dependent reference data set task.
-        """
-        function_endpoint = urljoin(self._baseurl, 'set_dependent_tasks/{task_id}'.format(task_id=task_id))
-        return self._call('POST', function_endpoint, json=task, **kwargs)
-
     @request_vars('fields')
     def get_set_dependent_tasks_by_task_id(self, task_id, *, fields=None, **kwargs):
         """
@@ -291,6 +282,15 @@ class ReferenceData(QRadarAPIEndpoint):
         """
         function_endpoint = urljoin(self._baseurl, 'set_dependent_tasks/{task_id}'.format(task_id=task_id))
         return self._call('GET', function_endpoint, **kwargs)
+
+    @header_vars('fields')
+    def post_set_dependent_tasks_by_task_id(self, task_id, *, task, fields=None, **kwargs):
+        """
+        POST /reference_data/set_dependent_tasks/{task_id}
+        Cancels the dependent reference data set task.
+        """
+        function_endpoint = urljoin(self._baseurl, 'set_dependent_tasks/{task_id}'.format(task_id=task_id))
+        return self._call('POST', function_endpoint, json=task, **kwargs)
 
     @request_vars('fields')
     def get_set_dependent_tasks_results_by_task_id(self, task_id, *, fields=None, **kwargs):
@@ -303,7 +303,7 @@ class ReferenceData(QRadarAPIEndpoint):
 
     @header_vars('Range')
     @request_vars('fields', 'filter')
-    def get_sets(self, *, Range=None, fields=None, filter=None, **kwargs):
+    def get_sets(self, *, fields=None, Range=None, filter=None, **kwargs):
         """
         GET /reference_data/sets
         Retrieve a list of all reference sets.
@@ -333,7 +333,7 @@ class ReferenceData(QRadarAPIEndpoint):
 
     @header_vars('Range')
     @request_vars('value', 'fields', 'filter')
-    def get_sets_search(self, *, value, Range=None, fields=None, filter=None, **kwargs):
+    def get_sets_search(self, *, value, fields=None, Range=None, filter=None, **kwargs):
         """
         GET /reference_data/sets/search
         Search a value in reference sets.
@@ -352,6 +352,16 @@ class ReferenceData(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'sets/{name}'.format(name=name))
         return self._call('DELETE', function_endpoint, **kwargs)
 
+    @header_vars('Range')
+    @request_vars('fields', 'filter')
+    def get_sets_by_name(self, name, *, fields=None, Range=None, filter=None, **kwargs):
+        """
+        GET /reference_data/sets/{name}
+        Retrieve the reference set identified by name.
+        """
+        function_endpoint = urljoin(self._baseurl, 'sets/{name}'.format(name=name))
+        return self._call('GET', function_endpoint, **kwargs)
+
     @request_vars('value', 'source', 'fields')
     def post_sets_by_name(self, name, *, value, source=None, fields=None, **kwargs):
         """
@@ -360,16 +370,6 @@ class ReferenceData(QRadarAPIEndpoint):
         """
         function_endpoint = urljoin(self._baseurl, 'sets/{name}'.format(name=name))
         return self._call('POST', function_endpoint, **kwargs)
-
-    @header_vars('Range')
-    @request_vars('fields', 'filter')
-    def get_sets_by_name(self, name, *, Range=None, fields=None, filter=None, **kwargs):
-        """
-        GET /reference_data/sets/{name}
-        Retrieve the reference set identified by name.
-        """
-        function_endpoint = urljoin(self._baseurl, 'sets/{name}'.format(name=name))
-        return self._call('GET', function_endpoint, **kwargs)
 
     @request_vars('fields')
     def get_sets_dependents_by_name(self, name, *, fields=None, **kwargs):
@@ -400,16 +400,6 @@ class ReferenceData(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'sets/{name}/{value}'.format(name=name, value=value))
         return self._call('DELETE', function_endpoint, **kwargs)
 
-    @header_vars('Range')
-    @request_vars('fields', 'filter')
-    def get_tables(self, *, Range=None, fields=None, filter=None, **kwargs):
-        """
-        GET /reference_data/tables
-        Retrieve a list of all reference tables.
-        """
-        function_endpoint = urljoin(self._baseurl, 'tables')
-        return self._call('GET', function_endpoint, **kwargs)
-
     @request_vars('name', 'element_type', 'outer_key_label', 'timeout_type', 'time_to_live', 'key_name_types', 'fields')
     def post_tables(self, *, name, element_type, outer_key_label=None, timeout_type=None, time_to_live=None,
                     key_name_types=None, fields=None, **kwargs):
@@ -419,6 +409,16 @@ class ReferenceData(QRadarAPIEndpoint):
         """
         function_endpoint = urljoin(self._baseurl, 'tables')
         return self._call('POST', function_endpoint, **kwargs)
+
+    @header_vars('Range')
+    @request_vars('fields', 'filter')
+    def get_tables(self, *, fields=None, Range=None, filter=None, **kwargs):
+        """
+        GET /reference_data/tables
+        Retrieve a list of all reference tables.
+        """
+        function_endpoint = urljoin(self._baseurl, 'tables')
+        return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('fields')
     def post_tables_bulk_load_by_name(self, name, *, data, fields=None, **kwargs):
@@ -440,16 +440,6 @@ class ReferenceData(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'tables/{name}'.format(name=name))
         return self._call('DELETE', function_endpoint, **kwargs)
 
-    @header_vars('Range')
-    @request_vars('fields')
-    def get_tables_by_name(self, name, *, Range=None, fields=None, **kwargs):
-        """
-        GET /reference_data/tables/{name}
-        Return the reference table identified by name.
-        """
-        function_endpoint = urljoin(self._baseurl, 'tables/{name}'.format(name=name))
-        return self._call('GET', function_endpoint, **kwargs)
-
     @request_vars('outer_key', 'inner_key', 'value', 'source', 'fields')
     def post_tables_by_name(self, name, *, outer_key, inner_key, value, source=None, fields=None, **kwargs):
         """
@@ -458,6 +448,16 @@ class ReferenceData(QRadarAPIEndpoint):
         """
         function_endpoint = urljoin(self._baseurl, 'tables/{name}'.format(name=name))
         return self._call('POST', function_endpoint, **kwargs)
+
+    @header_vars('Range')
+    @request_vars('fields')
+    def get_tables_by_name(self, name, *, fields=None, Range=None, **kwargs):
+        """
+        GET /reference_data/tables/{name}
+        Return the reference table identified by name.
+        """
+        function_endpoint = urljoin(self._baseurl, 'tables/{name}'.format(name=name))
+        return self._call('GET', function_endpoint, **kwargs)
 
     @request_vars('fields')
     def get_tables_dependents_by_name(self, name, *, fields=None, **kwargs):

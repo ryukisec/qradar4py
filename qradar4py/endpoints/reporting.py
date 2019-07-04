@@ -29,15 +29,16 @@ class Reporting(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'groups')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
-    def delete_groups_by_group_id(self, group_id, **kwargs):
+    @header_vars('fields')
+    def post_groups_by_group_id(self, group_id, *, group, fields=None, **kwargs):
         """
-        DELETE /reporting/groups/{group_id}
-        Delete the Report Group
+        POST /reporting/groups/{group_id}
+        Update the owner of an Report Group
         UNDOCUMENTED
         """
         headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'groups/{group_id}'.format(group_id=group_id))
-        return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
+        return self._call('POST', function_endpoint, json=group, headers=headers, **kwargs)
 
     @request_vars('fields')
     def get_groups_by_group_id(self, group_id, *, fields=None, **kwargs):
@@ -50,16 +51,15 @@ class Reporting(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'groups/{group_id}'.format(group_id=group_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
-    @header_vars('fields')
-    def post_groups_by_group_id(self, group_id, *, group, fields=None, **kwargs):
+    def delete_groups_by_group_id(self, group_id, **kwargs):
         """
-        POST /reporting/groups/{group_id}
-        Update the owner of an Report Group
+        DELETE /reporting/groups/{group_id}
+        Delete the Report Group
         UNDOCUMENTED
         """
         headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'groups/{group_id}'.format(group_id=group_id))
-        return self._call('POST', function_endpoint, json=group, headers=headers, **kwargs)
+        return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
 
     @header_vars('Range')
     @request_vars('filter', 'fields')
@@ -73,17 +73,6 @@ class Reporting(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'templates')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
-    @header_vars('fields')
-    def post_templates_by_template_id(self, template_id, *, report_template, fields=None, **kwargs):
-        """
-        POST /reporting/templates/{template_id}
-        Update the Report Template owner only.
-        UNDOCUMENTED
-        """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
-        function_endpoint = urljoin(self._baseurl, 'templates/{template_id}'.format(template_id=template_id))
-        return self._call('POST', function_endpoint, json=report_template, headers=headers, **kwargs)
-
     @request_vars('fields')
     def get_templates_by_template_id(self, template_id, *, fields=None, **kwargs):
         """
@@ -94,6 +83,17 @@ class Reporting(QRadarAPIEndpoint):
         headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'templates/{template_id}'.format(template_id=template_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
+
+    @header_vars('fields')
+    def post_templates_by_template_id(self, template_id, *, report_template, fields=None, **kwargs):
+        """
+        POST /reporting/templates/{template_id}
+        Update the Report Template owner only.
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl, 'templates/{template_id}'.format(template_id=template_id))
+        return self._call('POST', function_endpoint, json=report_template, headers=headers, **kwargs)
 
     def delete_templates_by_template_id(self, template_id, **kwargs):
         """

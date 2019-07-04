@@ -17,8 +17,8 @@ class AssetModel(QRadarAPIEndpoint):
                          verify)
 
     @header_vars('Range')
-    @request_vars('fields', 'filter')
-    def get_assets(self, *, fields=None, Range=None, filter=None, **kwargs):
+    @request_vars('filter', 'fields')
+    def get_assets(self, *, filter=None, Range=None, fields=None, **kwargs):
         """
         GET /asset_model/assets
         List all assets found in the model.
@@ -34,9 +34,32 @@ class AssetModel(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'assets/{asset_id}'.format(asset_id=asset_id))
         return self._call('POST', function_endpoint, response_type='text/plain', json=asset, **kwargs)
 
+    @header_vars('fields')
+    def post_configuration(self, *, AssetConfiguration, fields=None, **kwargs):
+        """
+        POST /asset_model/configuration
+        Update asset configuration fields.Warning: Tuning these configuration settings can be dangerous; modifying the wrong variable or executing the wrong query can lead to irratic system behavior and/or destabilization,
+        errors in the log and ultimately data loss.  PLEASE BE CAREFUL when reconfiguring these values and make sure you are confident with what you are doing BEFORE making changes.
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl, 'configuration')
+        return self._call('POST', function_endpoint, json=AssetConfiguration, headers=headers, **kwargs)
+
+    @request_vars('fields')
+    def get_configuration(self, *, fields=None, **kwargs):
+        """
+        GET /asset_model/configuration
+        Retrieve the current configuration settings pertaining to assets.
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl, 'configuration')
+        return self._call('GET', function_endpoint, headers=headers, **kwargs)
+
     @header_vars('Range')
-    @request_vars('fields', 'filter')
-    def get_properties(self, *, fields=None, Range=None, filter=None, **kwargs):
+    @request_vars('filter', 'fields')
+    def get_properties(self, *, filter=None, Range=None, fields=None, **kwargs):
         """
         GET /asset_model/properties
         Get a list of available asset property types that can be used.
@@ -45,23 +68,14 @@ class AssetModel(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('Range')
-    @request_vars('fields', 'filter')
-    def get_saved_search_groups(self, *, fields=None, Range=None, filter=None, **kwargs):
+    @request_vars('filter', 'fields')
+    def get_saved_search_groups(self, *, filter=None, Range=None, fields=None, **kwargs):
         """
         GET /asset_model/saved_search_groups
         Retrieves a list the asset saved search groups.
         """
         function_endpoint = urljoin(self._baseurl, 'saved_search_groups')
         return self._call('GET', function_endpoint, **kwargs)
-
-    @header_vars('fields')
-    def post_saved_search_groups_by_group_id(self, group_id, *, group, fields=None, **kwargs):
-        """
-        POST /asset_model/saved_search_groups/{group_id}
-        Updates the owner of an asset saved search group.
-        """
-        function_endpoint = urljoin(self._baseurl, 'saved_search_groups/{group_id}'.format(group_id=group_id))
-        return self._call('POST', function_endpoint, json=group, **kwargs)
 
     def delete_saved_search_groups_by_group_id(self, group_id, **kwargs):
         """
@@ -80,33 +94,23 @@ class AssetModel(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'saved_search_groups/{group_id}'.format(group_id=group_id))
         return self._call('GET', function_endpoint, **kwargs)
 
+    @header_vars('fields')
+    def post_saved_search_groups_by_group_id(self, group_id, *, group, fields=None, **kwargs):
+        """
+        POST /asset_model/saved_search_groups/{group_id}
+        Updates the owner of an asset saved search group.
+        """
+        function_endpoint = urljoin(self._baseurl, 'saved_search_groups/{group_id}'.format(group_id=group_id))
+        return self._call('POST', function_endpoint, json=group, **kwargs)
+
     @header_vars('Range')
-    @request_vars('fields', 'filter')
-    def get_saved_searches(self, *, fields=None, Range=None, filter=None, **kwargs):
+    @request_vars('filter', 'fields')
+    def get_saved_searches(self, *, filter=None, Range=None, fields=None, **kwargs):
         """
         GET /asset_model/saved_searches
         Retrieves a list of saved searches that can be used or applied against the /asset_model/saved_searches/{saved_search_id}/results query.
         """
         function_endpoint = urljoin(self._baseurl, 'saved_searches')
-        return self._call('GET', function_endpoint, **kwargs)
-
-    def delete_saved_searches_by_saved_search_id(self, saved_search_id, **kwargs):
-        """
-        DELETE /asset_model/saved_searches/{saved_search_id}
-        Deletes an asset saved search.
-        """
-        function_endpoint = urljoin(self._baseurl,
-                                    'saved_searches/{saved_search_id}'.format(saved_search_id=saved_search_id))
-        return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
-
-    @request_vars('fields')
-    def get_saved_searches_by_saved_search_id(self, saved_search_id, *, fields=None, **kwargs):
-        """
-        GET /asset_model/saved_searches/{saved_search_id}
-        Retrieves an asset saved search.
-        """
-        function_endpoint = urljoin(self._baseurl,
-                                    'saved_searches/{saved_search_id}'.format(saved_search_id=saved_search_id))
         return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('fields')
@@ -119,9 +123,28 @@ class AssetModel(QRadarAPIEndpoint):
                                     'saved_searches/{saved_search_id}'.format(saved_search_id=saved_search_id))
         return self._call('POST', function_endpoint, json=saved_search, **kwargs)
 
+    @request_vars('fields')
+    def get_saved_searches_by_saved_search_id(self, saved_search_id, *, fields=None, **kwargs):
+        """
+        GET /asset_model/saved_searches/{saved_search_id}
+        Retrieves an asset saved search.
+        """
+        function_endpoint = urljoin(self._baseurl,
+                                    'saved_searches/{saved_search_id}'.format(saved_search_id=saved_search_id))
+        return self._call('GET', function_endpoint, **kwargs)
+
+    def delete_saved_searches_by_saved_search_id(self, saved_search_id, **kwargs):
+        """
+        DELETE /asset_model/saved_searches/{saved_search_id}
+        Deletes an asset saved search.
+        """
+        function_endpoint = urljoin(self._baseurl,
+                                    'saved_searches/{saved_search_id}'.format(saved_search_id=saved_search_id))
+        return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
+
     @header_vars('Range')
-    @request_vars('fields', 'filter')
-    def get_saved_searches_results_by_saved_search_id(self, saved_search_id, *, fields=None, Range=None, filter=None,
+    @request_vars('filter', 'fields')
+    def get_saved_searches_results_by_saved_search_id(self, saved_search_id, *, filter=None, Range=None, fields=None,
                                                       **kwargs):
         """
         GET /asset_model/saved_searches/{saved_search_id}/results

@@ -18,7 +18,7 @@ class Qrm(QRadarAPIEndpoint):
 
     @header_vars('Range')
     @request_vars('fields', 'filter')
-    def get_model_groups(self, *, Range=None, fields=None, filter=None, **kwargs):
+    def get_model_groups(self, *, fields=None, Range=None, filter=None, **kwargs):
         """
         GET /qrm/model_groups
         Retrieves a list of model groups.
@@ -26,14 +26,13 @@ class Qrm(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'model_groups')
         return self._call('GET', function_endpoint, **kwargs)
 
-    @request_vars('fields')
-    def get_model_groups_by_group_id(self, group_id, *, fields=None, **kwargs):
+    def delete_model_groups_by_group_id(self, group_id, **kwargs):
         """
-        GET /qrm/model_groups/{group_id}
-        Retrieves a model group.
+        DELETE /qrm/model_groups/{group_id}
+        Deletes a model group.
         """
         function_endpoint = urljoin(self._baseurl, 'model_groups/{group_id}'.format(group_id=group_id))
-        return self._call('GET', function_endpoint, **kwargs)
+        return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
 
     @header_vars('fields')
     def post_model_groups_by_group_id(self, group_id, *, group, fields=None, **kwargs):
@@ -44,17 +43,18 @@ class Qrm(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'model_groups/{group_id}'.format(group_id=group_id))
         return self._call('POST', function_endpoint, json=group, **kwargs)
 
-    def delete_model_groups_by_group_id(self, group_id, **kwargs):
+    @request_vars('fields')
+    def get_model_groups_by_group_id(self, group_id, *, fields=None, **kwargs):
         """
-        DELETE /qrm/model_groups/{group_id}
-        Deletes a model group.
+        GET /qrm/model_groups/{group_id}
+        Retrieves a model group.
         """
         function_endpoint = urljoin(self._baseurl, 'model_groups/{group_id}'.format(group_id=group_id))
-        return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
+        return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('Range')
     @request_vars('fields', 'filter')
-    def get_qrm_saved_search_groups(self, *, Range=None, fields=None, filter=None, **kwargs):
+    def get_qrm_saved_search_groups(self, *, fields=None, Range=None, filter=None, **kwargs):
         """
         GET /qrm/qrm_saved_search_groups
         Retrieves a list of QRM saved search groups.
@@ -62,14 +62,13 @@ class Qrm(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'qrm_saved_search_groups')
         return self._call('GET', function_endpoint, **kwargs)
 
-    @request_vars('fields')
-    def get_qrm_saved_search_groups_by_group_id(self, group_id, *, fields=None, **kwargs):
+    def delete_qrm_saved_search_groups_by_group_id(self, group_id, **kwargs):
         """
-        GET /qrm/qrm_saved_search_groups/{group_id}
-        Retrieves a QRM saved search group.
+        DELETE /qrm/qrm_saved_search_groups/{group_id}
+        Deletes a QRM saved search group.
         """
         function_endpoint = urljoin(self._baseurl, 'qrm_saved_search_groups/{group_id}'.format(group_id=group_id))
-        return self._call('GET', function_endpoint, **kwargs)
+        return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
 
     @header_vars('fields')
     def post_qrm_saved_search_groups_by_group_id(self, group_id, *, group, fields=None, **kwargs):
@@ -80,31 +79,23 @@ class Qrm(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'qrm_saved_search_groups/{group_id}'.format(group_id=group_id))
         return self._call('POST', function_endpoint, json=group, **kwargs)
 
-    def delete_qrm_saved_search_groups_by_group_id(self, group_id, **kwargs):
+    @request_vars('fields')
+    def get_qrm_saved_search_groups_by_group_id(self, group_id, *, fields=None, **kwargs):
         """
-        DELETE /qrm/qrm_saved_search_groups/{group_id}
-        Deletes a QRM saved search group.
+        GET /qrm/qrm_saved_search_groups/{group_id}
+        Retrieves a QRM saved search group.
         """
         function_endpoint = urljoin(self._baseurl, 'qrm_saved_search_groups/{group_id}'.format(group_id=group_id))
-        return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
+        return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('Range')
     @request_vars('fields', 'filter')
-    def get_question_groups(self, *, Range=None, fields=None, filter=None, **kwargs):
+    def get_question_groups(self, *, fields=None, Range=None, filter=None, **kwargs):
         """
         GET /qrm/question_groups
         Retrieves a list of question groups.
         """
         function_endpoint = urljoin(self._baseurl, 'question_groups')
-        return self._call('GET', function_endpoint, **kwargs)
-
-    @request_vars('fields')
-    def get_question_groups_by_group_id(self, group_id, *, fields=None, **kwargs):
-        """
-        GET /qrm/question_groups/{group_id}
-        Retrieves a question group.
-        """
-        function_endpoint = urljoin(self._baseurl, 'question_groups/{group_id}'.format(group_id=group_id))
         return self._call('GET', function_endpoint, **kwargs)
 
     def delete_question_groups_by_group_id(self, group_id, **kwargs):
@@ -114,6 +105,15 @@ class Qrm(QRadarAPIEndpoint):
         """
         function_endpoint = urljoin(self._baseurl, 'question_groups/{group_id}'.format(group_id=group_id))
         return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
+
+    @request_vars('fields')
+    def get_question_groups_by_group_id(self, group_id, *, fields=None, **kwargs):
+        """
+        GET /qrm/question_groups/{group_id}
+        Retrieves a question group.
+        """
+        function_endpoint = urljoin(self._baseurl, 'question_groups/{group_id}'.format(group_id=group_id))
+        return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('fields')
     def post_question_groups_by_group_id(self, group_id, *, group, fields=None, **kwargs):
@@ -126,29 +126,12 @@ class Qrm(QRadarAPIEndpoint):
 
     @header_vars('Range')
     @request_vars('fields', 'filter')
-    def get_simulation_groups(self, *, Range=None, fields=None, filter=None, **kwargs):
+    def get_simulation_groups(self, *, fields=None, Range=None, filter=None, **kwargs):
         """
         GET /qrm/simulation_groups
         Retrieves a of list the simulation groups.
         """
         function_endpoint = urljoin(self._baseurl, 'simulation_groups')
-        return self._call('GET', function_endpoint, **kwargs)
-
-    def delete_simulation_groups_by_group_id(self, group_id, **kwargs):
-        """
-        DELETE /qrm/simulation_groups/{group_id}
-        Deletes a simulation group.
-        """
-        function_endpoint = urljoin(self._baseurl, 'simulation_groups/{group_id}'.format(group_id=group_id))
-        return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
-
-    @request_vars('fields')
-    def get_simulation_groups_by_group_id(self, group_id, *, fields=None, **kwargs):
-        """
-        GET /qrm/simulation_groups/{group_id}
-        Retrieves a simulation group.
-        """
-        function_endpoint = urljoin(self._baseurl, 'simulation_groups/{group_id}'.format(group_id=group_id))
         return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('fields')
@@ -160,15 +143,40 @@ class Qrm(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'simulation_groups/{group_id}'.format(group_id=group_id))
         return self._call('POST', function_endpoint, json=group, **kwargs)
 
+    @request_vars('fields')
+    def get_simulation_groups_by_group_id(self, group_id, *, fields=None, **kwargs):
+        """
+        GET /qrm/simulation_groups/{group_id}
+        Retrieves a simulation group.
+        """
+        function_endpoint = urljoin(self._baseurl, 'simulation_groups/{group_id}'.format(group_id=group_id))
+        return self._call('GET', function_endpoint, **kwargs)
+
+    def delete_simulation_groups_by_group_id(self, group_id, **kwargs):
+        """
+        DELETE /qrm/simulation_groups/{group_id}
+        Deletes a simulation group.
+        """
+        function_endpoint = urljoin(self._baseurl, 'simulation_groups/{group_id}'.format(group_id=group_id))
+        return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
+
     @header_vars('Range')
     @request_vars('fields', 'filter')
-    def get_topology_saved_search_groups(self, *, Range=None, fields=None, filter=None, **kwargs):
+    def get_topology_saved_search_groups(self, *, fields=None, Range=None, filter=None, **kwargs):
         """
         GET /qrm/topology_saved_search_groups
         Retrieves a list of topology saved search groups.
         """
         function_endpoint = urljoin(self._baseurl, 'topology_saved_search_groups')
         return self._call('GET', function_endpoint, **kwargs)
+
+    def delete_topology_saved_search_groups_by_group_id(self, group_id, **kwargs):
+        """
+        DELETE /qrm/topology_saved_search_groups/{group_id}
+        Deletes a topology saved search group.
+        """
+        function_endpoint = urljoin(self._baseurl, 'topology_saved_search_groups/{group_id}'.format(group_id=group_id))
+        return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
 
     @header_vars('fields')
     def post_topology_saved_search_groups_by_group_id(self, group_id, *, group, fields=None, **kwargs):
@@ -187,11 +195,3 @@ class Qrm(QRadarAPIEndpoint):
         """
         function_endpoint = urljoin(self._baseurl, 'topology_saved_search_groups/{group_id}'.format(group_id=group_id))
         return self._call('GET', function_endpoint, **kwargs)
-
-    def delete_topology_saved_search_groups_by_group_id(self, group_id, **kwargs):
-        """
-        DELETE /qrm/topology_saved_search_groups/{group_id}
-        Deletes a topology saved search group.
-        """
-        function_endpoint = urljoin(self._baseurl, 'topology_saved_search_groups/{group_id}'.format(group_id=group_id))
-        return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)

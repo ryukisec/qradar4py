@@ -69,8 +69,8 @@ class Help(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_endpoints(self, *, filter=None, Range=None, fields=None, **kwargs):
+    @request_vars('fields', 'filter')
+    def get_endpoints(self, *, Range=None, fields=None, filter=None, **kwargs):
         """
         GET /help/endpoints
         Retrieves a list of endpoint documentation objects that are currently in the system.
@@ -88,8 +88,8 @@ class Help(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_resources(self, *, filter=None, Range=None, fields=None, **kwargs):
+    @request_vars('fields', 'filter')
+    def get_resources(self, *, Range=None, fields=None, filter=None, **kwargs):
         """
         GET /help/resources
         Retrieves a list of resource documentation objects currently in the system.
@@ -107,8 +107,8 @@ class Help(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_versions(self, *, filter=None, Range=None, fields=None, **kwargs):
+    @request_vars('fields', 'filter')
+    def get_versions(self, *, Range=None, fields=None, filter=None, **kwargs):
         """
         GET /help/versions
         Retrieves a list of version documentation objects currently in the system.

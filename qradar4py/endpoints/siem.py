@@ -18,7 +18,7 @@ class Siem(QRadarAPIEndpoint):
 
     @header_vars('Range')
     @request_vars('fields', 'filter')
-    def get_local_destination_addresses(self, *, Range=None, fields=None, filter=None, **kwargs):
+    def get_local_destination_addresses(self, *, fields=None, Range=None, filter=None, **kwargs):
         """
         GET /siem/local_destination_addresses
         Retrieve a list offense local destination addresses currently in the system.
@@ -37,6 +37,17 @@ class Siem(QRadarAPIEndpoint):
             local_destination_address_id=local_destination_address_id))
         return self._call('GET', function_endpoint, **kwargs)
 
+    @header_vars('Range')
+    @request_vars('include_reserved', 'include_deleted', 'fields', 'filter')
+    def get_offense_closing_reasons(self, *, include_reserved=None, include_deleted=None, fields=None, Range=None,
+                                    filter=None, **kwargs):
+        """
+        GET /siem/offense_closing_reasons
+        Retrieve a list of all offense closing reasons.
+        """
+        function_endpoint = urljoin(self._baseurl, 'offense_closing_reasons')
+        return self._call('GET', function_endpoint, **kwargs)
+
     @request_vars('reason', 'fields')
     def post_offense_closing_reasons(self, *, reason, fields=None, **kwargs):
         """
@@ -45,17 +56,6 @@ class Siem(QRadarAPIEndpoint):
         """
         function_endpoint = urljoin(self._baseurl, 'offense_closing_reasons')
         return self._call('POST', function_endpoint, **kwargs)
-
-    @header_vars('Range')
-    @request_vars('include_reserved', 'include_deleted', 'fields', 'filter')
-    def get_offense_closing_reasons(self, *, include_reserved=None, include_deleted=None, Range=None, fields=None,
-                                    filter=None, **kwargs):
-        """
-        GET /siem/offense_closing_reasons
-        Retrieve a list of all offense closing reasons.
-        """
-        function_endpoint = urljoin(self._baseurl, 'offense_closing_reasons')
-        return self._call('GET', function_endpoint, **kwargs)
 
     @request_vars('fields')
     def get_offense_closing_reasons_by_closing_reason_id(self, closing_reason_id, *, fields=None, **kwargs):
@@ -109,21 +109,13 @@ class Siem(QRadarAPIEndpoint):
 
     @header_vars('Range')
     @request_vars('fields', 'filter')
-    def get_offense_saved_search_groups(self, *, Range=None, fields=None, filter=None, **kwargs):
+    def get_offense_saved_search_groups(self, *, fields=None, Range=None, filter=None, **kwargs):
         """
         GET /siem/offense_saved_search_groups
         Retrieves a list of offense saved search groups.
         """
         function_endpoint = urljoin(self._baseurl, 'offense_saved_search_groups')
         return self._call('GET', function_endpoint, **kwargs)
-
-    def delete_offense_saved_search_groups_by_group_id(self, group_id, **kwargs):
-        """
-        DELETE /siem/offense_saved_search_groups/{group_id}
-        Deletes an offense saved search group.
-        """
-        function_endpoint = urljoin(self._baseurl, 'offense_saved_search_groups/{group_id}'.format(group_id=group_id))
-        return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
 
     @header_vars('fields')
     def post_offense_saved_search_groups_by_group_id(self, group_id, *, group, fields=None, **kwargs):
@@ -133,6 +125,14 @@ class Siem(QRadarAPIEndpoint):
         """
         function_endpoint = urljoin(self._baseurl, 'offense_saved_search_groups/{group_id}'.format(group_id=group_id))
         return self._call('POST', function_endpoint, json=group, **kwargs)
+
+    def delete_offense_saved_search_groups_by_group_id(self, group_id, **kwargs):
+        """
+        DELETE /siem/offense_saved_search_groups/{group_id}
+        Deletes an offense saved search group.
+        """
+        function_endpoint = urljoin(self._baseurl, 'offense_saved_search_groups/{group_id}'.format(group_id=group_id))
+        return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
 
     @request_vars('fields')
     def get_offense_saved_search_groups_by_group_id(self, group_id, *, fields=None, **kwargs):
@@ -145,7 +145,7 @@ class Siem(QRadarAPIEndpoint):
 
     @header_vars('Range')
     @request_vars('fields', 'filter')
-    def get_offense_saved_searches(self, *, Range=None, fields=None, filter=None, **kwargs):
+    def get_offense_saved_searches(self, *, fields=None, Range=None, filter=None, **kwargs):
         """
         GET /siem/offense_saved_searches
         Retrieves a list of offense saved searches.
@@ -155,7 +155,17 @@ class Siem(QRadarAPIEndpoint):
 
     @header_vars('Range')
     @request_vars('fields', 'filter')
-    def delete_offense_saved_searches_by_id(self, id, *, Range=None, fields=None, filter=None, **kwargs):
+    def get_offense_saved_searches_by_id(self, id, *, fields=None, Range=None, filter=None, **kwargs):
+        """
+        GET /siem/offense_saved_searches/{id}
+        Retrieves an offense saved search.
+        """
+        function_endpoint = urljoin(self._baseurl, 'offense_saved_searches/{id}'.format(id=id))
+        return self._call('GET', function_endpoint, **kwargs)
+
+    @header_vars('Range')
+    @request_vars('fields', 'filter')
+    def delete_offense_saved_searches_by_id(self, id, *, fields=None, Range=None, filter=None, **kwargs):
         """
         DELETE /siem/offense_saved_searches/{id}
         Deletes an offense saved search. To ensure safe deletion, a dependency check is carried out. This check might take some time. An asynchronous task to do is started for this check.
@@ -163,24 +173,14 @@ class Siem(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'offense_saved_searches/{id}'.format(id=id))
         return self._call('DELETE', function_endpoint, **kwargs)
 
-    @header_vars('Range', 'fields', 'filter')
-    def post_offense_saved_searches_by_id(self, id, *, saved_search, Range=None, fields=None, filter=None, **kwargs):
+    @header_vars('fields', 'Range', 'filter')
+    def post_offense_saved_searches_by_id(self, id, *, saved_search, fields=None, Range=None, filter=None, **kwargs):
         """
         POST /siem/offense_saved_searches/{id}
         Updates the offense saved search owner only.
         """
         function_endpoint = urljoin(self._baseurl, 'offense_saved_searches/{id}'.format(id=id))
         return self._call('POST', function_endpoint, json=saved_search, **kwargs)
-
-    @header_vars('Range')
-    @request_vars('fields', 'filter')
-    def get_offense_saved_searches_by_id(self, id, *, Range=None, fields=None, filter=None, **kwargs):
-        """
-        GET /siem/offense_saved_searches/{id}
-        Retrieves an offense saved search.
-        """
-        function_endpoint = urljoin(self._baseurl, 'offense_saved_searches/{id}'.format(id=id))
-        return self._call('GET', function_endpoint, **kwargs)
 
     @request_vars('fields')
     def get_offense_saved_searches_dependents_by_id(self, id, *, fields=None, **kwargs):
@@ -192,8 +192,8 @@ class Siem(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('Range')
-    @request_vars('sort', 'fields', 'filter')
-    def get_offense_types(self, *, Range=None, sort=None, fields=None, filter=None, **kwargs):
+    @request_vars('fields', 'sort', 'filter')
+    def get_offense_types(self, *, fields=None, sort=None, Range=None, filter=None, **kwargs):
         """
         GET /siem/offense_types
         Retrieve all the Offense Types
@@ -212,8 +212,8 @@ class Siem(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('Range')
-    @request_vars('sort', 'fields', 'filter')
-    def get_offenses(self, *, Range=None, sort=None, fields=None, filter=None, **kwargs):
+    @request_vars('fields', 'sort', 'filter')
+    def get_offenses(self, *, fields=None, sort=None, Range=None, filter=None, **kwargs):
         """
         GET /siem/offenses
         Retrieve a list of offenses currently in the system.
@@ -251,7 +251,7 @@ class Siem(QRadarAPIEndpoint):
 
     @header_vars('Range')
     @request_vars('fields', 'filter')
-    def get_offenses_notes_by_offense_id(self, offense_id, *, Range=None, fields=None, filter=None, **kwargs):
+    def get_offenses_notes_by_offense_id(self, offense_id, *, fields=None, Range=None, filter=None, **kwargs):
         """
         GET /siem/offenses/{offense_id}/notes
         Retrieve a list of notes for an offense.
@@ -271,7 +271,7 @@ class Siem(QRadarAPIEndpoint):
 
     @header_vars('Range')
     @request_vars('fields', 'filter')
-    def get_source_addresses(self, *, Range=None, fields=None, filter=None, **kwargs):
+    def get_source_addresses(self, *, fields=None, Range=None, filter=None, **kwargs):
         """
         GET /siem/source_addresses
         Retrieve a list offense source addresses currently in the system.

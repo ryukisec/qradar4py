@@ -30,7 +30,7 @@ class Health(QRadarAPIEndpoint):
 
     @header_vars('Range')
     @request_vars('fields', 'filter')
-    def get_metrics_config(self, *, Range=None, fields=None, filter=None, **kwargs):
+    def get_metrics_config(self, *, fields=None, Range=None, filter=None, **kwargs):
         """
         GET /health/metrics/config
         No summary provided
@@ -53,7 +53,7 @@ class Health(QRadarAPIEndpoint):
 
     @header_vars('Range')
     @request_vars('fields', 'filter')
-    def get_metrics_meta(self, *, Range=None, fields=None, filter=None, **kwargs):
+    def get_metrics_meta(self, *, fields=None, Range=None, filter=None, **kwargs):
         """
         GET /health/metrics/meta
         No summary provided

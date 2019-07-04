@@ -19,7 +19,7 @@ class Reports(QRadarAPIEndpoint):
 
     @header_vars('Range')
     @request_vars('fields', 'filter')
-    def get_groups(self, *, Range=None, fields=None, filter=None, **kwargs):
+    def get_groups(self, *, fields=None, Range=None, filter=None, **kwargs):
         """
         GET /reports/groups
         Retrieve a list of securities associated to the shared groups available in the system
@@ -27,6 +27,17 @@ class Reports(QRadarAPIEndpoint):
         """
         headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'groups')
+        return self._call('GET', function_endpoint, headers=headers, **kwargs)
+
+    @request_vars('fields')
+    def get_groups_by_id(self, id, *, fields=None, **kwargs):
+        """
+        GET /reports/groups/{id}
+        Retrieve a security structure associated to a shared group
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl, 'groups/{id}'.format(id=id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
     @header_vars('fields')
@@ -39,14 +50,3 @@ class Reports(QRadarAPIEndpoint):
         headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'groups/{id}'.format(id=id))
         return self._call('POST', function_endpoint, json=data, headers=headers, **kwargs)
-
-    @request_vars('fields')
-    def get_groups_by_id(self, id, *, fields=None, **kwargs):
-        """
-        GET /reports/groups/{id}
-        Retrieve a security structure associated to a shared group
-        UNDOCUMENTED
-        """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
-        function_endpoint = urljoin(self._baseurl, 'groups/{id}'.format(id=id))
-        return self._call('GET', function_endpoint, headers=headers, **kwargs)
