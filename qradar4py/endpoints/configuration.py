@@ -68,7 +68,7 @@ class Configuration(QRadarAPIEndpoint):
 
     @header_vars('Range')
     @request_vars('excludeSystemTypes', 'filter', 'fields', 'sort')
-    def get_log_source_types(self, *, excludeSystemTypes=None, filter=None, fields=None, Range=None, sort=None,
+    def get_log_source_types(self, *, excludeSystemTypes=None, filter=None, fields=None, sort=None, Range=None,
                              **kwargs):
         """
         GET /configuration/log_source_types

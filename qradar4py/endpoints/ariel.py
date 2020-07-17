@@ -27,8 +27,8 @@ class Ariel(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_databases_by_database_name(self, database_name, *, filter=None, Range=None, fields=None, **kwargs):
+    @request_vars('fields', 'filter')
+    def get_databases_by_database_name(self, database_name, *, fields=None, filter=None, Range=None, **kwargs):
         """
         GET /ariel/databases/{database_name}
         Retrieve the columns that are defined for a specific Ariel database.
@@ -83,8 +83,8 @@ class Ariel(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
     @header_vars('Range')
-    @request_vars('fields', 'filter')
-    def get_event_saved_search_groups(self, *, fields=None, filter=None, Range=None, **kwargs):
+    @request_vars('filter', 'fields')
+    def get_event_saved_search_groups(self, *, Range=None, filter=None, fields=None, **kwargs):
         """
         GET /ariel/event_saved_search_groups
         Retrieves a list the event Ariel saved search groups.
@@ -101,14 +101,6 @@ class Ariel(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'event_saved_search_groups/{group_id}'.format(group_id=group_id))
         return self._call('POST', function_endpoint, json=group, **kwargs)
 
-    def delete_event_saved_search_groups_by_group_id(self, group_id, **kwargs):
-        """
-        DELETE /ariel/event_saved_search_groups/{group_id}
-        Deletes an event Ariel saved search group.
-        """
-        function_endpoint = urljoin(self._baseurl, 'event_saved_search_groups/{group_id}'.format(group_id=group_id))
-        return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
-
     @request_vars('fields')
     def get_event_saved_search_groups_by_group_id(self, group_id, *, fields=None, **kwargs):
         """
@@ -118,23 +110,23 @@ class Ariel(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'event_saved_search_groups/{group_id}'.format(group_id=group_id))
         return self._call('GET', function_endpoint, **kwargs)
 
+    def delete_event_saved_search_groups_by_group_id(self, group_id, **kwargs):
+        """
+        DELETE /ariel/event_saved_search_groups/{group_id}
+        Deletes an event Ariel saved search group.
+        """
+        function_endpoint = urljoin(self._baseurl, 'event_saved_search_groups/{group_id}'.format(group_id=group_id))
+        return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
+
     @header_vars('Range')
-    @request_vars('fields', 'filter')
-    def get_flow_saved_search_groups(self, *, fields=None, filter=None, Range=None, **kwargs):
+    @request_vars('filter', 'fields')
+    def get_flow_saved_search_groups(self, *, Range=None, filter=None, fields=None, **kwargs):
         """
         GET /ariel/flow_saved_search_groups
         Retrieves a list of flow Ariel saved search groups.
         """
         function_endpoint = urljoin(self._baseurl, 'flow_saved_search_groups')
         return self._call('GET', function_endpoint, **kwargs)
-
-    def delete_flow_saved_search_groups_by_group_id(self, group_id, **kwargs):
-        """
-        DELETE /ariel/flow_saved_search_groups/{group_id}
-        Deletes a flow Ariel saved search group.
-        """
-        function_endpoint = urljoin(self._baseurl, 'flow_saved_search_groups/{group_id}'.format(group_id=group_id))
-        return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
 
     @header_vars('fields')
     def post_flow_saved_search_groups_by_group_id(self, group_id, *, group, fields=None, **kwargs):
@@ -144,6 +136,14 @@ class Ariel(QRadarAPIEndpoint):
         """
         function_endpoint = urljoin(self._baseurl, 'flow_saved_search_groups/{group_id}'.format(group_id=group_id))
         return self._call('POST', function_endpoint, json=group, **kwargs)
+
+    def delete_flow_saved_search_groups_by_group_id(self, group_id, **kwargs):
+        """
+        DELETE /ariel/flow_saved_search_groups/{group_id}
+        Deletes a flow Ariel saved search group.
+        """
+        function_endpoint = urljoin(self._baseurl, 'flow_saved_search_groups/{group_id}'.format(group_id=group_id))
+        return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
 
     @request_vars('fields')
     def get_flow_saved_search_groups_by_group_id(self, group_id, *, fields=None, **kwargs):
@@ -164,22 +164,14 @@ class Ariel(QRadarAPIEndpoint):
         return self._call('POST', function_endpoint, json=body, **kwargs)
 
     @header_vars('Range')
-    @request_vars('fields', 'filter')
-    def get_flow_vlans(self, *, fields=None, Range=None, filter=None, **kwargs):
+    @request_vars('filter', 'fields')
+    def get_flow_vlans(self, *, Range=None, filter=None, fields=None, **kwargs):
         """
         GET /ariel/flow_vlans
         Retrieves a list of available flow VLAN IDs in the Ariel database.
         """
         function_endpoint = urljoin(self._baseurl, 'flow_vlans')
         return self._call('GET', function_endpoint, **kwargs)
-
-    def delete_flow_vlans_by_id(self, id, **kwargs):
-        """
-        DELETE /ariel/flow_vlans/{id}
-        Deletes a flow VLAN ID with specified enterprise and customer VLAN ID's and removes any associated domain mappings.
-        """
-        function_endpoint = urljoin(self._baseurl, 'flow_vlans/{id}'.format(id=id))
-        return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
 
     @request_vars('fields')
     def get_flow_vlans_by_id(self, id, *, fields=None, **kwargs):
@@ -190,9 +182,17 @@ class Ariel(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'flow_vlans/{id}'.format(id=id))
         return self._call('GET', function_endpoint, **kwargs)
 
+    def delete_flow_vlans_by_id(self, id, **kwargs):
+        """
+        DELETE /ariel/flow_vlans/{id}
+        Deletes a flow VLAN ID with specified enterprise and customer VLAN ID's and removes any associated domain mappings.
+        """
+        function_endpoint = urljoin(self._baseurl, 'flow_vlans/{id}'.format(id=id))
+        return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
+
     @header_vars('Range')
-    @request_vars('fields', 'filter')
-    def get_function_by_function_name(self, function_name, *, fields=None, filter=None, Range=None, **kwargs):
+    @request_vars('filter', 'fields')
+    def get_function_by_function_name(self, function_name, *, Range=None, filter=None, fields=None, **kwargs):
         """
         GET /ariel/function/{function_name}
         Retrieve the columns defined for a specific Ariel function
@@ -321,8 +321,8 @@ class Ariel(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('Range')
-    @request_vars('fields', 'filter')
-    def get_saved_searches(self, *, fields=None, filter=None, Range=None, **kwargs):
+    @request_vars('filter', 'fields')
+    def get_saved_searches(self, *, Range=None, filter=None, fields=None, **kwargs):
         """
         GET /ariel/saved_searches
         Retrieves a list of Ariel saved searches.
@@ -339,6 +339,15 @@ class Ariel(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'saved_searches/{id}'.format(id=id))
         return self._call('GET', function_endpoint, **kwargs)
 
+    @request_vars('fields')
+    def delete_saved_searches_by_id(self, id, *, fields=None, **kwargs):
+        """
+        DELETE /ariel/saved_searches/{id}
+        Deletes an Ariel saved search. To ensure safe deletion, a dependency check is carried out. The check might take some time. An asynchronous task is started to do this check.
+        """
+        function_endpoint = urljoin(self._baseurl, 'saved_searches/{id}'.format(id=id))
+        return self._call('DELETE', function_endpoint, **kwargs)
+
     @header_vars('fields')
     def post_saved_searches_by_id(self, id, *, saved_search, fields=None, **kwargs):
         """
@@ -349,15 +358,6 @@ class Ariel(QRadarAPIEndpoint):
         return self._call('POST', function_endpoint, json=saved_search, **kwargs)
 
     @request_vars('fields')
-    def delete_saved_searches_by_id(self, id, *, fields=None, **kwargs):
-        """
-        DELETE /ariel/saved_searches/{id}
-        Deletes an Ariel saved search. To ensure safe deletion, a dependency check is carried out. The check might take some time. An asynchronous task is started to do this check.
-        """
-        function_endpoint = urljoin(self._baseurl, 'saved_searches/{id}'.format(id=id))
-        return self._call('DELETE', function_endpoint, **kwargs)
-
-    @request_vars('fields')
     def get_saved_searches_dependents_by_id(self, id, *, fields=None, **kwargs):
         """
         GET /ariel/saved_searches/{id}/dependents
@@ -366,8 +366,8 @@ class Ariel(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'saved_searches/{id}/dependents'.format(id=id))
         return self._call('GET', function_endpoint, **kwargs)
 
-    @request_vars('query_expression', 'saved_search_id')
-    def post_searches(self, *, query_expression=None, saved_search_id=None, **kwargs):
+    @request_vars('query_expression', 'saved_search_id', 'data_lake')
+    def post_searches(self, *, query_expression=None, saved_search_id=None, data_lake=None, **kwargs):
         """
         POST /ariel/searches
         Create a new asynchronous Ariel search.
@@ -376,8 +376,8 @@ class Ariel(QRadarAPIEndpoint):
         return self._call('POST', function_endpoint, **kwargs)
 
     @header_vars('Range')
-    @request_vars('db_name', 'filter')
-    def get_searches(self, *, db_name=None, filter=None, Range=None, **kwargs):
+    @request_vars('db_name', 'data_lake', 'filter')
+    def get_searches(self, *, db_name=None, data_lake=None, filter=None, Range=None, **kwargs):
         """
         GET /ariel/searches
         Retrieves the list of Ariel searches. Search IDs for completed and active searches are returned.
@@ -385,25 +385,8 @@ class Ariel(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'searches')
         return self._call('GET', function_endpoint, **kwargs)
 
-    @header_vars('Prefer')
-    def get_searches_by_search_id(self, search_id, *, Prefer=None, **kwargs):
-        """
-        GET /ariel/searches/{search_id}
-        Retrieves information about an Ariel search.
-        """
-        function_endpoint = urljoin(self._baseurl, 'searches/{search_id}'.format(search_id=search_id))
-        return self._call('GET', function_endpoint, **kwargs)
-
-    @request_vars('status', 'save_results')
-    def post_searches_by_search_id(self, search_id, *, status=None, save_results=None, **kwargs):
-        """
-        POST /ariel/searches/{search_id}
-        Updates an Ariel search.
-        """
-        function_endpoint = urljoin(self._baseurl, 'searches/{search_id}'.format(search_id=search_id))
-        return self._call('POST', function_endpoint, **kwargs)
-
-    def delete_searches_by_search_id(self, search_id, **kwargs):
+    @request_vars('data_lake')
+    def delete_searches_by_search_id(self, search_id, *, data_lake=None, **kwargs):
         """
         DELETE /ariel/searches/{search_id}
         Deletes an Ariel search.
@@ -411,9 +394,28 @@ class Ariel(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'searches/{search_id}'.format(search_id=search_id))
         return self._call('DELETE', function_endpoint, **kwargs)
 
+    @request_vars('status', 'save_results', 'data_lake')
+    def post_searches_by_search_id(self, search_id, *, status=None, save_results=None, data_lake=None, **kwargs):
+        """
+        POST /ariel/searches/{search_id}
+        Updates an Ariel search.
+        """
+        function_endpoint = urljoin(self._baseurl, 'searches/{search_id}'.format(search_id=search_id))
+        return self._call('POST', function_endpoint, **kwargs)
+
+    @header_vars('Prefer')
+    @request_vars('data_lake')
+    def get_searches_by_search_id(self, search_id, *, Prefer=None, data_lake=None, **kwargs):
+        """
+        GET /ariel/searches/{search_id}
+        Retrieves information about an Ariel search.
+        """
+        function_endpoint = urljoin(self._baseurl, 'searches/{search_id}'.format(search_id=search_id))
+        return self._call('GET', function_endpoint, **kwargs)
+
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_searches_metadata_by_search_id(self, search_id, *, filter=None, Range=None, fields=None, **kwargs):
+    @request_vars('fields', 'filter')
+    def get_searches_metadata_by_search_id(self, search_id, *, fields=None, filter=None, Range=None, **kwargs):
         """
         GET /ariel/searches/{search_id}/metadata
         Retrieve the columns that are defined for a specific Ariel search id.
@@ -422,7 +424,8 @@ class Ariel(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('Range')
-    def get_searches_results_by_search_id(self, search_id, *, Range=None, **kwargs):
+    @request_vars('data_lake')
+    def get_searches_results_by_search_id(self, search_id, *, data_lake=None, Range=None, **kwargs):
         """
         GET /ariel/searches/{search_id}/results
         Retrieves search results in the requested format.
@@ -453,15 +456,6 @@ class Ariel(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'servers/{id}'.format(id=id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
-    @request_vars('catalog', 'fields')
-    def get_taggedfields(self, *, catalog=None, fields=None, **kwargs):
-        """
-        GET /ariel/taggedfields
-        Retrieves a list of available  tagged fields for Ariel catalog.
-        """
-        function_endpoint = urljoin(self._baseurl, 'taggedfields')
-        return self._call('GET', function_endpoint, **kwargs)
-
     @request_vars('tag', 'name', 'catalog', 'type', 'array', 'format_class_name', 'format_params', 'description',
                   'fields')
     def post_taggedfields(self, *, tag, name, catalog, type, array, format_class_name=None, format_params=None,
@@ -472,6 +466,15 @@ class Ariel(QRadarAPIEndpoint):
         """
         function_endpoint = urljoin(self._baseurl, 'taggedfields')
         return self._call('POST', function_endpoint, **kwargs)
+
+    @request_vars('catalog', 'fields')
+    def get_taggedfields(self, *, catalog=None, fields=None, **kwargs):
+        """
+        GET /ariel/taggedfields
+        Retrieves a list of available  tagged fields for Ariel catalog.
+        """
+        function_endpoint = urljoin(self._baseurl, 'taggedfields')
+        return self._call('GET', function_endpoint, **kwargs)
 
     @request_vars('fields')
     def get_taggedfields_by_tag(self, tag, *, fields=None, **kwargs):

@@ -3,11 +3,15 @@ from qradar4py.endpoints.application import Application
 from qradar4py.endpoints.ariel import Ariel
 from qradar4py.endpoints.asset_model import AssetModel
 from qradar4py.endpoints.auth import Auth
+from qradar4py.endpoints.backup_and_restore import BackupAndRestore
+from qradar4py.endpoints.bandwidth_manager import BandwidthManager
 from qradar4py.endpoints.config import Config
 from qradar4py.endpoints.configservices import Configservices
 from qradar4py.endpoints.configuration import Configuration
 from qradar4py.endpoints.dashboards import Dashboards
 from qradar4py.endpoints.data_classification import DataClassification
+from qradar4py.endpoints.disaster_recovery import DisasterRecovery
+from qradar4py.endpoints.dynamic_search import DynamicSearch
 from qradar4py.endpoints.forensics import Forensics
 from qradar4py.endpoints.g11n import G11n
 from qradar4py.endpoints.gui_app_framework import GuiAppFramework
@@ -28,7 +32,8 @@ from qradar4py.endpoints.staged_config import StagedConfig
 from qradar4py.endpoints.support import Support
 from qradar4py.endpoints.usermanagement import Usermanagement
 
-__all__ = ['Analytics', 'Application', 'Ariel', 'AssetModel', 'Auth', 'Config', 'Configservices', 'Configuration',
-           'Dashboards', 'DataClassification', 'Forensics', 'G11n', 'GuiAppFramework', 'Health', 'HealthData', 'Help',
-           'HistoricalCorrelation', 'Internal', 'Qni', 'Qvm', 'ReferenceData', 'Reporting', 'Reports', 'Scanner',
-           'Services', 'Siem', 'StagedConfig', 'Support', 'Usermanagement']
+__all__ = ['Analytics', 'Application', 'Ariel', 'AssetModel', 'Auth', 'BackupAndRestore', 'BandwidthManager', 'Config',
+           'Configservices', 'Configuration', 'Dashboards', 'DataClassification', 'DisasterRecovery', 'DynamicSearch',
+           'Forensics', 'G11n', 'GuiAppFramework', 'Health', 'HealthData', 'Help', 'HistoricalCorrelation', 'Internal',
+           'Qni', 'Qvm', 'ReferenceData', 'Reporting', 'Reports', 'Scanner', 'Services', 'Siem', 'StagedConfig',
+           'Support', 'Usermanagement']

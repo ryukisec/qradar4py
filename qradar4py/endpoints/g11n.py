@@ -18,8 +18,8 @@ class G11n(QRadarAPIEndpoint):
                          verify)
 
     @header_vars('Range')
-    @request_vars('fields', 'filter')
-    def get_locale(self, *, fields=None, filter=None, Range=None, **kwargs):
+    @request_vars('filter', 'fields')
+    def get_locale(self, *, filter=None, fields=None, Range=None, **kwargs):
         """
         GET /g11n/locale
         No summary provided

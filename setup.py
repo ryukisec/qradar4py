@@ -6,7 +6,7 @@ with open('README.md', 'r') as f:
     long_description = f.read()
 
 setup(name='qradar4py',
-      version='2.0',
+      version='3.0',
       description='QRadarAPI Client written in Python',
       license='mit',
       long_description=long_description,

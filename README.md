@@ -1,7 +1,7 @@
 # QRadar API Client written in Python
 
 This is a wrapper around the REST-API of QRadar. This includes some undocumented endpoints, that may not work as expected.  
-All the information for the various endpoints were pulled from version `10.1`.  
+All the information for the various endpoints were pulled from version `13.1`.  
 If you find any bugs please open an issue or a pull request. 
 
 ## A word of warning
@@ -23,7 +23,7 @@ Just a very basic sample on how to get the IDs of up to 10 offenses that are not
 from qradar4py.api import QRadarApi
 
 # Initalize the API with the URL, your API token and whether the certificate should be checked.
-api = QRadarApi("<URL>", "<API_TOKEN>", version='10.1', verify=True)
+api = QRadarApi("<URL>", "<API_TOKEN>", version='13.1', verify=True)
 # Get all offenses
 status_code, response = api.siem.get_offenses(filter='status != CLOSED', 
                                               Range='items=0-50', 

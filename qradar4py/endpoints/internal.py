@@ -18,8 +18,8 @@ class Internal(QRadarAPIEndpoint):
                          verify)
 
     @header_vars('Range')
-    @request_vars('sort', 'filter', 'fields')
-    def get_historical_correlation_hc_profiles(self, *, sort=None, filter=None, fields=None, Range=None, **kwargs):
+    @request_vars('sort', 'fields', 'filter')
+    def get_historical_correlation_hc_profiles(self, *, Range=None, sort=None, fields=None, filter=None, **kwargs):
         """
         GET /internal/historical_correlation/hc_profiles
         Retrieves a list of historical correlation profiles without returning any rules.
@@ -51,15 +51,16 @@ class Internal(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'system/servers/{server_id}'.format(server_id=server_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
-    def post_system_servers_by_server_id(self, server_id, *, details, **kwargs):
+    def get_system_servers_firewall_rules_by_server_id(self, server_id, **kwargs):
         """
-        POST /internal/system/servers/{server_id}
-        Get server by id.
+        GET /internal/system/servers/{server_id}/firewall_rules
+        Get access control iptable rules by server id.
         UNDOCUMENTED
         """
         headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
-        function_endpoint = urljoin(self._baseurl, 'system/servers/{server_id}'.format(server_id=server_id))
-        return self._call('POST', function_endpoint, json=details, headers=headers, **kwargs)
+        function_endpoint = urljoin(self._baseurl,
+                                    'system/servers/{server_id}/firewall_rules'.format(server_id=server_id))
+        return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
     def put_system_servers_firewall_rules_by_server_id(self, server_id, *, rules, **kwargs):
         """
@@ -72,21 +73,10 @@ class Internal(QRadarAPIEndpoint):
                                     'system/servers/{server_id}/firewall_rules'.format(server_id=server_id))
         return self._call('PUT', function_endpoint, headers=headers, **kwargs)
 
-    def get_system_servers_firewall_rules_by_server_id(self, server_id, **kwargs):
-        """
-        GET /internal/system/servers/{server_id}/firewall_rules
-        Get access control iptable rules by server id.
-        UNDOCUMENTED
-        """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
-        function_endpoint = urljoin(self._baseurl,
-                                    'system/servers/{server_id}/firewall_rules'.format(server_id=server_id))
-        return self._call('GET', function_endpoint, headers=headers, **kwargs)
-
     @header_vars('Range')
-    @request_vars('interface_types', 'fields', 'sort', 'filter')
-    def get_system_servers_network_interfaces_by_server_id(self, server_id, *, interface_types=None, fields=None,
-                                                           sort=None, filter=None, Range=None, **kwargs):
+    @request_vars('interface_types', 'filter', 'fields', 'sort')
+    def get_system_servers_network_interfaces_by_server_id(self, server_id, *, interface_types=None, Range=None,
+                                                           filter=None, fields=None, sort=None, **kwargs):
         """
         GET /internal/system/servers/{server_id}/network_interfaces
         Get network interfaces by server id.

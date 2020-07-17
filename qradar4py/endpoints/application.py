@@ -145,6 +145,19 @@ class Application(QRadarAPIEndpoint):
                                         regex_property_id=regex_property_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
+    @request_vars('fields')
+    def get_data_ingestion_flow_regex_property_dependent_tasks_by_task_id(self, task_id, *, fields=None, **kwargs):
+        """
+        GET /application/data_ingestion/flow/regex_property_dependent_tasks/{task_id}
+        Retrieves the flow regex property dependent task status.
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl,
+                                    'data_ingestion/flow/regex_property_dependent_tasks/{task_id}'.format(
+                                        task_id=task_id))
+        return self._call('GET', function_endpoint, headers=headers, **kwargs)
+
     @header_vars('fields')
     def post_data_ingestion_flow_regex_property_dependent_tasks_by_task_id(self, task_id, *, task, fields=None,
                                                                            **kwargs):
@@ -158,19 +171,6 @@ class Application(QRadarAPIEndpoint):
                                     'data_ingestion/flow/regex_property_dependent_tasks/{task_id}'.format(
                                         task_id=task_id))
         return self._call('POST', function_endpoint, json=task, headers=headers, **kwargs)
-
-    @request_vars('fields')
-    def get_data_ingestion_flow_regex_property_dependent_tasks_by_task_id(self, task_id, *, fields=None, **kwargs):
-        """
-        GET /application/data_ingestion/flow/regex_property_dependent_tasks/{task_id}
-        Retrieves the flow regex property dependent task status.
-        UNDOCUMENTED
-        """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
-        function_endpoint = urljoin(self._baseurl,
-                                    'data_ingestion/flow/regex_property_dependent_tasks/{task_id}'.format(
-                                        task_id=task_id))
-        return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
     @request_vars('fields')
     def get_data_ingestion_flow_regex_property_dependent_tasks_results_by_task_id(self, task_id, *, fields=None,
@@ -209,6 +209,17 @@ class Application(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'data_ingestion/keyNameMappings')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
+    def post_data_ingestion_mappings_by_log_source_type_id(self, log_source_type_id, *, data, **kwargs):
+        """
+        POST /application/data_ingestion/mappings/{log_source_type_id}
+        No summary provided
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl, 'data_ingestion/mappings/{log_source_type_id}'.format(
+            log_source_type_id=log_source_type_id))
+        return self._call('POST', function_endpoint, json=data, headers=headers, **kwargs)
+
     @header_vars('Range')
     @request_vars('produce_identity', 'custom_only', 'filter_text', 'override_only')
     def get_data_ingestion_mappings_by_log_source_type_id(self, log_source_type_id, *, produce_identity=None,
@@ -223,17 +234,6 @@ class Application(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'data_ingestion/mappings/{log_source_type_id}'.format(
             log_source_type_id=log_source_type_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
-
-    def post_data_ingestion_mappings_by_log_source_type_id(self, log_source_type_id, *, data, **kwargs):
-        """
-        POST /application/data_ingestion/mappings/{log_source_type_id}
-        No summary provided
-        UNDOCUMENTED
-        """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
-        function_endpoint = urljoin(self._baseurl, 'data_ingestion/mappings/{log_source_type_id}'.format(
-            log_source_type_id=log_source_type_id))
-        return self._call('POST', function_endpoint, json=data, headers=headers, **kwargs)
 
     def put_data_ingestion_mappings_log_source_type_id_by_id(self, log_source_type_id, id, *, data, **kwargs):
         """
@@ -260,8 +260,8 @@ class Application(QRadarAPIEndpoint):
         return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
 
     @header_vars('Range')
-    @request_vars('handle_id', 'ids', 'fields', 'filter')
-    def get_data_ingestion_payloads(self, *, handle_id, ids, fields=None, filter=None, Range=None, **kwargs):
+    @request_vars('handle_id', 'ids', 'filter', 'fields')
+    def get_data_ingestion_payloads(self, *, handle_id, ids, filter=None, fields=None, Range=None, **kwargs):
         """
         GET /application/data_ingestion/payloads
         No summary provided
@@ -288,7 +288,7 @@ class Application(QRadarAPIEndpoint):
                   'fields', 'sort')
     def get_data_ingestion_qid_records(self, *, qid=None, name=None, low_level_category_id=None,
                                        high_level_category_id=None, log_source_type_id=None, filter=None, fields=None,
-                                       Range=None, sort=None, **kwargs):
+                                       sort=None, Range=None, **kwargs):
         """
         GET /application/data_ingestion/qid_records
         Retrieves a list of qid records.

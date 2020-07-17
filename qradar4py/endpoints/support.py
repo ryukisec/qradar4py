@@ -18,8 +18,8 @@ class Support(QRadarAPIEndpoint):
                          verify)
 
     @header_vars('Range')
-    @request_vars('fields', 'filter')
-    def get_log_bundles(self, *, fields=None, filter=None, Range=None, **kwargs):
+    @request_vars('filter', 'fields')
+    def get_log_bundles(self, *, Range=None, filter=None, fields=None, **kwargs):
         """
         GET /support/log_bundles
         get all get_logs tasks' statuses.
@@ -43,15 +43,15 @@ class Support(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'log_bundles')
         return self._call('POST', function_endpoint, headers=headers, **kwargs)
 
-    def delete_log_bundles_by_log_bundle_id(self, log_bundle_id, **kwargs):
+    def post_log_bundles_by_log_bundle_id(self, log_bundle_id, **kwargs):
         """
-        DELETE /support/log_bundles/{log_bundle_id}
-        delete a get_logs task by id.
+        POST /support/log_bundles/{log_bundle_id}
+        stop specified get_logs task if it is running
         UNDOCUMENTED
         """
         headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'log_bundles/{log_bundle_id}'.format(log_bundle_id=log_bundle_id))
-        return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
+        return self._call('POST', function_endpoint, headers=headers, **kwargs)
 
     @request_vars('is_initial_id', 'fields')
     def get_log_bundles_by_log_bundle_id(self, log_bundle_id, *, is_initial_id=None, fields=None, **kwargs):
@@ -64,15 +64,15 @@ class Support(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'log_bundles/{log_bundle_id}'.format(log_bundle_id=log_bundle_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
-    def post_log_bundles_by_log_bundle_id(self, log_bundle_id, **kwargs):
+    def delete_log_bundles_by_log_bundle_id(self, log_bundle_id, **kwargs):
         """
-        POST /support/log_bundles/{log_bundle_id}
-        stop specified get_logs task if it is running
+        DELETE /support/log_bundles/{log_bundle_id}
+        delete a get_logs task by id.
         UNDOCUMENTED
         """
         headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'log_bundles/{log_bundle_id}'.format(log_bundle_id=log_bundle_id))
-        return self._call('POST', function_endpoint, headers=headers, **kwargs)
+        return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
 
     def get_log_bundles_result_by_log_bundle_id(self, log_bundle_id, **kwargs):
         """
