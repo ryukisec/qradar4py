@@ -14,7 +14,7 @@ class QRadarApi:
     :param version      The version of the API to use.
     :param verify       Verify SSL certificate.
     """
-    def __init__(self, host, api_token, version='10.1', verify=True):
+    def __init__(self, host, api_token, version='13.1', verify=True):
         if not isinstance(host, str) or not isinstance(api_token, str):
             raise TypeError('The host and the API token must be supplied as strings!')
         self.__baseurl = urljoin(host, 'api/')
