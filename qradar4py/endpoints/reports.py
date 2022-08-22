@@ -19,7 +19,7 @@ class Reports(QRadarAPIEndpoint):
 
     @header_vars('Range')
     @request_vars('filter', 'fields')
-    def get_groups(self, *, Range=None, filter=None, fields=None, **kwargs):
+    def get_groups(self, *, filter=None, Range=None, fields=None, **kwargs):
         """
         GET /reports/groups
         Retrieve a list of securities associated to the shared groups available in the system

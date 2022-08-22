@@ -18,7 +18,7 @@ class Analytics(QRadarAPIEndpoint):
 
     @header_vars('Range')
     @request_vars('filter', 'fields')
-    def get_ade_rules(self, *, Range=None, filter=None, fields=None, **kwargs):
+    def get_ade_rules(self, *, filter=None, Range=None, fields=None, **kwargs):
         """
         GET /analytics/ade_rules
         Retrieves a list of ADE rules.
@@ -35,6 +35,16 @@ class Analytics(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'ade_rules/ade_rule_delete_tasks/{task_id}'.format(task_id=task_id))
         return self._call('GET', function_endpoint, **kwargs)
 
+    @request_vars('fields')
+    def get_ade_rules_ade_rule_dependent_tasks_by_task_id(self, task_id, *, fields=None, **kwargs):
+        """
+        GET /analytics/ade_rules/ade_rule_dependent_tasks/{task_id}
+        Retrieves the dependent the ADE rule task status.
+        """
+        function_endpoint = urljoin(self._baseurl,
+                                    'ade_rules/ade_rule_dependent_tasks/{task_id}'.format(task_id=task_id))
+        return self._call('GET', function_endpoint, **kwargs)
+
     @header_vars('fields')
     def post_ade_rules_ade_rule_dependent_tasks_by_task_id(self, task_id, *, task, fields=None, **kwargs):
         """
@@ -46,16 +56,6 @@ class Analytics(QRadarAPIEndpoint):
         return self._call('POST', function_endpoint, json=task, **kwargs)
 
     @request_vars('fields')
-    def get_ade_rules_ade_rule_dependent_tasks_by_task_id(self, task_id, *, fields=None, **kwargs):
-        """
-        GET /analytics/ade_rules/ade_rule_dependent_tasks/{task_id}
-        Retrieves the dependent the ADE rule task status.
-        """
-        function_endpoint = urljoin(self._baseurl,
-                                    'ade_rules/ade_rule_dependent_tasks/{task_id}'.format(task_id=task_id))
-        return self._call('GET', function_endpoint, **kwargs)
-
-    @request_vars('fields')
     def get_ade_rules_ade_rule_dependent_tasks_results_by_task_id(self, task_id, *, fields=None, **kwargs):
         """
         GET /analytics/ade_rules/ade_rule_dependent_tasks/{task_id}/results
@@ -64,15 +64,6 @@ class Analytics(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl,
                                     'ade_rules/ade_rule_dependent_tasks/{task_id}/results'.format(task_id=task_id))
         return self._call('GET', function_endpoint, **kwargs)
-
-    @request_vars('fields')
-    def delete_ade_rules_by_id(self, id, *, fields=None, **kwargs):
-        """
-        DELETE /analytics/ade_rules/{id}
-        Deletes an ADE rule. To ensure safe deletion, a dependency check is carried out. The check might take some time. An asynchronous task is started to do this check.
-        """
-        function_endpoint = urljoin(self._baseurl, 'ade_rules/{id}'.format(id=id))
-        return self._call('DELETE', function_endpoint, **kwargs)
 
     @request_vars('fields')
     def get_ade_rules_by_id(self, id, *, fields=None, **kwargs):
@@ -93,6 +84,15 @@ class Analytics(QRadarAPIEndpoint):
         return self._call('POST', function_endpoint, json=ade_rule, **kwargs)
 
     @request_vars('fields')
+    def delete_ade_rules_by_id(self, id, *, fields=None, **kwargs):
+        """
+        DELETE /analytics/ade_rules/{id}
+        Deletes an ADE rule. To ensure safe deletion, a dependency check is carried out. The check might take some time. An asynchronous task is started to do this check.
+        """
+        function_endpoint = urljoin(self._baseurl, 'ade_rules/{id}'.format(id=id))
+        return self._call('DELETE', function_endpoint, **kwargs)
+
+    @request_vars('fields')
     def get_ade_rules_dependents_by_id(self, id, *, fields=None, **kwargs):
         """
         GET /analytics/ade_rules/{id}/dependents
@@ -103,7 +103,7 @@ class Analytics(QRadarAPIEndpoint):
 
     @header_vars('Range')
     @request_vars('filter', 'fields')
-    def get_building_blocks(self, *, Range=None, filter=None, fields=None, **kwargs):
+    def get_building_blocks(self, *, filter=None, Range=None, fields=None, **kwargs):
         """
         GET /analytics/building_blocks
         Retrieves a list of building block rules.
@@ -121,16 +121,6 @@ class Analytics(QRadarAPIEndpoint):
                                     'building_blocks/building_block_delete_tasks/{task_id}'.format(task_id=task_id))
         return self._call('GET', function_endpoint, **kwargs)
 
-    @header_vars('fields')
-    def post_building_blocks_building_block_dependent_tasks_by_task_id(self, task_id, *, task, fields=None, **kwargs):
-        """
-        POST /analytics/building_blocks/building_block_dependent_tasks/{task_id}
-        Cancels the dependent the building block rule task.
-        """
-        function_endpoint = urljoin(self._baseurl,
-                                    'building_blocks/building_block_dependent_tasks/{task_id}'.format(task_id=task_id))
-        return self._call('POST', function_endpoint, json=task, **kwargs)
-
     @request_vars('fields')
     def get_building_blocks_building_block_dependent_tasks_by_task_id(self, task_id, *, fields=None, **kwargs):
         """
@@ -140,6 +130,16 @@ class Analytics(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl,
                                     'building_blocks/building_block_dependent_tasks/{task_id}'.format(task_id=task_id))
         return self._call('GET', function_endpoint, **kwargs)
+
+    @header_vars('fields')
+    def post_building_blocks_building_block_dependent_tasks_by_task_id(self, task_id, *, task, fields=None, **kwargs):
+        """
+        POST /analytics/building_blocks/building_block_dependent_tasks/{task_id}
+        Cancels the dependent the building block rule task.
+        """
+        function_endpoint = urljoin(self._baseurl,
+                                    'building_blocks/building_block_dependent_tasks/{task_id}'.format(task_id=task_id))
+        return self._call('POST', function_endpoint, json=task, **kwargs)
 
     @request_vars('fields')
     def get_building_blocks_building_block_dependent_tasks_results_by_task_id(self, task_id, *, fields=None, **kwargs):
@@ -152,15 +152,6 @@ class Analytics(QRadarAPIEndpoint):
                                         task_id=task_id))
         return self._call('GET', function_endpoint, **kwargs)
 
-    @header_vars('fields')
-    def post_building_blocks_by_id(self, id, *, building_block, fields=None, **kwargs):
-        """
-        POST /analytics/building_blocks/{id}
-        Updates the building block rule owner or enabled/disabled only.
-        """
-        function_endpoint = urljoin(self._baseurl, 'building_blocks/{id}'.format(id=id))
-        return self._call('POST', function_endpoint, json=building_block, **kwargs)
-
     @request_vars('fields')
     def get_building_blocks_by_id(self, id, *, fields=None, **kwargs):
         """
@@ -169,6 +160,15 @@ class Analytics(QRadarAPIEndpoint):
         """
         function_endpoint = urljoin(self._baseurl, 'building_blocks/{id}'.format(id=id))
         return self._call('GET', function_endpoint, **kwargs)
+
+    @header_vars('fields')
+    def post_building_blocks_by_id(self, id, *, building_block, fields=None, **kwargs):
+        """
+        POST /analytics/building_blocks/{id}
+        Updates the building block rule owner or enabled/disabled only.
+        """
+        function_endpoint = urljoin(self._baseurl, 'building_blocks/{id}'.format(id=id))
+        return self._call('POST', function_endpoint, json=building_block, **kwargs)
 
     @request_vars('fields')
     def delete_building_blocks_by_id(self, id, *, fields=None, **kwargs):
@@ -201,7 +201,7 @@ class Analytics(QRadarAPIEndpoint):
 
     @header_vars('Range')
     @request_vars('filter', 'fields')
-    def get_building_blocks_with_data(self, *, Range=None, filter=None, fields=None, **kwargs):
+    def get_building_blocks_with_data(self, *, filter=None, Range=None, fields=None, **kwargs):
         """
         GET /analytics/building_blocks_with_data
         Retrieves a list of building block rules.
@@ -209,6 +209,17 @@ class Analytics(QRadarAPIEndpoint):
         """
         headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'building_blocks_with_data')
+        return self._call('GET', function_endpoint, headers=headers, **kwargs)
+
+    @request_vars('fields')
+    def get_building_blocks_with_data_by_id(self, id, *, fields=None, **kwargs):
+        """
+        GET /analytics/building_blocks_with_data/{id}
+        Retrieves a building block rule.
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl, 'building_blocks_with_data/{id}'.format(id=id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
     @header_vars('fields')
@@ -222,27 +233,6 @@ class Analytics(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'building_blocks_with_data/{id}'.format(id=id))
         return self._call('POST', function_endpoint, json=building_block, headers=headers, **kwargs)
 
-    @request_vars('fields')
-    def get_building_blocks_with_data_by_id(self, id, *, fields=None, **kwargs):
-        """
-        GET /analytics/building_blocks_with_data/{id}
-        Retrieves a building block rule.
-        UNDOCUMENTED
-        """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
-        function_endpoint = urljoin(self._baseurl, 'building_blocks_with_data/{id}'.format(id=id))
-        return self._call('GET', function_endpoint, headers=headers, **kwargs)
-
-    @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_custom_actions_actions(self, *, Range=None, filter=None, fields=None, **kwargs):
-        """
-        GET /analytics/custom_actions/actions
-        Retrieves a list of available custom actions.
-        """
-        function_endpoint = urljoin(self._baseurl, 'custom_actions/actions')
-        return self._call('GET', function_endpoint, **kwargs)
-
     @header_vars('fields')
     def post_custom_actions_actions(self, *, custom_action, fields=None, **kwargs):
         """
@@ -251,6 +241,16 @@ class Analytics(QRadarAPIEndpoint):
         """
         function_endpoint = urljoin(self._baseurl, 'custom_actions/actions')
         return self._call('POST', function_endpoint, json=custom_action, **kwargs)
+
+    @header_vars('Range')
+    @request_vars('filter', 'fields')
+    def get_custom_actions_actions(self, *, filter=None, Range=None, fields=None, **kwargs):
+        """
+        GET /analytics/custom_actions/actions
+        Retrieves a list of available custom actions.
+        """
+        function_endpoint = urljoin(self._baseurl, 'custom_actions/actions')
+        return self._call('GET', function_endpoint, **kwargs)
 
     def delete_custom_actions_actions_by_action_id(self, action_id, **kwargs):
         """
@@ -280,7 +280,7 @@ class Analytics(QRadarAPIEndpoint):
 
     @header_vars('Range')
     @request_vars('filter', 'fields')
-    def get_custom_actions_interpreters(self, *, Range=None, filter=None, fields=None, **kwargs):
+    def get_custom_actions_interpreters(self, *, filter=None, Range=None, fields=None, **kwargs):
         """
         GET /analytics/custom_actions/interpreters
         Retrieves a list of available custom action interpreters.
@@ -298,6 +298,16 @@ class Analytics(QRadarAPIEndpoint):
             interpreter_id=interpreter_id))
         return self._call('GET', function_endpoint, **kwargs)
 
+    @header_vars('Range')
+    @request_vars('filter', 'fields')
+    def get_custom_actions_scripts(self, *, filter=None, Range=None, fields=None, **kwargs):
+        """
+        GET /analytics/custom_actions/scripts
+        Retrieves a list of meta-data for available custom action script files.
+        """
+        function_endpoint = urljoin(self._baseurl, 'custom_actions/scripts')
+        return self._call('GET', function_endpoint, **kwargs)
+
     @header_vars('fields')
     def post_custom_actions_scripts(self, *, file, fields=None, **kwargs):
         """
@@ -307,25 +317,6 @@ class Analytics(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'custom_actions/scripts')
         return self._call('POST', function_endpoint, mime_type={'Content-Type': 'application/octet-stream'}, data=file,
                           **kwargs)
-
-    @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_custom_actions_scripts(self, *, Range=None, filter=None, fields=None, **kwargs):
-        """
-        GET /analytics/custom_actions/scripts
-        Retrieves a list of meta-data for available custom action script files.
-        """
-        function_endpoint = urljoin(self._baseurl, 'custom_actions/scripts')
-        return self._call('GET', function_endpoint, **kwargs)
-
-    @request_vars('fields')
-    def get_custom_actions_scripts_by_script_id(self, script_id, *, fields=None, **kwargs):
-        """
-        GET /analytics/custom_actions/scripts/{script_id}
-        Retrieves meta-data of a custom action script file based on supplied script_id.
-        """
-        function_endpoint = urljoin(self._baseurl, 'custom_actions/scripts/{script_id}'.format(script_id=script_id))
-        return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('fields')
     def post_custom_actions_scripts_by_script_id(self, script_id, *, file, fields=None, **kwargs):
@@ -345,6 +336,15 @@ class Analytics(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'custom_actions/scripts/{script_id}'.format(script_id=script_id))
         return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
 
+    @request_vars('fields')
+    def get_custom_actions_scripts_by_script_id(self, script_id, *, fields=None, **kwargs):
+        """
+        GET /analytics/custom_actions/scripts/{script_id}
+        Retrieves meta-data of a custom action script file based on supplied script_id.
+        """
+        function_endpoint = urljoin(self._baseurl, 'custom_actions/scripts/{script_id}'.format(script_id=script_id))
+        return self._call('GET', function_endpoint, **kwargs)
+
     @header_vars('fields')
     def post_custom_actions_test(self, *, custom_action_test_request, fields=None, **kwargs):
         """
@@ -358,12 +358,21 @@ class Analytics(QRadarAPIEndpoint):
 
     @header_vars('Range')
     @request_vars('filter', 'fields')
-    def get_rule_groups(self, *, Range=None, filter=None, fields=None, **kwargs):
+    def get_rule_groups(self, *, filter=None, Range=None, fields=None, **kwargs):
         """
         GET /analytics/rule_groups
         Retrieves a list of the rule groups.
         """
         function_endpoint = urljoin(self._baseurl, 'rule_groups')
+        return self._call('GET', function_endpoint, **kwargs)
+
+    @request_vars('fields')
+    def get_rule_groups_by_group_id(self, group_id, *, fields=None, **kwargs):
+        """
+        GET /analytics/rule_groups/{group_id}
+        Retrieves a rule group.
+        """
+        function_endpoint = urljoin(self._baseurl, 'rule_groups/{group_id}'.format(group_id=group_id))
         return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('fields')
@@ -375,15 +384,6 @@ class Analytics(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'rule_groups/{group_id}'.format(group_id=group_id))
         return self._call('POST', function_endpoint, json=group, **kwargs)
 
-    @request_vars('fields')
-    def get_rule_groups_by_group_id(self, group_id, *, fields=None, **kwargs):
-        """
-        GET /analytics/rule_groups/{group_id}
-        Retrieves a rule group.
-        """
-        function_endpoint = urljoin(self._baseurl, 'rule_groups/{group_id}'.format(group_id=group_id))
-        return self._call('GET', function_endpoint, **kwargs)
-
     def delete_rule_groups_by_group_id(self, group_id, **kwargs):
         """
         DELETE /analytics/rule_groups/{group_id}
@@ -394,7 +394,7 @@ class Analytics(QRadarAPIEndpoint):
 
     @header_vars('Range')
     @request_vars('filter', 'fields')
-    def get_rules(self, *, Range=None, filter=None, fields=None, **kwargs):
+    def get_rules(self, *, filter=None, Range=None, fields=None, **kwargs):
         """
         GET /analytics/rules
         Retrieves a list of rules.
@@ -411,15 +411,6 @@ class Analytics(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'rules/rule_delete_tasks/{task_id}'.format(task_id=task_id))
         return self._call('GET', function_endpoint, **kwargs)
 
-    @request_vars('fields')
-    def get_rules_rule_dependent_tasks_by_task_id(self, task_id, *, fields=None, **kwargs):
-        """
-        GET /analytics/rules/rule_dependent_tasks/{task_id}
-        Retrieves the dependent rule task status.
-        """
-        function_endpoint = urljoin(self._baseurl, 'rules/rule_dependent_tasks/{task_id}'.format(task_id=task_id))
-        return self._call('GET', function_endpoint, **kwargs)
-
     @header_vars('fields')
     def post_rules_rule_dependent_tasks_by_task_id(self, task_id, *, task, fields=None, **kwargs):
         """
@@ -430,6 +421,15 @@ class Analytics(QRadarAPIEndpoint):
         return self._call('POST', function_endpoint, json=task, **kwargs)
 
     @request_vars('fields')
+    def get_rules_rule_dependent_tasks_by_task_id(self, task_id, *, fields=None, **kwargs):
+        """
+        GET /analytics/rules/rule_dependent_tasks/{task_id}
+        Retrieves the dependent rule task status.
+        """
+        function_endpoint = urljoin(self._baseurl, 'rules/rule_dependent_tasks/{task_id}'.format(task_id=task_id))
+        return self._call('GET', function_endpoint, **kwargs)
+
+    @request_vars('fields')
     def get_rules_rule_dependent_tasks_results_by_task_id(self, task_id, *, fields=None, **kwargs):
         """
         GET /analytics/rules/rule_dependent_tasks/{task_id}/results
@@ -438,15 +438,6 @@ class Analytics(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl,
                                     'rules/rule_dependent_tasks/{task_id}/results'.format(task_id=task_id))
         return self._call('GET', function_endpoint, **kwargs)
-
-    @request_vars('fields')
-    def delete_rules_by_id(self, id, *, fields=None, **kwargs):
-        """
-        DELETE /analytics/rules/{id}
-        Delete the rule. To ensure safe deletion, a dependency check is carried out. This check might take some time. An asynchronous task to do is started for this check.
-        """
-        function_endpoint = urljoin(self._baseurl, 'rules/{id}'.format(id=id))
-        return self._call('DELETE', function_endpoint, **kwargs)
 
     @header_vars('fields')
     def post_rules_by_id(self, id, *, rule, fields=None, **kwargs):
@@ -467,6 +458,15 @@ class Analytics(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, **kwargs)
 
     @request_vars('fields')
+    def delete_rules_by_id(self, id, *, fields=None, **kwargs):
+        """
+        DELETE /analytics/rules/{id}
+        Delete the rule. To ensure safe deletion, a dependency check is carried out. This check might take some time. An asynchronous task to do is started for this check.
+        """
+        function_endpoint = urljoin(self._baseurl, 'rules/{id}'.format(id=id))
+        return self._call('DELETE', function_endpoint, **kwargs)
+
+    @request_vars('fields')
     def get_rules_dependents_by_id(self, id, *, fields=None, **kwargs):
         """
         GET /analytics/rules/{id}/dependents
@@ -477,7 +477,19 @@ class Analytics(QRadarAPIEndpoint):
 
     @header_vars('Range')
     @request_vars('sort', 'filter', 'fields')
-    def get_rules_with_data(self, *, sort=None, Range=None, filter=None, fields=None, **kwargs):
+    def get_rules_offense_contributions(self, *, sort=None, filter=None, Range=None, fields=None, **kwargs):
+        """
+        GET /analytics/rules_offense_contributions
+        Retrieves Rule Offense contributions
+
+        Retieves Rule and Offense references in the system.
+        """
+        function_endpoint = urljoin(self._baseurl, 'rules_offense_contributions')
+        return self._call('GET', function_endpoint, **kwargs)
+
+    @header_vars('Range')
+    @request_vars('sort', 'filter', 'fields')
+    def get_rules_with_data(self, *, sort=None, filter=None, Range=None, fields=None, **kwargs):
         """
         GET /analytics/rules_with_data
         Retrieves a list of rules.

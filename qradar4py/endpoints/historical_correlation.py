@@ -81,8 +81,8 @@ class HistoricalCorrelation(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
     @header_vars('Range')
-    @request_vars('sort', 'fields', 'filter')
-    def get_profiles(self, *, Range=None, sort=None, fields=None, filter=None, **kwargs):
+    @request_vars('fields', 'filter', 'sort')
+    def get_profiles(self, *, Range=None, fields=None, filter=None, sort=None, **kwargs):
         """
         GET /historical_correlation/profiles
         Retrieves a list of historical correlation profiles
@@ -102,17 +102,6 @@ class HistoricalCorrelation(QRadarAPIEndpoint):
         headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'profiles')
         return self._call('POST', function_endpoint, json=profileData, headers=headers, **kwargs)
-
-    @request_vars('fields')
-    def get_profiles_by_id(self, id, *, fields=None, **kwargs):
-        """
-        GET /historical_correlation/profiles/{id}
-        Get a Historical Search Profile by Id
-        UNDOCUMENTED
-        """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
-        function_endpoint = urljoin(self._baseurl, 'profiles/{id}'.format(id=id))
-        return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
     def delete_profiles_by_id(self, id, **kwargs):
         """
@@ -136,6 +125,17 @@ class HistoricalCorrelation(QRadarAPIEndpoint):
         return self._call('POST', function_endpoint, json=profileData, headers=headers, **kwargs)
 
     @request_vars('fields')
+    def get_profiles_by_id(self, id, *, fields=None, **kwargs):
+        """
+        GET /historical_correlation/profiles/{id}
+        Get a Historical Search Profile by Id
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl, 'profiles/{id}'.format(id=id))
+        return self._call('GET', function_endpoint, headers=headers, **kwargs)
+
+    @request_vars('fields')
     def post_profiles_runs_by_id(self, id, *, fields=None, **kwargs):
         """
         POST /historical_correlation/profiles/{id}/runs
@@ -147,8 +147,8 @@ class HistoricalCorrelation(QRadarAPIEndpoint):
         return self._call('POST', function_endpoint, headers=headers, **kwargs)
 
     @header_vars('Range')
-    @request_vars('sort', 'fields', 'filter')
-    def get_profiles_runs_by_id(self, id, *, Range=None, sort=None, fields=None, filter=None, **kwargs):
+    @request_vars('fields', 'filter', 'sort')
+    def get_profiles_runs_by_id(self, id, *, Range=None, fields=None, filter=None, sort=None, **kwargs):
         """
         GET /historical_correlation/profiles/{id}/runs
         Retrieves a collection of historical correlation profile run structure for a given profile id.

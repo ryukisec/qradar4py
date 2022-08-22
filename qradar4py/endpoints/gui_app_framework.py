@@ -29,16 +29,6 @@ class GuiAppFramework(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'admin_override')
         return self._call('POST', function_endpoint, headers=headers, **kwargs)
 
-    def get_admin_override(self, **kwargs):
-        """
-        GET /gui_app_framework/admin_override
-        Retrieve list of augmented security profiles.
-        UNDOCUMENTED
-        """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
-        function_endpoint = urljoin(self._baseurl, 'admin_override')
-        return self._call('GET', function_endpoint, headers=headers, **kwargs)
-
     @request_vars('user_id', 'security_profile_id')
     def delete_admin_override(self, *, user_id, security_profile_id, **kwargs):
         """
@@ -49,6 +39,16 @@ class GuiAppFramework(QRadarAPIEndpoint):
         headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'admin_override')
         return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
+
+    def get_admin_override(self, **kwargs):
+        """
+        GET /gui_app_framework/admin_override
+        Retrieve list of augmented security profiles.
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl, 'admin_override')
+        return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
     @header_vars('fields')
     def post_application_creation_task(self, *, package, fields=None, **kwargs):
@@ -70,16 +70,6 @@ class GuiAppFramework(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'application_creation_task')
         return self._call('GET', function_endpoint, **kwargs)
 
-    @request_vars('status', 'fields')
-    def post_application_creation_task_by_application_id(self, application_id, *, status, fields=None, **kwargs):
-        """
-        POST /gui_app_framework/application_creation_task/{application_id}
-        Cancels an application install.
-        """
-        function_endpoint = urljoin(self._baseurl,
-                                    'application_creation_task/{application_id}'.format(application_id=application_id))
-        return self._call('POST', function_endpoint, **kwargs)
-
     @request_vars('fields')
     def get_application_creation_task_by_application_id(self, application_id, *, fields=None, **kwargs):
         """
@@ -89,6 +79,16 @@ class GuiAppFramework(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl,
                                     'application_creation_task/{application_id}'.format(application_id=application_id))
         return self._call('GET', function_endpoint, **kwargs)
+
+    @request_vars('status', 'fields')
+    def post_application_creation_task_by_application_id(self, application_id, *, status, fields=None, **kwargs):
+        """
+        POST /gui_app_framework/application_creation_task/{application_id}
+        Cancels an application install.
+        """
+        function_endpoint = urljoin(self._baseurl,
+                                    'application_creation_task/{application_id}'.format(application_id=application_id))
+        return self._call('POST', function_endpoint, **kwargs)
 
     @request_vars('fields')
     def get_application_creation_task_auth_by_application_id(self, application_id, *, fields=None, **kwargs):
@@ -111,16 +111,6 @@ class GuiAppFramework(QRadarAPIEndpoint):
             application_id=application_id))
         return self._call('POST', function_endpoint, json=authorisation, **kwargs)
 
-    @header_vars('fields')
-    def post_application_definitions(self, *, package, fields=None, **kwargs):
-        """
-        POST /gui_app_framework/application_definitions
-        Installs a new application.
-        """
-        function_endpoint = urljoin(self._baseurl, 'application_definitions')
-        return self._call('POST', function_endpoint, mime_type={'Content-Type': 'application/zip'}, data=package,
-                          **kwargs)
-
     @header_vars('Range')
     @request_vars('filter', 'fields')
     def get_application_definitions(self, *, filter=None, fields=None, Range=None, **kwargs):
@@ -130,6 +120,16 @@ class GuiAppFramework(QRadarAPIEndpoint):
         """
         function_endpoint = urljoin(self._baseurl, 'application_definitions')
         return self._call('GET', function_endpoint, **kwargs)
+
+    @header_vars('fields')
+    def post_application_definitions(self, *, package, fields=None, **kwargs):
+        """
+        POST /gui_app_framework/application_definitions
+        Installs a new application.
+        """
+        function_endpoint = urljoin(self._baseurl, 'application_definitions')
+        return self._call('POST', function_endpoint, mime_type={'Content-Type': 'application/zip'}, data=package,
+                          **kwargs)
 
     @header_vars('include_stopped_application', 'fields')
     def put_application_definitions_by_application_definition_id(self, application_definition_id, *, package,
@@ -143,17 +143,6 @@ class GuiAppFramework(QRadarAPIEndpoint):
             application_definition_id=application_definition_id))
         return self._call('PUT', function_endpoint, **kwargs)
 
-    @request_vars('status', 'fields')
-    def post_application_definitions_by_application_definition_id(self, application_definition_id, *, status=None,
-                                                                  fields=None, **kwargs):
-        """
-        POST /gui_app_framework/application_definitions/{application_definition_id}
-        Cancels the creation or upgrade of an application definition
-        """
-        function_endpoint = urljoin(self._baseurl, 'application_definitions/{application_definition_id}'.format(
-            application_definition_id=application_definition_id))
-        return self._call('POST', function_endpoint, **kwargs)
-
     @request_vars('fields')
     def get_application_definitions_by_application_definition_id(self, application_definition_id, *, fields=None,
                                                                  **kwargs):
@@ -164,6 +153,17 @@ class GuiAppFramework(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'application_definitions/{application_definition_id}'.format(
             application_definition_id=application_definition_id))
         return self._call('GET', function_endpoint, **kwargs)
+
+    @request_vars('status', 'fields')
+    def post_application_definitions_by_application_definition_id(self, application_definition_id, *, status=None,
+                                                                  fields=None, **kwargs):
+        """
+        POST /gui_app_framework/application_definitions/{application_definition_id}
+        Cancels the creation or upgrade of an application definition
+        """
+        function_endpoint = urljoin(self._baseurl, 'application_definitions/{application_definition_id}'.format(
+            application_definition_id=application_definition_id))
+        return self._call('POST', function_endpoint, **kwargs)
 
     def delete_application_definitions_by_application_definition_id(self, application_definition_id, **kwargs):
         """
@@ -262,6 +262,25 @@ class GuiAppFramework(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'applications')
         return self._call('POST', function_endpoint, **kwargs)
 
+    @request_vars('fields')
+    def get_applications_by_application_id(self, application_id, *, fields=None, **kwargs):
+        """
+        GET /gui_app_framework/applications/{application_id}
+        Retrieve an installed application.
+        """
+        function_endpoint = urljoin(self._baseurl,
+                                    'applications/{application_id}'.format(application_id=application_id))
+        return self._call('GET', function_endpoint, **kwargs)
+
+    def delete_applications_by_application_id(self, application_id, **kwargs):
+        """
+        DELETE /gui_app_framework/applications/{application_id}
+        Deletes an application instance.
+        """
+        function_endpoint = urljoin(self._baseurl,
+                                    'applications/{application_id}'.format(application_id=application_id))
+        return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
+
     @request_vars('status', 'oauth_user_id', 'security_profile_id', 'fields')
     def post_applications_by_application_id(self, application_id, *, status=None, oauth_user_id=None,
                                             security_profile_id=None, fields=None, **kwargs):
@@ -282,25 +301,6 @@ class GuiAppFramework(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl,
                                     'applications/{application_id}'.format(application_id=application_id))
         return self._call('PUT', function_endpoint, **kwargs)
-
-    def delete_applications_by_application_id(self, application_id, **kwargs):
-        """
-        DELETE /gui_app_framework/applications/{application_id}
-        Deletes an application instance.
-        """
-        function_endpoint = urljoin(self._baseurl,
-                                    'applications/{application_id}'.format(application_id=application_id))
-        return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
-
-    @request_vars('fields')
-    def get_applications_by_application_id(self, application_id, *, fields=None, **kwargs):
-        """
-        GET /gui_app_framework/applications/{application_id}
-        Retrieve an installed application.
-        """
-        function_endpoint = urljoin(self._baseurl,
-                                    'applications/{application_id}'.format(application_id=application_id))
-        return self._call('GET', function_endpoint, **kwargs)
 
     def get_migration_sourcehost(self, **kwargs):
         """
@@ -422,6 +422,16 @@ class GuiAppFramework(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'runtime/{type}/exclusions'.format(type=type))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
+    def delete_runtime_type_exclusions_by_uuid(self, type, uuid, **kwargs):
+        """
+        DELETE /gui_app_framework/runtime/{type}/exclusions/{uuid}
+        Removes an exclusion from a runtime based upon its applications UUID
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl, 'runtime/{type}/exclusions/{uuid}'.format(type=type, uuid=uuid))
+        return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
+
     @request_vars('fields')
     def get_runtime_type_exclusions_by_uuid(self, type, uuid, *, fields=None, **kwargs):
         """
@@ -432,16 +442,6 @@ class GuiAppFramework(QRadarAPIEndpoint):
         headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'runtime/{type}/exclusions/{uuid}'.format(type=type, uuid=uuid))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
-
-    def delete_runtime_type_exclusions_by_uuid(self, type, uuid, **kwargs):
-        """
-        DELETE /gui_app_framework/runtime/{type}/exclusions/{uuid}
-        Removes an exclusion from a runtime based upon its applications UUID
-        UNDOCUMENTED
-        """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
-        function_endpoint = urljoin(self._baseurl, 'runtime/{type}/exclusions/{uuid}'.format(type=type, uuid=uuid))
-        return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
 
     @header_vars('Range')
     @request_vars('filter')

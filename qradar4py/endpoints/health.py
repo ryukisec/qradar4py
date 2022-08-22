@@ -29,7 +29,7 @@ class Health(QRadarAPIEndpoint):
 
     @header_vars('Range')
     @request_vars('filter', 'fields')
-    def get_metrics_config(self, *, Range=None, filter=None, fields=None, **kwargs):
+    def get_metrics_config(self, *, filter=None, Range=None, fields=None, **kwargs):
         """
         GET /health/metrics/config
         No summary provided
@@ -52,7 +52,7 @@ class Health(QRadarAPIEndpoint):
 
     @header_vars('Range')
     @request_vars('filter', 'fields')
-    def get_metrics_meta(self, *, Range=None, filter=None, fields=None, **kwargs):
+    def get_metrics_meta(self, *, filter=None, Range=None, fields=None, **kwargs):
         """
         GET /health/metrics/meta
         No summary provided
@@ -75,21 +75,12 @@ class Health(QRadarAPIEndpoint):
 
     @header_vars('Range')
     @request_vars('filter', 'fields')
-    def get_metrics_qradar_metrics(self, *, Range=None, filter=None, fields=None, **kwargs):
+    def get_metrics_qradar_metrics(self, *, filter=None, Range=None, fields=None, **kwargs):
         """
         GET /health/metrics/qradar_metrics
         Gets the list of QRadar component metrics
         """
         function_endpoint = urljoin(self._baseurl, 'metrics/qradar_metrics')
-        return self._call('GET', function_endpoint, **kwargs)
-
-    @request_vars('fields')
-    def get_metrics_qradar_metrics_by_id(self, id, *, fields=None, **kwargs):
-        """
-        GET /health/metrics/qradar_metrics/{id}
-        Retrieves the QRadar health metric identified by ID.
-        """
-        function_endpoint = urljoin(self._baseurl, 'metrics/qradar_metrics/{id}'.format(id=id))
         return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('fields')
@@ -100,6 +91,15 @@ class Health(QRadarAPIEndpoint):
         """
         function_endpoint = urljoin(self._baseurl, 'metrics/qradar_metrics/{id}'.format(id=id))
         return self._call('POST', function_endpoint, json=qradar_metric, **kwargs)
+
+    @request_vars('fields')
+    def get_metrics_qradar_metrics_by_id(self, id, *, fields=None, **kwargs):
+        """
+        GET /health/metrics/qradar_metrics/{id}
+        Retrieves the QRadar health metric identified by ID.
+        """
+        function_endpoint = urljoin(self._baseurl, 'metrics/qradar_metrics/{id}'.format(id=id))
+        return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('fields')
     def post_metrics_qradar_metrics_global_config(self, *, global_config, fields=None, **kwargs):
@@ -112,7 +112,7 @@ class Health(QRadarAPIEndpoint):
 
     @header_vars('Range')
     @request_vars('filter', 'fields')
-    def get_metrics_system_metrics(self, *, Range=None, filter=None, fields=None, **kwargs):
+    def get_metrics_system_metrics(self, *, filter=None, Range=None, fields=None, **kwargs):
         """
         GET /health/metrics/system_metrics
         Gets the list of system metrics.

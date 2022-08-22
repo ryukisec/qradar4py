@@ -26,16 +26,6 @@ class Forensics(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'alerting_jobs/{id}'.format(id=id))
         return self._call('POST', function_endpoint, json=alerting_job, headers=headers, **kwargs)
 
-    @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_capture_recoveries(self, *, filter=None, Range=None, fields=None, **kwargs):
-        """
-        GET /forensics/capture/recoveries
-        Retrieves a list of capture recoveries.
-        """
-        function_endpoint = urljoin(self._baseurl, 'capture/recoveries')
-        return self._call('GET', function_endpoint, **kwargs)
-
     @header_vars('fields')
     def post_capture_recoveries(self, *, recovery, fields=None, **kwargs):
         """
@@ -44,6 +34,16 @@ class Forensics(QRadarAPIEndpoint):
         """
         function_endpoint = urljoin(self._baseurl, 'capture/recoveries')
         return self._call('POST', function_endpoint, json=recovery, **kwargs)
+
+    @header_vars('Range')
+    @request_vars('filter', 'fields')
+    def get_capture_recoveries(self, *, Range=None, filter=None, fields=None, **kwargs):
+        """
+        GET /forensics/capture/recoveries
+        Retrieves a list of capture recoveries.
+        """
+        function_endpoint = urljoin(self._baseurl, 'capture/recoveries')
+        return self._call('GET', function_endpoint, **kwargs)
 
     @request_vars('fields')
     def get_capture_recoveries_by_id(self, id, *, fields=None, **kwargs):
@@ -56,7 +56,7 @@ class Forensics(QRadarAPIEndpoint):
 
     @header_vars('Range')
     @request_vars('filter', 'fields')
-    def get_capture_recovery_tasks(self, *, filter=None, Range=None, fields=None, **kwargs):
+    def get_capture_recovery_tasks(self, *, Range=None, filter=None, fields=None, **kwargs):
         """
         GET /forensics/capture/recovery_tasks
         Retrieves a list of recovery tasks.
@@ -93,7 +93,7 @@ class Forensics(QRadarAPIEndpoint):
 
     @header_vars('Range')
     @request_vars('filter', 'fields')
-    def get_case_management_cases(self, *, filter=None, Range=None, fields=None, **kwargs):
+    def get_case_management_cases(self, *, Range=None, filter=None, fields=None, **kwargs):
         """
         GET /forensics/case_management/cases
         Retrieves a list of cases.

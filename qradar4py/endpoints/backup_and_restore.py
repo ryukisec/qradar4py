@@ -16,6 +16,16 @@ class BackupAndRestore(QRadarAPIEndpoint):
                          header,
                          verify)
 
+    @header_vars('Range')
+    @request_vars('sort', 'fields', 'filter')
+    def get_backups(self, *, sort=None, fields=None, filter=None, Range=None, **kwargs):
+        """
+        GET /backup_and_restore/backups
+        Retrieves a list of backups.
+        """
+        function_endpoint = urljoin(self._baseurl, 'backups')
+        return self._call('GET', function_endpoint, **kwargs)
+
     @header_vars('backup_type', 'fields')
     def post_backups(self, *, backup_type, backup, fields=None, **kwargs):
         """
@@ -25,15 +35,14 @@ class BackupAndRestore(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'backups')
         return self._call('POST', function_endpoint, json=backup, **kwargs)
 
-    @header_vars('Range')
-    @request_vars('fields', 'filter', 'sort')
-    def get_backups(self, *, fields=None, Range=None, filter=None, sort=None, **kwargs):
+    @request_vars('fields')
+    def delete_backups_by_id(self, id, *, fields=None, **kwargs):
         """
-        GET /backup_and_restore/backups
-        Retrieves a list of backups.
+        DELETE /backup_and_restore/backups/{id}
+        Sends a request to the Backup and Restore Engine to delete an existing backup.
         """
-        function_endpoint = urljoin(self._baseurl, 'backups')
-        return self._call('GET', function_endpoint, **kwargs)
+        function_endpoint = urljoin(self._baseurl, 'backups/{id}'.format(id=id))
+        return self._call('DELETE', function_endpoint, **kwargs)
 
     @request_vars('fields')
     def get_backups_by_id(self, id, *, fields=None, **kwargs):
@@ -53,25 +62,6 @@ class BackupAndRestore(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'backups/{id}'.format(id=id))
         return self._call('POST', function_endpoint, json=backup, **kwargs)
 
-    @request_vars('fields')
-    def delete_backups_by_id(self, id, *, fields=None, **kwargs):
-        """
-        DELETE /backup_and_restore/backups/{id}
-        Sends a request to the Backup and Restore Engine to delete an existing backup.
-        """
-        function_endpoint = urljoin(self._baseurl, 'backups/{id}'.format(id=id))
-        return self._call('DELETE', function_endpoint, **kwargs)
-
-    @header_vars('Range')
-    @request_vars('fields', 'filter', 'sort')
-    def get_restores(self, *, fields=None, Range=None, filter=None, sort=None, **kwargs):
-        """
-        GET /backup_and_restore/restores
-        Retrieves a list of restores.
-        """
-        function_endpoint = urljoin(self._baseurl, 'restores')
-        return self._call('GET', function_endpoint, **kwargs)
-
     @header_vars('fields')
     def post_restores(self, *, restore, fields=None, **kwargs):
         """
@@ -81,14 +71,15 @@ class BackupAndRestore(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'restores')
         return self._call('POST', function_endpoint, json=restore, **kwargs)
 
-    @header_vars('fields')
-    def post_restores_by_id(self, id, *, restore, fields=None, **kwargs):
+    @header_vars('Range')
+    @request_vars('sort', 'fields', 'filter')
+    def get_restores(self, *, sort=None, fields=None, filter=None, Range=None, **kwargs):
         """
-        POST /backup_and_restore/restores/{id}
-        Updates an existing restore by ID.
+        GET /backup_and_restore/restores
+        Retrieves a list of restores.
         """
-        function_endpoint = urljoin(self._baseurl, 'restores/{id}'.format(id=id))
-        return self._call('POST', function_endpoint, json=restore, **kwargs)
+        function_endpoint = urljoin(self._baseurl, 'restores')
+        return self._call('GET', function_endpoint, **kwargs)
 
     @request_vars('fields')
     def get_restores_by_id(self, id, *, fields=None, **kwargs):
@@ -99,6 +90,15 @@ class BackupAndRestore(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'restores/{id}'.format(id=id))
         return self._call('GET', function_endpoint, **kwargs)
 
+    @header_vars('fields')
+    def post_restores_by_id(self, id, *, restore, fields=None, **kwargs):
+        """
+        POST /backup_and_restore/restores/{id}
+        Updates an existing restore by ID.
+        """
+        function_endpoint = urljoin(self._baseurl, 'restores/{id}'.format(id=id))
+        return self._call('POST', function_endpoint, json=restore, **kwargs)
+
     def delete_restores_by_id(self, id, **kwargs):
         """
         DELETE /backup_and_restore/restores/{id}
@@ -106,3 +106,4 @@ class BackupAndRestore(QRadarAPIEndpoint):
         """
         function_endpoint = urljoin(self._baseurl, 'restores/{id}'.format(id=id))
         return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
+

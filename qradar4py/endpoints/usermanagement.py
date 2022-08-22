@@ -19,7 +19,7 @@ class Usermanagement(QRadarAPIEndpoint):
 
     @header_vars('Range')
     @request_vars('filter', 'fields')
-    def get_users(self, *, Range=None, filter=None, fields=None, **kwargs):
+    def get_users(self, *, filter=None, Range=None, fields=None, **kwargs):
         """
         GET /usermanagement/users
         Retrieve a list of all QRadar users.
@@ -53,7 +53,7 @@ class Usermanagement(QRadarAPIEndpoint):
 
     @header_vars('Range')
     @request_vars('filter')
-    def get_users_access_cidrs_by_username(self, username, *, Range=None, filter=None, **kwargs):
+    def get_users_access_cidrs_by_username(self, username, *, filter=None, Range=None, **kwargs):
         """
         GET /usermanagement/users/{username}/access/cidrs
         Retrieve the list of CIDRs a user has access to.

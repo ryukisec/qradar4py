@@ -8,7 +8,7 @@ class Services(QRadarAPIEndpoint):
     """
     The QRadar API endpoint group /services and its endpoints.
     """
-    __baseurl = 'siem/'
+    __baseurl = 'services/'
 
     def __init__(self, url, header, verify):
         super().__init__(urljoin(url, self.__baseurl),

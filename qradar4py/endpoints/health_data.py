@@ -27,7 +27,7 @@ class HealthData(QRadarAPIEndpoint):
 
     @header_vars('Range')
     @request_vars('filter', 'fields')
-    def get_top_offenses(self, *, Range=None, filter=None, fields=None, **kwargs):
+    def get_top_offenses(self, *, filter=None, Range=None, fields=None, **kwargs):
         """
         GET /health_data/top_offenses
         Retrieves Top Offenses in the system sorted by update count.
@@ -37,7 +37,7 @@ class HealthData(QRadarAPIEndpoint):
 
     @header_vars('Range')
     @request_vars('filter', 'fields')
-    def get_top_rules(self, *, Range=None, filter=None, fields=None, **kwargs):
+    def get_top_rules(self, *, filter=None, Range=None, fields=None, **kwargs):
         """
         GET /health_data/top_rules
         Retrieves Top Rules in the system sorted by response count.
