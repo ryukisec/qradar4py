@@ -1,7 +1,7 @@
 # QRadar API Client written in Python
 
 This is a wrapper around the REST-API of QRadar. This includes some undocumented endpoints, that may not work as expected.  
-All the information for the various endpoints were pulled from version `13.1`.  
+All the information for the various endpoints were pulled from version `15.1`.  
 If you find any bugs please open an issue or a pull request. 
 
 ## A word of warning
