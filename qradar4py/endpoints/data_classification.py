@@ -17,8 +17,8 @@ class DataClassification(QRadarAPIEndpoint):
                          verify)
 
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_dsm_event_mappings(self, *, filter=None, Range=None, fields=None, **kwargs):
+    @request_vars('fields', 'filter')
+    def get_dsm_event_mappings(self, *, fields=None, Range=None, filter=None, **kwargs):
         """
         GET /data_classification/dsm_event_mappings
         Retrieve a list of DSM event mappings.
@@ -56,8 +56,8 @@ class DataClassification(QRadarAPIEndpoint):
         return self._call('POST', function_endpoint, json=data, **kwargs)
 
     @header_vars('Range')
-    @request_vars('filter', 'sort', 'fields')
-    def get_high_level_categories(self, *, filter=None, sort=None, Range=None, fields=None, **kwargs):
+    @request_vars('fields', 'filter', 'sort')
+    def get_high_level_categories(self, *, fields=None, Range=None, filter=None, sort=None, **kwargs):
         """
         GET /data_classification/high_level_categories
         Retrieves a list of high level categories.
@@ -76,8 +76,8 @@ class DataClassification(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('Range')
-    @request_vars('filter', 'sort', 'fields')
-    def get_low_level_categories(self, *, filter=None, sort=None, Range=None, fields=None, **kwargs):
+    @request_vars('fields', 'filter', 'sort')
+    def get_low_level_categories(self, *, fields=None, Range=None, filter=None, sort=None, **kwargs):
         """
         GET /data_classification/low_level_categories
         Retrieves a list of low level categories.
@@ -96,8 +96,8 @@ class DataClassification(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_qid_records(self, *, filter=None, Range=None, fields=None, **kwargs):
+    @request_vars('fields', 'filter')
+    def get_qid_records(self, *, fields=None, Range=None, filter=None, **kwargs):
         """
         GET /data_classification/qid_records
         Retrieves a list of QID records.

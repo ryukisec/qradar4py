@@ -18,8 +18,8 @@ class Configuration(QRadarAPIEndpoint):
                          verify)
 
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_log_source_groups(self, *, filter=None, Range=None, fields=None, **kwargs):
+    @request_vars('fields', 'filter')
+    def get_log_source_groups(self, *, fields=None, Range=None, filter=None, **kwargs):
         """
         GET /configuration/log_source_groups
         Retrieve a list of all log source groups
@@ -41,8 +41,8 @@ class Configuration(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_log_source_protocols(self, *, filter=None, Range=None, fields=None, **kwargs):
+    @request_vars('fields', 'filter')
+    def get_log_source_protocols(self, *, fields=None, Range=None, filter=None, **kwargs):
         """
         GET /configuration/log_source_protocols
         Retrieves all log source Protocol
@@ -50,19 +50,6 @@ class Configuration(QRadarAPIEndpoint):
         """
         headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'log_source_protocols')
-        return self._call('GET', function_endpoint, headers=headers, **kwargs)
-
-    @header_vars('Range')
-    @request_vars('excludeSystemTypes', 'filter', 'sort', 'fields')
-    def get_log_source_types(self, *, excludeSystemTypes=None, filter=None, sort=None, Range=None, fields=None,
-                             **kwargs):
-        """
-        GET /configuration/log_source_types
-        Retrieve a list of all log source types
-        UNDOCUMENTED
-        """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
-        function_endpoint = urljoin(self._baseurl, 'log_source_types')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
     @header_vars('fields')
@@ -78,6 +65,19 @@ class Configuration(QRadarAPIEndpoint):
         headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'log_source_types')
         return self._call('POST', function_endpoint, json=data, headers=headers, **kwargs)
+
+    @header_vars('Range')
+    @request_vars('excludeSystemTypes', 'fields', 'filter', 'sort')
+    def get_log_source_types(self, *, excludeSystemTypes=None, fields=None, Range=None, filter=None, sort=None,
+                             **kwargs):
+        """
+        GET /configuration/log_source_types
+        Retrieve a list of all log source types
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl, 'log_source_types')
+        return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
     @request_vars('fields')
     def get_log_source_types_by_id(self, id, *, fields=None, **kwargs):
@@ -103,8 +103,8 @@ class Configuration(QRadarAPIEndpoint):
         return self._call('POST', function_endpoint, json=data, headers=headers, **kwargs)
 
     @header_vars('Range')
-    @request_vars('show_deleted', 'filter', 'fields')
-    def get_log_sources(self, *, show_deleted=None, filter=None, Range=None, fields=None, **kwargs):
+    @request_vars('show_deleted', 'fields', 'filter')
+    def get_log_sources(self, *, show_deleted=None, fields=None, Range=None, filter=None, **kwargs):
         """
         GET /configuration/log_sources
         Retrieve a set of all log sources
@@ -112,17 +112,6 @@ class Configuration(QRadarAPIEndpoint):
         """
         headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'log_sources')
-        return self._call('GET', function_endpoint, headers=headers, **kwargs)
-
-    @request_vars('fields')
-    def get_log_sources_by_id(self, id, *, fields=None, **kwargs):
-        """
-        GET /configuration/log_sources/{id}
-        Return the log source identified by id.
-        UNDOCUMENTED
-        """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
-        function_endpoint = urljoin(self._baseurl, 'log_sources/{id}'.format(id=id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
     @header_vars('fields')
@@ -135,6 +124,17 @@ class Configuration(QRadarAPIEndpoint):
         headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'log_sources/{id}'.format(id=id))
         return self._call('POST', function_endpoint, json=data, headers=headers, **kwargs)
+
+    @request_vars('fields')
+    def get_log_sources_by_id(self, id, *, fields=None, **kwargs):
+        """
+        GET /configuration/log_sources/{id}
+        Return the log source identified by id.
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl, 'log_sources/{id}'.format(id=id))
+        return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
     @request_vars('host_name', 'token', 'name', 'arielAPIVersion', 'fields')
     def post_log_sources_health(self, *, host_name, token, name, arielAPIVersion=None, fields=None, **kwargs):

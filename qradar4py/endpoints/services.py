@@ -51,8 +51,8 @@ class Services(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'dns_lookups/{dns_lookup_id}'.format(dns_lookup_id=dns_lookup_id))
         return self._call('GET', function_endpoint, **kwargs)
 
-    @request_vars('filter', 'fields')
-    def get_geolocations(self, *, filter=None, fields=None, **kwargs):
+    @request_vars('fields', 'filter')
+    def get_geolocations(self, *, fields=None, filter=None, **kwargs):
         """
         GET /services/geolocations
         Retrieves the MaxMind geoip data for the given IP address.

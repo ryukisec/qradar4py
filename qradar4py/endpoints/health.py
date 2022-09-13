@@ -28,8 +28,8 @@ class Health(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_metrics_config(self, *, filter=None, Range=None, fields=None, **kwargs):
+    @request_vars('fields', 'filter')
+    def get_metrics_config(self, *, fields=None, filter=None, Range=None, **kwargs):
         """
         GET /health/metrics/config
         No summary provided
@@ -51,8 +51,8 @@ class Health(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_metrics_meta(self, *, filter=None, Range=None, fields=None, **kwargs):
+    @request_vars('fields', 'filter')
+    def get_metrics_meta(self, *, fields=None, filter=None, Range=None, **kwargs):
         """
         GET /health/metrics/meta
         No summary provided
@@ -74,8 +74,8 @@ class Health(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_metrics_qradar_metrics(self, *, filter=None, Range=None, fields=None, **kwargs):
+    @request_vars('fields', 'filter')
+    def get_metrics_qradar_metrics(self, *, fields=None, filter=None, Range=None, **kwargs):
         """
         GET /health/metrics/qradar_metrics
         Gets the list of QRadar component metrics
@@ -111,8 +111,8 @@ class Health(QRadarAPIEndpoint):
         return self._call('POST', function_endpoint, json=global_config, **kwargs)
 
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_metrics_system_metrics(self, *, filter=None, Range=None, fields=None, **kwargs):
+    @request_vars('fields', 'filter')
+    def get_metrics_system_metrics(self, *, fields=None, filter=None, Range=None, **kwargs):
         """
         GET /health/metrics/system_metrics
         Gets the list of system metrics.

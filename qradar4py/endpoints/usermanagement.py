@@ -18,8 +18,8 @@ class Usermanagement(QRadarAPIEndpoint):
                          verify)
 
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_users(self, *, filter=None, Range=None, fields=None, **kwargs):
+    @request_vars('fields', 'filter')
+    def get_users(self, *, fields=None, filter=None, Range=None, **kwargs):
         """
         GET /usermanagement/users
         Retrieve a list of all QRadar users.

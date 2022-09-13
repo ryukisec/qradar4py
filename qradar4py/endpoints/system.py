@@ -26,8 +26,8 @@ class System(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_authorization_capabilities(self, *, filter=None, Range=None, fields=None, **kwargs):
+    @request_vars('fields', 'filter')
+    def get_authorization_capabilities(self, *, fields=None, filter=None, Range=None, **kwargs):
         """
         GET /system/authorization/capabilities
         Retrieves a list of capabilities that are currently in the system.
@@ -38,8 +38,8 @@ class System(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_authorization_password_policies(self, *, filter=None, Range=None, fields=None, **kwargs):
+    @request_vars('fields', 'filter')
+    def get_authorization_password_policies(self, *, fields=None, filter=None, Range=None, **kwargs):
         """
         GET /system/authorization/password_policies
         Retrieves a list of Password Policies that exist on the system
@@ -75,15 +75,6 @@ class System(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'authorization/password_validators')
         return self._call('POST', function_endpoint, json=body, **kwargs)
 
-    @request_vars('fields')
-    def get_authorization_settings(self, *, fields=None, **kwargs):
-        """
-        GET /system/authorization/settings
-        Retrieves the current Authentication Settings.
-        """
-        function_endpoint = urljoin(self._baseurl, 'authorization/settings')
-        return self._call('GET', function_endpoint, **kwargs)
-
     @header_vars('fields')
     def post_authorization_settings(self, *, body, fields=None, **kwargs):
         """
@@ -93,14 +84,13 @@ class System(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'authorization/settings')
         return self._call('POST', function_endpoint, json=body, **kwargs)
 
-    @header_vars('Range')
-    @request_vars('fields', 'filter')
-    def get_email_servers(self, *, Range=None, fields=None, filter=None, **kwargs):
+    @request_vars('fields')
+    def get_authorization_settings(self, *, fields=None, **kwargs):
         """
-        GET /system/email_servers
-        Retrieves a list of all email servers.
+        GET /system/authorization/settings
+        Retrieves the current Authentication Settings.
         """
-        function_endpoint = urljoin(self._baseurl, 'email_servers')
+        function_endpoint = urljoin(self._baseurl, 'authorization/settings')
         return self._call('GET', function_endpoint, **kwargs)
 
     def post_email_servers(self, *, email_server_details, **kwargs):
@@ -111,14 +101,14 @@ class System(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'email_servers')
         return self._call('POST', function_endpoint, json=email_server_details, **kwargs)
 
-    @request_vars('fields')
-    def get_email_servers_by_email_server_id(self, email_server_id, *, fields=None, **kwargs):
+    @header_vars('Range')
+    @request_vars('filter', 'fields')
+    def get_email_servers(self, *, Range=None, filter=None, fields=None, **kwargs):
         """
-        GET /system/email_servers/{email_server_id}
-        Retrieves an email server based on the supplied email server ID.
+        GET /system/email_servers
+        Retrieves a list of all email servers.
         """
-        function_endpoint = urljoin(self._baseurl,
-                                    'email_servers/{email_server_id}'.format(email_server_id=email_server_id))
+        function_endpoint = urljoin(self._baseurl, 'email_servers')
         return self._call('GET', function_endpoint, **kwargs)
 
     def post_email_servers_by_email_server_id(self, email_server_id, *, email_server_details, **kwargs):
@@ -139,12 +129,30 @@ class System(QRadarAPIEndpoint):
                                     'email_servers/{email_server_id}'.format(email_server_id=email_server_id))
         return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
 
+    @request_vars('fields')
+    def get_email_servers_by_email_server_id(self, email_server_id, *, fields=None, **kwargs):
+        """
+        GET /system/email_servers/{email_server_id}
+        Retrieves an email server based on the supplied email server ID.
+        """
+        function_endpoint = urljoin(self._baseurl,
+                                    'email_servers/{email_server_id}'.format(email_server_id=email_server_id))
+        return self._call('GET', function_endpoint, **kwargs)
+
     def get_eula_acceptances(self, **kwargs):
         """
         GET /system/eula_acceptances
         Retrieves the list of EULA acceptance statuses that the caller has permission to see.
         """
         function_endpoint = urljoin(self._baseurl, 'eula_acceptances')
+        return self._call('GET', function_endpoint, **kwargs)
+
+    def get_eula_acceptances_by_id(self, id, **kwargs):
+        """
+        GET /system/eula_acceptances/{id}
+        Retrieves an individual EULA Acceptance by id.
+        """
+        function_endpoint = urljoin(self._baseurl, 'eula_acceptances/{id}'.format(id=id))
         return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('fields')
@@ -156,14 +164,6 @@ class System(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'eula_acceptances/{id}'.format(id=id))
         return self._call('POST', function_endpoint, json=data, **kwargs)
 
-    def get_eula_acceptances_by_id(self, id, **kwargs):
-        """
-        GET /system/eula_acceptances/{id}
-        Retrieves an individual EULA Acceptance by id.
-        """
-        function_endpoint = urljoin(self._baseurl, 'eula_acceptances/{id}'.format(id=id))
-        return self._call('GET', function_endpoint, **kwargs)
-
     def get_eulas(self, **kwargs):
         """
         GET /system/eulas
@@ -173,8 +173,8 @@ class System(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_information_encodings(self, *, filter=None, Range=None, fields=None, **kwargs):
+    @request_vars('fields', 'filter')
+    def get_information_encodings(self, *, fields=None, filter=None, Range=None, **kwargs):
         """
         GET /system/information/encodings
         Retrieves the list of encodings that are supported by the system for event data..
@@ -183,8 +183,8 @@ class System(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('Range')
-    @request_vars('sample_type', 'fields', 'sort', 'filter')
-    def get_information_locales(self, *, sample_type=None, fields=None, sort=None, Range=None, filter=None, **kwargs):
+    @request_vars('sample_type', 'filter', 'fields', 'sort')
+    def get_information_locales(self, *, sample_type=None, filter=None, fields=None, sort=None, Range=None, **kwargs):
         """
         GET /system/information/locales
         Retrieve Locales.
@@ -203,16 +203,6 @@ class System(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'notifications')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
-    def delete_notifications_by_qid(self, qid, **kwargs):
-        """
-        DELETE /system/notifications/{qid}
-        dismisses a notification
-        UNDOCUMENTED
-        """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
-        function_endpoint = urljoin(self._baseurl, 'notifications/{qid}'.format(qid=qid))
-        return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
-
     @request_vars('fields')
     def get_notifications_by_qid(self, qid, *, fields=None, **kwargs):
         """
@@ -223,6 +213,16 @@ class System(QRadarAPIEndpoint):
         headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'notifications/{qid}'.format(qid=qid))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
+
+    def delete_notifications_by_qid(self, qid, **kwargs):
+        """
+        DELETE /system/notifications/{qid}
+        dismisses a notification
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl, 'notifications/{qid}'.format(qid=qid))
+        return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
 
     @header_vars('Range')
     @request_vars('fields', 'filter')
@@ -279,22 +279,13 @@ class System(QRadarAPIEndpoint):
         return self._call('POST', function_endpoint, json=request_details, **kwargs)
 
     @header_vars('Range')
-    @request_vars('fields', 'filter')
-    def get_servers(self, *, Range=None, fields=None, filter=None, **kwargs):
+    @request_vars('filter', 'fields')
+    def get_servers(self, *, Range=None, filter=None, fields=None, **kwargs):
         """
         GET /system/servers
         Retrieves a list of all server hosts in the deployment.
         """
         function_endpoint = urljoin(self._baseurl, 'servers')
-        return self._call('GET', function_endpoint, **kwargs)
-
-    @request_vars('fields')
-    def get_servers_by_server_id(self, server_id, *, fields=None, **kwargs):
-        """
-        GET /system/servers/{server_id}
-        Retrieves a server host based on the supplied server ID.
-        """
-        function_endpoint = urljoin(self._baseurl, 'servers/{server_id}'.format(server_id=server_id))
         return self._call('GET', function_endpoint, **kwargs)
 
     def post_servers_by_server_id(self, server_id, *, details, **kwargs):
@@ -305,6 +296,25 @@ class System(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'servers/{server_id}'.format(server_id=server_id))
         return self._call('POST', function_endpoint, json=details, **kwargs)
 
+    @request_vars('fields')
+    def get_servers_by_server_id(self, server_id, *, fields=None, **kwargs):
+        """
+        GET /system/servers/{server_id}
+        Retrieves a server host based on the supplied server ID.
+        """
+        function_endpoint = urljoin(self._baseurl, 'servers/{server_id}'.format(server_id=server_id))
+        return self._call('GET', function_endpoint, **kwargs)
+
+    @header_vars('Range')
+    @request_vars('filter', 'fields')
+    def get_servers_firewall_rules_by_server_id(self, server_id, *, Range=None, filter=None, fields=None, **kwargs):
+        """
+        GET /system/servers/{server_id}/firewall_rules
+        Retrieves a list of access control firewall rules based on the supplied server ID.
+        """
+        function_endpoint = urljoin(self._baseurl, 'servers/{server_id}/firewall_rules'.format(server_id=server_id))
+        return self._call('GET', function_endpoint, **kwargs)
+
     def put_servers_firewall_rules_by_server_id(self, server_id, *, rules, **kwargs):
         """
         PUT /system/servers/{server_id}/firewall_rules
@@ -314,18 +324,8 @@ class System(QRadarAPIEndpoint):
         return self._call('PUT', function_endpoint, **kwargs)
 
     @header_vars('Range')
-    @request_vars('fields', 'filter')
-    def get_servers_firewall_rules_by_server_id(self, server_id, *, Range=None, fields=None, filter=None, **kwargs):
-        """
-        GET /system/servers/{server_id}/firewall_rules
-        Retrieves a list of access control firewall rules based on the supplied server ID.
-        """
-        function_endpoint = urljoin(self._baseurl, 'servers/{server_id}/firewall_rules'.format(server_id=server_id))
-        return self._call('GET', function_endpoint, **kwargs)
-
-    @header_vars('Range')
-    @request_vars('fields', 'filter')
-    def get_servers_network_interfaces_bonded_by_server_id(self, server_id, *, Range=None, fields=None, filter=None,
+    @request_vars('filter', 'fields')
+    def get_servers_network_interfaces_bonded_by_server_id(self, server_id, *, Range=None, filter=None, fields=None,
                                                            **kwargs):
         """
         GET /system/servers/{server_id}/network_interfaces/bonded
@@ -344,6 +344,15 @@ class System(QRadarAPIEndpoint):
                                     'servers/{server_id}/network_interfaces/bonded'.format(server_id=server_id))
         return self._call('POST', function_endpoint, json=details, **kwargs)
 
+    def delete_servers_server_id_network_interfaces_bonded_by_device_name(self, server_id, device_name, **kwargs):
+        """
+        DELETE /system/servers/{server_id}/network_interfaces/bonded/{device_name}
+        Removes a bonded network interface.
+        """
+        function_endpoint = urljoin(self._baseurl, 'servers/{server_id}/network_interfaces/bonded/{device_name}'.format(
+            server_id=server_id, device_name=device_name))
+        return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
+
     def post_servers_server_id_network_interfaces_bonded_by_device_name(self, server_id, device_name, *, details,
                                                                         **kwargs):
         """
@@ -354,18 +363,9 @@ class System(QRadarAPIEndpoint):
             server_id=server_id, device_name=device_name))
         return self._call('POST', function_endpoint, json=details, **kwargs)
 
-    def delete_servers_server_id_network_interfaces_bonded_by_device_name(self, server_id, device_name, **kwargs):
-        """
-        DELETE /system/servers/{server_id}/network_interfaces/bonded/{device_name}
-        Removes a bonded network interface.
-        """
-        function_endpoint = urljoin(self._baseurl, 'servers/{server_id}/network_interfaces/bonded/{device_name}'.format(
-            server_id=server_id, device_name=device_name))
-        return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
-
     @header_vars('Range')
-    @request_vars('fields', 'filter')
-    def get_servers_network_interfaces_dag_by_server_id(self, server_id, *, Range=None, fields=None, filter=None,
+    @request_vars('filter', 'fields')
+    def get_servers_network_interfaces_dag_by_server_id(self, server_id, *, Range=None, filter=None, fields=None,
                                                         **kwargs):
         """
         GET /system/servers/{server_id}/network_interfaces/dag
@@ -390,8 +390,8 @@ class System(QRadarAPIEndpoint):
         return self._call('POST', function_endpoint, json=details, headers=headers, **kwargs)
 
     @header_vars('Range')
-    @request_vars('fields', 'filter')
-    def get_servers_network_interfaces_ethernet_by_server_id(self, server_id, *, Range=None, fields=None, filter=None,
+    @request_vars('filter', 'fields')
+    def get_servers_network_interfaces_ethernet_by_server_id(self, server_id, *, Range=None, filter=None, fields=None,
                                                              **kwargs):
         """
         GET /system/servers/{server_id}/network_interfaces/ethernet
@@ -485,18 +485,6 @@ class System(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'task_management/internal_tasks/{id}'.format(id=id))
         return self._call('POST', function_endpoint, headers=headers, **kwargs)
 
-    @header_vars('Range')
-    @request_vars('fields', 'filter')
-    def get_task_management_subtasks(self, *, fields=None, Range=None, filter=None, **kwargs):
-        """
-        GET /system/task_management/subtasks
-        Gets all TaskSubStatuses
-        UNDOCUMENTED
-        """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
-        function_endpoint = urljoin(self._baseurl, 'task_management/subtasks')
-        return self._call('GET', function_endpoint, headers=headers, **kwargs)
-
     @request_vars('task_state', 'message_local_info', 'progress', 'minimum', 'maximum', 'created_time', 'started_time',
                   'modified_time', 'completed_time', 'fields')
     def post_task_management_subtasks(self, *, task_state, message_local_info, progress=None, minimum=None,
@@ -510,6 +498,29 @@ class System(QRadarAPIEndpoint):
         headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'task_management/subtasks')
         return self._call('POST', function_endpoint, headers=headers, **kwargs)
+
+    @header_vars('Range')
+    @request_vars('filter', 'fields')
+    def get_task_management_subtasks(self, *, filter=None, fields=None, Range=None, **kwargs):
+        """
+        GET /system/task_management/subtasks
+        Gets all TaskSubStatuses
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl, 'task_management/subtasks')
+        return self._call('GET', function_endpoint, headers=headers, **kwargs)
+
+    @request_vars('fields')
+    def get_task_management_subtasks_by_id(self, id, *, fields=None, **kwargs):
+        """
+        GET /system/task_management/subtasks/{id}
+        Gets a TaskSubStatus
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl, 'task_management/subtasks/{id}'.format(id=id))
+        return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
     @request_vars('task_state', 'message_local_info', 'progress', 'minimum', 'maximum', 'created_time', 'started_time',
                   'modified_time', 'completed_time', 'fields')
@@ -525,17 +536,6 @@ class System(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'task_management/subtasks/{id}'.format(id=id))
         return self._call('POST', function_endpoint, headers=headers, **kwargs)
 
-    @request_vars('fields')
-    def get_task_management_subtasks_by_id(self, id, *, fields=None, **kwargs):
-        """
-        GET /system/task_management/subtasks/{id}
-        Gets a TaskSubStatus
-        UNDOCUMENTED
-        """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
-        function_endpoint = urljoin(self._baseurl, 'task_management/subtasks/{id}'.format(id=id))
-        return self._call('GET', function_endpoint, headers=headers, **kwargs)
-
     def delete_task_management_subtasks_by_id(self, id, **kwargs):
         """
         DELETE /system/task_management/subtasks/{id}
@@ -545,18 +545,6 @@ class System(QRadarAPIEndpoint):
         headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'task_management/subtasks/{id}'.format(id=id))
         return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
-
-    @header_vars('Range')
-    @request_vars('fields', 'filter')
-    def get_task_management_task(self, *, fields=None, Range=None, filter=None, **kwargs):
-        """
-        GET /system/task_management/task
-        Gets all TaskStatuses
-        UNDOCUMENTED
-        """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
-        function_endpoint = urljoin(self._baseurl, 'task_management/task')
-        return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
     @request_vars('host_id', 'app_id', 'status_uuid', 'children_ids', 'task_type', 'task_state', 'task_name_local_info',
                   'message_local_info', 'progress', 'minimum', 'maximum', 'created_by', 'cancelled_by', 'created',
@@ -576,16 +564,28 @@ class System(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'task_management/task')
         return self._call('POST', function_endpoint, headers=headers, **kwargs)
 
-    @request_vars('delete_result')
-    def delete_task_management_task_by_id(self, id, *, delete_result=None, **kwargs):
+    @header_vars('Range')
+    @request_vars('filter', 'fields')
+    def get_task_management_task(self, *, filter=None, fields=None, Range=None, **kwargs):
         """
-        DELETE /system/task_management/task/{id}
-        Deletes a TaskStatus
+        GET /system/task_management/task
+        Gets all TaskStatuses
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl, 'task_management/task')
+        return self._call('GET', function_endpoint, headers=headers, **kwargs)
+
+    @request_vars('id_type', 'fields')
+    def get_task_management_task_by_id(self, id, *, id_type=None, fields=None, **kwargs):
+        """
+        GET /system/task_management/task/{id}
+        Gets a TaskStatus
         UNDOCUMENTED
         """
         headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'task_management/task/{id}'.format(id=id))
-        return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
+        return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
     @request_vars('host_id', 'app_id', 'status_uuid', 'task_type', 'children_ids', 'task_state', 'task_name_local_info',
                   'message_local_info', 'progress', 'minimum', 'maximum', 'created_by', 'cancelled_by', 'created',
@@ -606,16 +606,16 @@ class System(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'task_management/task/{id}'.format(id=id))
         return self._call('POST', function_endpoint, headers=headers, **kwargs)
 
-    @request_vars('id_type', 'fields')
-    def get_task_management_task_by_id(self, id, *, id_type=None, fields=None, **kwargs):
+    @request_vars('delete_result')
+    def delete_task_management_task_by_id(self, id, *, delete_result=None, **kwargs):
         """
-        GET /system/task_management/task/{id}
-        Gets a TaskStatus
+        DELETE /system/task_management/task/{id}
+        Deletes a TaskStatus
         UNDOCUMENTED
         """
         headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'task_management/task/{id}'.format(id=id))
-        return self._call('GET', function_endpoint, headers=headers, **kwargs)
+        return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
 
     def delete_task_management_task_result_by_id(self, id, **kwargs):
         """
@@ -626,16 +626,6 @@ class System(QRadarAPIEndpoint):
         headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'task_management/task/{id}/result'.format(id=id))
         return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
-
-    def get_task_management_task_resume_data_by_id(self, id, **kwargs):
-        """
-        GET /system/task_management/task/{id}/resume_data
-        Gets the resume from the TaskStatus
-        UNDOCUMENTED
-        """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
-        function_endpoint = urljoin(self._baseurl, 'task_management/task/{id}/resume_data'.format(id=id))
-        return self._call('GET', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
 
     @request_vars('resume_data')
     def post_task_management_task_resume_data_by_id(self, id, *, resume_data, **kwargs):
@@ -648,24 +638,14 @@ class System(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'task_management/task/{id}/resume_data'.format(id=id))
         return self._call('POST', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
 
-    def delete_task_management_task_id_by_uuid(self, uuid, **kwargs):
+    def get_task_management_task_resume_data_by_id(self, id, **kwargs):
         """
-        DELETE /system/task_management/task_id/{uuid}
-        No summary provided
+        GET /system/task_management/task/{id}/resume_data
+        Gets the resume from the TaskStatus
         UNDOCUMENTED
         """
         headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
-        function_endpoint = urljoin(self._baseurl, 'task_management/task_id/{uuid}'.format(uuid=uuid))
-        return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
-
-    def get_task_management_task_id_by_uuid(self, uuid, **kwargs):
-        """
-        GET /system/task_management/task_id/{uuid}
-        No summary provided
-        UNDOCUMENTED
-        """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
-        function_endpoint = urljoin(self._baseurl, 'task_management/task_id/{uuid}'.format(uuid=uuid))
+        function_endpoint = urljoin(self._baseurl, 'task_management/task/{id}/resume_data'.format(id=id))
         return self._call('GET', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
 
     @request_vars('task_id')
@@ -678,6 +658,26 @@ class System(QRadarAPIEndpoint):
         headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'task_management/task_id/{uuid}'.format(uuid=uuid))
         return self._call('POST', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
+
+    def get_task_management_task_id_by_uuid(self, uuid, **kwargs):
+        """
+        GET /system/task_management/task_id/{uuid}
+        No summary provided
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl, 'task_management/task_id/{uuid}'.format(uuid=uuid))
+        return self._call('GET', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
+
+    def delete_task_management_task_id_by_uuid(self, uuid, **kwargs):
+        """
+        DELETE /system/task_management/task_id/{uuid}
+        No summary provided
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl, 'task_management/task_id/{uuid}'.format(uuid=uuid))
+        return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
 
     @request_vars('host_id', 'app_id', 'status_uuid', 'children_ids', 'sub_task_ids', 'task_class', 'task_type',
                   'task_state', 'task_name_local_info', 'message_local_info', 'progress', 'minimum', 'maximum',
@@ -699,8 +699,8 @@ class System(QRadarAPIEndpoint):
         return self._call('POST', function_endpoint, headers=headers, **kwargs)
 
     @header_vars('Range')
-    @request_vars('fields', 'filter')
-    def get_task_management_tasks(self, *, fields=None, Range=None, filter=None, **kwargs):
+    @request_vars('filter', 'fields')
+    def get_task_management_tasks(self, *, filter=None, fields=None, Range=None, **kwargs):
         """
         GET /system/task_management/tasks
         Gets all TaskStatuses
@@ -721,17 +721,6 @@ class System(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'task_management/tasks/{id}'.format(id=id))
         return self._call('POST', function_endpoint, headers=headers, **kwargs)
 
-    @request_vars('delete_result')
-    def delete_task_management_tasks_by_id(self, id, *, delete_result=None, **kwargs):
-        """
-        DELETE /system/task_management/tasks/{id}
-        Deletes a TaskStatus
-        UNDOCUMENTED
-        """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
-        function_endpoint = urljoin(self._baseurl, 'task_management/tasks/{id}'.format(id=id))
-        return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
-
     @request_vars('id_type', 'fields')
     def get_task_management_tasks_by_id(self, id, *, id_type=None, fields=None, **kwargs):
         """
@@ -743,6 +732,17 @@ class System(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'task_management/tasks/{id}'.format(id=id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
+    @request_vars('delete_result')
+    def delete_task_management_tasks_by_id(self, id, *, delete_result=None, **kwargs):
+        """
+        DELETE /system/task_management/tasks/{id}
+        Deletes a TaskStatus
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl, 'task_management/tasks/{id}'.format(id=id))
+        return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
+
     def get_task_management_tasks_result_by_id(self, id, **kwargs):
         """
         GET /system/task_management/tasks/{id}/result
@@ -752,16 +752,6 @@ class System(QRadarAPIEndpoint):
         headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'task_management/tasks/{id}/result'.format(id=id))
         return self._call('GET', function_endpoint, response_type='application/octet-stream', headers=headers, **kwargs)
-
-    def delete_task_management_tasks_result_by_id(self, id, **kwargs):
-        """
-        DELETE /system/task_management/tasks/{id}/result
-        Deletes a result
-        UNDOCUMENTED
-        """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
-        function_endpoint = urljoin(self._baseurl, 'task_management/tasks/{id}/result'.format(id=id))
-        return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
 
     def post_task_management_tasks_result_by_id(self, id, *, result, **kwargs):
         """
@@ -774,3 +764,13 @@ class System(QRadarAPIEndpoint):
         return self._call('POST', function_endpoint, response_type='text/plain',
                           mime_type={'Content-Type': 'application/octet-stream'}, data=result, headers=headers,
                           **kwargs)
+
+    def delete_task_management_tasks_result_by_id(self, id, **kwargs):
+        """
+        DELETE /system/task_management/tasks/{id}/result
+        Deletes a result
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl, 'task_management/tasks/{id}/result'.format(id=id))
+        return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)

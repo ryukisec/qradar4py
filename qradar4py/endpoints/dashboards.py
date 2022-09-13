@@ -18,8 +18,8 @@ class Dashboards(QRadarAPIEndpoint):
                          verify)
 
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get(self, *, filter=None, Range=None, fields=None, **kwargs):
+    @request_vars('fields', 'filter')
+    def get(self, *, fields=None, filter=None, Range=None, **kwargs):
         """
         GET /dashboards
         Retrieves a list of dashboards.

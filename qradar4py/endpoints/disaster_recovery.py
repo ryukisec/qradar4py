@@ -16,8 +16,8 @@ class DisasterRecovery(QRadarAPIEndpoint):
                          header,
                          verify)
 
-    @request_vars('fields', 'filter')
-    def get_ariel_copy_profiles(self, *, fields=None, filter=None, **kwargs):
+    @request_vars('filter', 'fields')
+    def get_ariel_copy_profiles(self, *, filter=None, fields=None, **kwargs):
         """
         GET /disaster_recovery/ariel_copy_profiles
         Retrieves a list of the Ariel Copy Profiles.
@@ -43,14 +43,6 @@ class DisasterRecovery(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'ariel_copy_profiles/{id}'.format(id=id))
         return self._call('POST', function_endpoint, json=arielCopyProfileDTO, **kwargs)
 
-    def delete_ariel_copy_profiles_by_id(self, id, **kwargs):
-        """
-        DELETE /disaster_recovery/ariel_copy_profiles/{id}
-        Deletes a Ariel Copy Profile by ID.
-        """
-        function_endpoint = urljoin(self._baseurl, 'ariel_copy_profiles/{id}'.format(id=id))
-        return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
-
     @request_vars('fields')
     def get_ariel_copy_profiles_by_id(self, id, *, fields=None, **kwargs):
         """
@@ -59,3 +51,11 @@ class DisasterRecovery(QRadarAPIEndpoint):
         """
         function_endpoint = urljoin(self._baseurl, 'ariel_copy_profiles/{id}'.format(id=id))
         return self._call('GET', function_endpoint, **kwargs)
+
+    def delete_ariel_copy_profiles_by_id(self, id, **kwargs):
+        """
+        DELETE /disaster_recovery/ariel_copy_profiles/{id}
+        Deletes a Ariel Copy Profile by ID.
+        """
+        function_endpoint = urljoin(self._baseurl, 'ariel_copy_profiles/{id}'.format(id=id))
+        return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)

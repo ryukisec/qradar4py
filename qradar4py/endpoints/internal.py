@@ -18,8 +18,8 @@ class Internal(QRadarAPIEndpoint):
                          verify)
 
     @header_vars('Range')
-    @request_vars('fields', 'filter', 'sort')
-    def get_historical_correlation_hc_profiles(self, *, Range=None, fields=None, filter=None, sort=None, **kwargs):
+    @request_vars('filter', 'sort', 'fields')
+    def get_historical_correlation_hc_profiles(self, *, filter=None, sort=None, fields=None, Range=None, **kwargs):
         """
         GET /internal/historical_correlation/hc_profiles
         Retrieves a list of historical correlation profiles without returning any rules.
@@ -74,9 +74,9 @@ class Internal(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
     @header_vars('Range')
-    @request_vars('interface_types', 'sort', 'fields', 'filter')
-    def get_system_servers_network_interfaces_by_server_id(self, server_id, *, interface_types=None, sort=None,
-                                                           Range=None, fields=None, filter=None, **kwargs):
+    @request_vars('interface_types', 'filter', 'sort', 'fields')
+    def get_system_servers_network_interfaces_by_server_id(self, server_id, *, interface_types=None, Range=None,
+                                                           filter=None, sort=None, fields=None, **kwargs):
         """
         GET /internal/system/servers/{server_id}/network_interfaces
         Get network interfaces by server id.

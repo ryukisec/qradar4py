@@ -19,7 +19,7 @@ class Support(QRadarAPIEndpoint):
 
     @header_vars('Range')
     @request_vars('filter', 'fields')
-    def get_log_bundles(self, *, filter=None, Range=None, fields=None, **kwargs):
+    def get_log_bundles(self, *, Range=None, filter=None, fields=None, **kwargs):
         """
         GET /support/log_bundles
         get all get_logs tasks' statuses.
@@ -29,11 +29,8 @@ class Support(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'log_bundles')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
-    @request_vars('include_old_logs', 'include_setup_logs', 'include_debug_log', 'include_application_ext_logs',
-                  'include_hosts_ips', 'encrypt_logs', 'fields')
-    def post_log_bundles(self, *, include_old_logs=None, include_setup_logs=None, include_debug_log=None,
-                         include_application_ext_logs=None, include_hosts_ips=None, encrypt_logs=None, fields=None,
-                         **kwargs):
+    @header_vars('fields')
+    def post_log_bundles(self, *, get_logs_args, fields=None, **kwargs):
         """
         POST /support/log_bundles
         Collect logs according to user options.
@@ -41,7 +38,7 @@ class Support(QRadarAPIEndpoint):
         """
         headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'log_bundles')
-        return self._call('POST', function_endpoint, headers=headers, **kwargs)
+        return self._call('POST', function_endpoint, json=get_logs_args, headers=headers, **kwargs)
 
     @request_vars('is_initial_id', 'fields')
     def get_log_bundles_by_log_bundle_id(self, log_bundle_id, *, is_initial_id=None, fields=None, **kwargs):
@@ -54,16 +51,6 @@ class Support(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'log_bundles/{log_bundle_id}'.format(log_bundle_id=log_bundle_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
-    def delete_log_bundles_by_log_bundle_id(self, log_bundle_id, **kwargs):
-        """
-        DELETE /support/log_bundles/{log_bundle_id}
-        delete a get_logs task by id.
-        UNDOCUMENTED
-        """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
-        function_endpoint = urljoin(self._baseurl, 'log_bundles/{log_bundle_id}'.format(log_bundle_id=log_bundle_id))
-        return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
-
     def post_log_bundles_by_log_bundle_id(self, log_bundle_id, **kwargs):
         """
         POST /support/log_bundles/{log_bundle_id}
@@ -73,6 +60,16 @@ class Support(QRadarAPIEndpoint):
         headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'log_bundles/{log_bundle_id}'.format(log_bundle_id=log_bundle_id))
         return self._call('POST', function_endpoint, headers=headers, **kwargs)
+
+    def delete_log_bundles_by_log_bundle_id(self, log_bundle_id, **kwargs):
+        """
+        DELETE /support/log_bundles/{log_bundle_id}
+        delete a get_logs task by id.
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl, 'log_bundles/{log_bundle_id}'.format(log_bundle_id=log_bundle_id))
+        return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
 
     def get_log_bundles_result_by_log_bundle_id(self, log_bundle_id, **kwargs):
         """

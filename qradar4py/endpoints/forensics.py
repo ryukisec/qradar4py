@@ -26,6 +26,16 @@ class Forensics(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'alerting_jobs/{id}'.format(id=id))
         return self._call('POST', function_endpoint, json=alerting_job, headers=headers, **kwargs)
 
+    @header_vars('Range')
+    @request_vars('fields', 'filter')
+    def get_capture_recoveries(self, *, fields=None, Range=None, filter=None, **kwargs):
+        """
+        GET /forensics/capture/recoveries
+        Retrieves a list of capture recoveries.
+        """
+        function_endpoint = urljoin(self._baseurl, 'capture/recoveries')
+        return self._call('GET', function_endpoint, **kwargs)
+
     @header_vars('fields')
     def post_capture_recoveries(self, *, recovery, fields=None, **kwargs):
         """
@@ -34,16 +44,6 @@ class Forensics(QRadarAPIEndpoint):
         """
         function_endpoint = urljoin(self._baseurl, 'capture/recoveries')
         return self._call('POST', function_endpoint, json=recovery, **kwargs)
-
-    @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_capture_recoveries(self, *, Range=None, filter=None, fields=None, **kwargs):
-        """
-        GET /forensics/capture/recoveries
-        Retrieves a list of capture recoveries.
-        """
-        function_endpoint = urljoin(self._baseurl, 'capture/recoveries')
-        return self._call('GET', function_endpoint, **kwargs)
 
     @request_vars('fields')
     def get_capture_recoveries_by_id(self, id, *, fields=None, **kwargs):
@@ -55,8 +55,8 @@ class Forensics(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_capture_recovery_tasks(self, *, Range=None, filter=None, fields=None, **kwargs):
+    @request_vars('fields', 'filter')
+    def get_capture_recovery_tasks(self, *, fields=None, Range=None, filter=None, **kwargs):
         """
         GET /forensics/capture/recovery_tasks
         Retrieves a list of recovery tasks.
@@ -82,6 +82,16 @@ class Forensics(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'case_management/case_create_tasks/{id}'.format(id=id))
         return self._call('GET', function_endpoint, **kwargs)
 
+    @header_vars('Range')
+    @request_vars('fields', 'filter')
+    def get_case_management_cases(self, *, fields=None, Range=None, filter=None, **kwargs):
+        """
+        GET /forensics/case_management/cases
+        Retrieves a list of cases.
+        """
+        function_endpoint = urljoin(self._baseurl, 'case_management/cases')
+        return self._call('GET', function_endpoint, **kwargs)
+
     @header_vars('fields')
     def post_case_management_cases(self, *, case, fields=None, **kwargs):
         """
@@ -90,16 +100,6 @@ class Forensics(QRadarAPIEndpoint):
         """
         function_endpoint = urljoin(self._baseurl, 'case_management/cases')
         return self._call('POST', function_endpoint, json=case, **kwargs)
-
-    @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_case_management_cases(self, *, Range=None, filter=None, fields=None, **kwargs):
-        """
-        GET /forensics/case_management/cases
-        Retrieves a list of cases.
-        """
-        function_endpoint = urljoin(self._baseurl, 'case_management/cases')
-        return self._call('GET', function_endpoint, **kwargs)
 
     @request_vars('fields')
     def get_case_management_cases_by_id(self, id, *, fields=None, **kwargs):

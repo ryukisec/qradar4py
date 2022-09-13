@@ -16,32 +16,55 @@ class Config(QRadarAPIEndpoint):
                          header,
                          verify)
 
+    @header_vars('fields')
+    def post_access_authorized_services(self, *, authorized_service, fields=None, **kwargs):
+        """
+        POST /config/access/authorized_services
+        Creates an authorized service. The response to this API invocation will contain the API token. This will be the only time the token value is available.
+        """
+        function_endpoint = urljoin(self._baseurl, 'access/authorized_services')
+        return self._call('POST', function_endpoint, json=authorized_service, **kwargs)
+
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_access_authorized_services(self, *, filter=None, Range=None, fields=None, **kwargs):
+    @request_vars('current_authorized_service', 'filter', 'fields')
+    def get_access_authorized_services(self, *, current_authorized_service=None, Range=None, filter=None, fields=None,
+                                       **kwargs):
         """
         GET /config/access/authorized_services
-        No summary provided
-        UNDOCUMENTED
+        Retrieves a list of authorized services. For security reasons, the token field will never be populated in this endpoint.
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'access/authorized_services')
-        return self._call('GET', function_endpoint, headers=headers, **kwargs)
+        return self._call('GET', function_endpoint, **kwargs)
+
+    def delete_access_authorized_services_by_id(self, id, **kwargs):
+        """
+        DELETE /config/access/authorized_services/{id}
+        Deletes an authorized service.
+        """
+        function_endpoint = urljoin(self._baseurl, 'access/authorized_services/{id}'.format(id=id))
+        return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
 
     @request_vars('fields')
     def get_access_authorized_services_by_id(self, id, *, fields=None, **kwargs):
         """
         GET /config/access/authorized_services/{id}
-        No summary provided
-        UNDOCUMENTED
+        Retrieves an authorized service.  For security reasons, the token field will never be populated in this endpoint.
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'access/authorized_services/{id}'.format(id=id))
-        return self._call('GET', function_endpoint, headers=headers, **kwargs)
+        return self._call('GET', function_endpoint, **kwargs)
+
+    @header_vars('fields')
+    def post_access_authorized_services_by_id(self, id, *, authorized_service, fields=None, **kwargs):
+        """
+        POST /config/access/authorized_services/{id}
+        Updates an authorized service. Only the label, tenant_id, security_profile_id, user_role_id, and expiration_date fields can be updated.
+        """
+        function_endpoint = urljoin(self._baseurl, 'access/authorized_services/{id}'.format(id=id))
+        return self._call('POST', function_endpoint, json=authorized_service, **kwargs)
 
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_access_roles(self, *, filter=None, Range=None, fields=None, **kwargs):
+    @request_vars('fields', 'filter')
+    def get_access_roles(self, *, fields=None, filter=None, Range=None, **kwargs):
         """
         GET /config/access/roles
         No summary provided
@@ -63,9 +86,9 @@ class Config(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
     @header_vars('Range')
-    @request_vars('tenant_id', 'current_security_profile', 'filter', 'fields')
-    def get_access_security_profiles(self, *, tenant_id=None, current_security_profile=None, filter=None, Range=None,
-                                     fields=None, **kwargs):
+    @request_vars('tenant_id', 'current_security_profile', 'fields', 'filter')
+    def get_access_security_profiles(self, *, tenant_id=None, current_security_profile=None, fields=None, filter=None,
+                                     Range=None, **kwargs):
         """
         GET /config/access/security_profiles
         Get the list of deployed security profiles available in the system.
@@ -82,64 +105,6 @@ class Config(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'access/security_profiles/{id}'.format(id=id))
         return self._call('GET', function_endpoint, **kwargs)
 
-    @request_vars('name', 'role_id', 'security_profile_id', 'expires', 'fields')
-    def post_access_staged_authorized_services(self, *, name, role_id, security_profile_id, expires=None, fields=None,
-                                               **kwargs):
-        """
-        POST /config/access/staged_authorized_services
-        No summary provided
-        UNDOCUMENTED
-        """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
-        function_endpoint = urljoin(self._baseurl, 'access/staged_authorized_services')
-        return self._call('POST', function_endpoint, headers=headers, **kwargs)
-
-    @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_access_staged_authorized_services(self, *, filter=None, Range=None, fields=None, **kwargs):
-        """
-        GET /config/access/staged_authorized_services
-        No summary provided
-        UNDOCUMENTED
-        """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
-        function_endpoint = urljoin(self._baseurl, 'access/staged_authorized_services')
-        return self._call('GET', function_endpoint, headers=headers, **kwargs)
-
-    @request_vars('fields')
-    def delete_access_staged_authorized_services_by_id(self, id, *, fields=None, **kwargs):
-        """
-        DELETE /config/access/staged_authorized_services/{id}
-        No summary provided
-        UNDOCUMENTED
-        """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
-        function_endpoint = urljoin(self._baseurl, 'access/staged_authorized_services/{id}'.format(id=id))
-        return self._call('DELETE', function_endpoint, headers=headers, **kwargs)
-
-    @request_vars('fields')
-    def get_access_staged_authorized_services_by_id(self, id, *, fields=None, **kwargs):
-        """
-        GET /config/access/staged_authorized_services/{id}
-        No summary provided
-        UNDOCUMENTED
-        """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
-        function_endpoint = urljoin(self._baseurl, 'access/staged_authorized_services/{id}'.format(id=id))
-        return self._call('GET', function_endpoint, headers=headers, **kwargs)
-
-    @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_access_staged_roles(self, *, filter=None, Range=None, fields=None, **kwargs):
-        """
-        GET /config/access/staged_roles
-        No summary provided
-        UNDOCUMENTED
-        """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
-        function_endpoint = urljoin(self._baseurl, 'access/staged_roles')
-        return self._call('GET', function_endpoint, headers=headers, **kwargs)
-
     @request_vars('name', 'capabilities', 'fields')
     def post_access_staged_roles(self, *, name, capabilities, fields=None, **kwargs):
         """
@@ -150,6 +115,18 @@ class Config(QRadarAPIEndpoint):
         headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'access/staged_roles')
         return self._call('POST', function_endpoint, headers=headers, **kwargs)
+
+    @header_vars('Range')
+    @request_vars('fields', 'filter')
+    def get_access_staged_roles(self, *, fields=None, filter=None, Range=None, **kwargs):
+        """
+        GET /config/access/staged_roles
+        No summary provided
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl, 'access/staged_roles')
+        return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
     @request_vars('fields')
     def delete_access_staged_roles_by_id(self, id, *, fields=None, **kwargs):
@@ -183,8 +160,8 @@ class Config(QRadarAPIEndpoint):
         return self._call('POST', function_endpoint, json=tenant, **kwargs)
 
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_access_tenant_management_tenants(self, *, filter=None, Range=None, fields=None, **kwargs):
+    @request_vars('fields', 'filter')
+    def get_access_tenant_management_tenants(self, *, fields=None, filter=None, Range=None, **kwargs):
         """
         GET /config/access/tenant_management/tenants
         Retrieve the list of all tenants ordered by tenant id.
@@ -202,6 +179,15 @@ class Config(QRadarAPIEndpoint):
                                     'access/tenant_management/tenants/{tenant_id}'.format(tenant_id=tenant_id))
         return self._call('GET', function_endpoint, **kwargs)
 
+    def delete_access_tenant_management_tenants_by_tenant_id(self, tenant_id, **kwargs):
+        """
+        DELETE /config/access/tenant_management/tenants/{tenant_id}
+        Delete a tenant.
+        """
+        function_endpoint = urljoin(self._baseurl,
+                                    'access/tenant_management/tenants/{tenant_id}'.format(tenant_id=tenant_id))
+        return self._call('DELETE', function_endpoint, **kwargs)
+
     @header_vars('fields')
     def post_access_tenant_management_tenants_by_tenant_id(self, tenant_id, *, tenant, fields=None, **kwargs):
         """
@@ -211,15 +197,6 @@ class Config(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl,
                                     'access/tenant_management/tenants/{tenant_id}'.format(tenant_id=tenant_id))
         return self._call('POST', function_endpoint, json=tenant, **kwargs)
-
-    def delete_access_tenant_management_tenants_by_tenant_id(self, tenant_id, **kwargs):
-        """
-        DELETE /config/access/tenant_management/tenants/{tenant_id}
-        Delete a tenant.
-        """
-        function_endpoint = urljoin(self._baseurl,
-                                    'access/tenant_management/tenants/{tenant_id}'.format(tenant_id=tenant_id))
-        return self._call('DELETE', function_endpoint, **kwargs)
 
     @header_vars('fields')
     def post_access_user_dependent_tasks_by_task_id(self, task_id, *, task, fields=None, **kwargs):
@@ -250,8 +227,8 @@ class Config(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('Range')
-    @request_vars('contains', 'filter', 'fields')
-    def get_access_user_roles(self, *, contains=None, filter=None, Range=None, fields=None, **kwargs):
+    @request_vars('contains', 'fields', 'filter')
+    def get_access_user_roles(self, *, contains=None, fields=None, filter=None, Range=None, **kwargs):
         """
         GET /config/access/user_roles
         Get the list of deployed user roles available in the system.
@@ -269,8 +246,8 @@ class Config(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('Range')
-    @request_vars('current_user', 'sort', 'filter', 'fields')
-    def get_access_users(self, *, current_user=None, sort=None, filter=None, Range=None, fields=None, **kwargs):
+    @request_vars('current_user', 'fields', 'filter', 'sort')
+    def get_access_users(self, *, current_user=None, fields=None, filter=None, sort=None, Range=None, **kwargs):
         """
         GET /config/access/users
         Retrieve Deployed Users.
@@ -289,15 +266,6 @@ class Config(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'access/users')
         return self._call('POST', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
 
-    @request_vars('fields')
-    def get_access_users_by_id(self, id, *, fields=None, **kwargs):
-        """
-        GET /config/access/users/{id}
-        Retrieves a deployed user.
-        """
-        function_endpoint = urljoin(self._baseurl, 'access/users/{id}'.format(id=id))
-        return self._call('GET', function_endpoint, **kwargs)
-
     @header_vars('fields')
     def post_access_users_by_id(self, id, *, body, fields=None, **kwargs):
         """
@@ -306,6 +274,15 @@ class Config(QRadarAPIEndpoint):
         """
         function_endpoint = urljoin(self._baseurl, 'access/users/{id}'.format(id=id))
         return self._call('POST', function_endpoint, json=body, **kwargs)
+
+    @request_vars('fields')
+    def get_access_users_by_id(self, id, *, fields=None, **kwargs):
+        """
+        GET /config/access/users/{id}
+        Retrieves a deployed user.
+        """
+        function_endpoint = urljoin(self._baseurl, 'access/users/{id}'.format(id=id))
+        return self._call('GET', function_endpoint, **kwargs)
 
     @request_vars('fields')
     def get_access_users_dependents_by_id(self, id, *, fields=None, **kwargs):
@@ -317,8 +294,8 @@ class Config(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('Range')
-    @request_vars('capabilities', 'filter', 'fields')
-    def get_access_users_with_capability_filter(self, *, capabilities, filter=None, Range=None, fields=None, **kwargs):
+    @request_vars('capabilities', 'fields', 'filter')
+    def get_access_users_with_capability_filter(self, *, capabilities, fields=None, filter=None, Range=None, **kwargs):
         """
         GET /config/access/users_with_capability_filter
         Retrieves a list of deployed users.
@@ -329,8 +306,8 @@ class Config(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_access_control_roles(self, *, filter=None, Range=None, fields=None, **kwargs):
+    @request_vars('fields', 'filter')
+    def get_access_control_roles(self, *, fields=None, filter=None, Range=None, **kwargs):
         """
         GET /config/access_control/roles
         Retrieves a list of a list of deployed roles that are currently in the system.
@@ -388,8 +365,8 @@ class Config(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_access_control_users(self, *, filter=None, Range=None, fields=None, **kwargs):
+    @request_vars('fields', 'filter')
+    def get_access_control_users(self, *, fields=None, filter=None, Range=None, **kwargs):
         """
         GET /config/access_control/users
         Retrieve the Deployed Users
@@ -442,83 +419,73 @@ class Config(QRadarAPIEndpoint):
 
     @header_vars('Range')
     @request_vars('filter', 'fields', 'sort')
-    def get_certificates_components(self, *, filter=None, Range=None, fields=None, sort=None, **kwargs):
+    def get_certificates_components(self, *, Range=None, filter=None, fields=None, sort=None, **kwargs):
         """
         GET /config/certificates/components
-        Gets the list of registered component names, paired with component ID.
-        UNDOCUMENTED
+        Gets the list of registered components.
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'certificates/components')
-        return self._call('GET', function_endpoint, headers=headers, **kwargs)
+        return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('Range')
     @request_vars('filter', 'fields')
-    def get_certificates_end_certificates(self, *, filter=None, Range=None, fields=None, **kwargs):
+    def get_certificates_end_certificates(self, *, Range=None, filter=None, fields=None, **kwargs):
         """
         GET /config/certificates/end_certificates
-        Gets the list of all certificates that have been uploaded and deployed.
-        UNDOCUMENTED
+        Gets the list of deployed certificates.
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'certificates/end_certificates')
-        return self._call('GET', function_endpoint, headers=headers, **kwargs)
+        return self._call('GET', function_endpoint, **kwargs)
 
     @request_vars('fields')
     def get_certificates_end_certificates_by_id(self, id, *, fields=None, **kwargs):
         """
         GET /config/certificates/end_certificates/{id}
-        Gets information about a specific deployed certificate, which is identified by its ID.
-        UNDOCUMENTED
+        Gets information about a specific deployed certificate, as specified the certificate ID.
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'certificates/end_certificates/{id}'.format(id=id))
-        return self._call('GET', function_endpoint, headers=headers, **kwargs)
+        return self._call('GET', function_endpoint, **kwargs)
 
     @request_vars('fields')
     def get_certificates_end_certificates_full_chain_by_id(self, id, *, fields=None, **kwargs):
         """
         GET /config/certificates/end_certificates/{id}/full_chain
-        Gets the full chain of the certificate.
-        UNDOCUMENTED
+        Gets the full chain of the certificate. The chain hierarchy includes the content of the end certificate, and the content of the issuer chain certificates, up to and including the root certificate.
+        This endpoint might not return the root certificate if it was uploaded in the last 24 hours.
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'certificates/end_certificates/{id}/full_chain'.format(id=id))
-        return self._call('GET', function_endpoint, headers=headers, **kwargs)
+        return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('Range')
     @request_vars('filter', 'fields')
-    def get_certificates_root_certificates(self, *, filter=None, Range=None, fields=None, **kwargs):
+    def get_certificates_root_certificates(self, *, Range=None, filter=None, fields=None, **kwargs):
         """
         GET /config/certificates/root_certificates
         Gets the list of all root certificates that have been uploaded and deployed.
-        UNDOCUMENTED
+         You must have System Administrator or Security Administrator permissions to use this endpoint.
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'certificates/root_certificates')
-        return self._call('GET', function_endpoint, headers=headers, **kwargs)
+        return self._call('GET', function_endpoint, **kwargs)
 
     @request_vars('fields')
     def get_certificates_root_certificates_by_id(self, id, *, fields=None, **kwargs):
         """
         GET /config/certificates/root_certificates/{id}
-        Gets details of a deployed root certificate by id.
-        UNDOCUMENTED
+        Gets details of a deployed root certificate, as specified by the ID.
+         You must have System Administrator or Security Administrator permissions to use this endpoint.
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'certificates/root_certificates/{id}'.format(id=id))
-        return self._call('GET', function_endpoint, headers=headers, **kwargs)
+        return self._call('GET', function_endpoint, **kwargs)
 
     def get_certificates_root_certificates_get_dependant_ids_by_id(self, id, **kwargs):
         """
         GET /config/certificates/root_certificates/{id}/get_dependant_ids
         Gets a list of end certificate IDs that depend on the root certificate. This endpoint might not return the dependent IDs of the certificates that were uploaded in the last 24 hours.
-        UNDOCUMENTED
+        You must have System Administrator or Security Administrator permissions to use this endpoint.
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'certificates/root_certificates/{id}/get_dependant_ids'.format(id=id))
-        return self._call('GET', function_endpoint, headers=headers, **kwargs)
+        return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('fields')
     def post_data_lake_properties(self, *, data_lake_property, fields=None, **kwargs):
@@ -532,8 +499,8 @@ class Config(QRadarAPIEndpoint):
         return self._call('POST', function_endpoint, json=data_lake_property, headers=headers, **kwargs)
 
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_data_lake_properties(self, *, filter=None, Range=None, fields=None, **kwargs):
+    @request_vars('fields', 'filter')
+    def get_data_lake_properties(self, *, fields=None, filter=None, Range=None, **kwargs):
         """
         GET /config/data_lake/properties
         Retrieves a list of Data Lake Properties.
@@ -542,6 +509,17 @@ class Config(QRadarAPIEndpoint):
         headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'data_lake/properties')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
+
+    @header_vars('fields')
+    def post_data_lake_properties_by_name(self, name, *, data_lake_property, fields=None, **kwargs):
+        """
+        POST /config/data_lake/properties/{name}
+        Updates the Data Lake Property configuration.
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl, 'data_lake/properties/{name}'.format(name=name))
+        return self._call('POST', function_endpoint, json=data_lake_property, headers=headers, **kwargs)
 
     @request_vars('fields')
     def get_data_lake_properties_by_name(self, name, *, fields=None, **kwargs):
@@ -564,27 +542,6 @@ class Config(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'data_lake/properties/{name}'.format(name=name))
         return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
 
-    @header_vars('fields')
-    def post_data_lake_properties_by_name(self, name, *, data_lake_property, fields=None, **kwargs):
-        """
-        POST /config/data_lake/properties/{name}
-        Updates the Data Lake Property configuration.
-        UNDOCUMENTED
-        """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
-        function_endpoint = urljoin(self._baseurl, 'data_lake/properties/{name}'.format(name=name))
-        return self._call('POST', function_endpoint, json=data_lake_property, headers=headers, **kwargs)
-
-    def get_deploy_action(self, **kwargs):
-        """
-        GET /config/deploy_action
-        No summary provided
-        UNDOCUMENTED
-        """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
-        function_endpoint = urljoin(self._baseurl, 'deploy_action')
-        return self._call('GET', function_endpoint, headers=headers, **kwargs)
-
     @request_vars('type')
     def post_deploy_action(self, *, type=None, **kwargs):
         """
@@ -596,9 +553,19 @@ class Config(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'deploy_action')
         return self._call('POST', function_endpoint, headers=headers, **kwargs)
 
+    def get_deploy_action(self, **kwargs):
+        """
+        GET /config/deploy_action
+        No summary provided
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl, 'deploy_action')
+        return self._call('GET', function_endpoint, headers=headers, **kwargs)
+
     @header_vars('Range')
     @request_vars('filter', 'fields')
-    def get_deployment_components(self, *, filter=None, Range=None, fields=None, **kwargs):
+    def get_deployment_components(self, *, Range=None, filter=None, fields=None, **kwargs):
         """
         GET /config/deployment/components
         See api_mapping.xml
@@ -621,7 +588,7 @@ class Config(QRadarAPIEndpoint):
 
     @header_vars('Range')
     @request_vars('filter', 'fields')
-    def get_deployment_hosts(self, *, filter=None, Range=None, fields=None, **kwargs):
+    def get_deployment_hosts(self, *, Range=None, filter=None, fields=None, **kwargs):
         """
         GET /config/deployment/hosts
         Retrieves a list of all deployed hosts.
@@ -660,7 +627,7 @@ class Config(QRadarAPIEndpoint):
 
     @header_vars('Range')
     @request_vars('filter', 'fields')
-    def get_deployment_hosts_tunnels_by_id(self, id, *, filter=None, Range=None, fields=None, **kwargs):
+    def get_deployment_hosts_tunnels_by_id(self, id, *, Range=None, filter=None, fields=None, **kwargs):
         """
         GET /config/deployment/hosts/{id}/tunnels
         Gets the list of tunnels for the host.
@@ -679,7 +646,7 @@ class Config(QRadarAPIEndpoint):
 
     @header_vars('Range')
     @request_vars('filter', 'fields')
-    def get_deployment_licenses(self, *, filter=None, Range=None, fields=None, **kwargs):
+    def get_deployment_licenses(self, *, Range=None, filter=None, fields=None, **kwargs):
         """
         GET /config/deployment/licenses
         Get a list of License and information form the encrypted file.
@@ -691,7 +658,7 @@ class Config(QRadarAPIEndpoint):
 
     @header_vars('Range')
     @request_vars('filter', 'fields')
-    def get_deployment_natgroups(self, *, filter=None, Range=None, fields=None, **kwargs):
+    def get_deployment_natgroups(self, *, Range=None, filter=None, fields=None, **kwargs):
         """
         GET /config/deployment/natgroups
         Get deployment NAT groups.  If no NAT groups exist an empty list will be returned.
@@ -726,18 +693,6 @@ class Config(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'deployment/natgroups/{id}'.format(id=id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
-    @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_deployment_staged_components(self, *, filter=None, Range=None, fields=None, **kwargs):
-        """
-        GET /config/deployment/staged_components
-        See api_mapping.xml
-        UNDOCUMENTED
-        """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
-        function_endpoint = urljoin(self._baseurl, 'deployment/staged_components')
-        return self._call('GET', function_endpoint, headers=headers, **kwargs)
-
     @request_vars('hostid', 'type', 'properties', 'fields')
     def post_deployment_staged_components(self, *, type, hostid=None, properties=None, fields=None, **kwargs):
         """
@@ -748,6 +703,29 @@ class Config(QRadarAPIEndpoint):
         headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'deployment/staged_components')
         return self._call('POST', function_endpoint, headers=headers, **kwargs)
+
+    @header_vars('Range')
+    @request_vars('filter', 'fields')
+    def get_deployment_staged_components(self, *, Range=None, filter=None, fields=None, **kwargs):
+        """
+        GET /config/deployment/staged_components
+        See api_mapping.xml
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl, 'deployment/staged_components')
+        return self._call('GET', function_endpoint, headers=headers, **kwargs)
+
+    @request_vars('fields')
+    def delete_deployment_staged_components_by_id(self, id, *, fields=None, **kwargs):
+        """
+        DELETE /config/deployment/staged_components/{id}
+        See api_mapping.xml
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl, 'deployment/staged_components/{id}'.format(id=id))
+        return self._call('DELETE', function_endpoint, headers=headers, **kwargs)
 
     @request_vars('targetids', 'updated_properties', 'fields')
     def post_deployment_staged_components_by_id(self, id, *, targetids=None, updated_properties=None, fields=None,
@@ -762,17 +740,6 @@ class Config(QRadarAPIEndpoint):
         return self._call('POST', function_endpoint, headers=headers, **kwargs)
 
     @request_vars('fields')
-    def delete_deployment_staged_components_by_id(self, id, *, fields=None, **kwargs):
-        """
-        DELETE /config/deployment/staged_components/{id}
-        See api_mapping.xml
-        UNDOCUMENTED
-        """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
-        function_endpoint = urljoin(self._baseurl, 'deployment/staged_components/{id}'.format(id=id))
-        return self._call('DELETE', function_endpoint, headers=headers, **kwargs)
-
-    @request_vars('fields')
     def get_deployment_staged_components_by_id(self, id, *, fields=None, **kwargs):
         """
         GET /config/deployment/staged_components/{id}
@@ -781,18 +748,6 @@ class Config(QRadarAPIEndpoint):
         """
         headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'deployment/staged_components/{id}'.format(id=id))
-        return self._call('GET', function_endpoint, headers=headers, **kwargs)
-
-    @header_vars('Range')
-    @request_vars('showall', 'filter', 'fields')
-    def get_deployment_staged_hosts(self, *, showall=None, filter=None, Range=None, fields=None, **kwargs):
-        """
-        GET /config/deployment/staged_hosts
-        See api_mapping.xml
-        UNDOCUMENTED
-        """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
-        function_endpoint = urljoin(self._baseurl, 'deployment/staged_hosts')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
     @header_vars('fields')
@@ -806,16 +761,17 @@ class Config(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'deployment/staged_hosts')
         return self._call('POST', function_endpoint, json=deploymentHost, headers=headers, **kwargs)
 
-    @header_vars('fields')
-    def post_deployment_staged_hosts_by_id(self, id, *, deploymentHost, fields=None, **kwargs):
+    @header_vars('Range')
+    @request_vars('showall', 'filter', 'fields')
+    def get_deployment_staged_hosts(self, *, showall=None, Range=None, filter=None, fields=None, **kwargs):
         """
-        POST /config/deployment/staged_hosts/{id}
+        GET /config/deployment/staged_hosts
         See api_mapping.xml
         UNDOCUMENTED
         """
         headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
-        function_endpoint = urljoin(self._baseurl, 'deployment/staged_hosts/{id}'.format(id=id))
-        return self._call('POST', function_endpoint, json=deploymentHost, headers=headers, **kwargs)
+        function_endpoint = urljoin(self._baseurl, 'deployment/staged_hosts')
+        return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
     @request_vars('fields')
     def delete_deployment_staged_hosts_by_id(self, id, *, fields=None, **kwargs):
@@ -828,6 +784,17 @@ class Config(QRadarAPIEndpoint):
         headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'deployment/staged_hosts/{id}'.format(id=id))
         return self._call('DELETE', function_endpoint, headers=headers, **kwargs)
+
+    @header_vars('fields')
+    def post_deployment_staged_hosts_by_id(self, id, *, deploymentHost, fields=None, **kwargs):
+        """
+        POST /config/deployment/staged_hosts/{id}
+        See api_mapping.xml
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl, 'deployment/staged_hosts/{id}'.format(id=id))
+        return self._call('POST', function_endpoint, json=deploymentHost, headers=headers, **kwargs)
 
     @request_vars('fields')
     def get_deployment_staged_hosts_by_id(self, id, *, fields=None, **kwargs):
@@ -842,7 +809,7 @@ class Config(QRadarAPIEndpoint):
 
     @header_vars('Range')
     @request_vars('filter', 'fields')
-    def get_deployment_staged_natgroups(self, *, filter=None, Range=None, fields=None, **kwargs):
+    def get_deployment_staged_natgroups(self, *, Range=None, filter=None, fields=None, **kwargs):
         """
         GET /config/deployment/staged_natgroups
         Get deployment NAT groups.  If staging directory does not exist will return deployed NAT groups.
@@ -876,24 +843,6 @@ class Config(QRadarAPIEndpoint):
         """
         headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'deployment/staged_natgroups')
-        return self._call('POST', function_endpoint, headers=headers, **kwargs)
-
-    @request_vars('name', 'fields')
-    def post_deployment_staged_natgroups_by_id(self, id, *, name, fields=None, **kwargs):
-        """
-        POST /config/deployment/staged_natgroups/{id}
-        Edit a NAT group.
-
-        Nat Group Structure
-
-
-        id - The unique id of the NAT group in the deployment.
-        name - The unique name of the NAT group in the deployment.
-
-        UNDOCUMENTED
-        """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
-        function_endpoint = urljoin(self._baseurl, 'deployment/staged_natgroups/{id}'.format(id=id))
         return self._call('POST', function_endpoint, headers=headers, **kwargs)
 
     @request_vars('fields')
@@ -931,6 +880,24 @@ class Config(QRadarAPIEndpoint):
         headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'deployment/staged_natgroups/{id}'.format(id=id))
         return self._call('DELETE', function_endpoint, headers=headers, **kwargs)
+
+    @request_vars('name', 'fields')
+    def post_deployment_staged_natgroups_by_id(self, id, *, name, fields=None, **kwargs):
+        """
+        POST /config/deployment/staged_natgroups/{id}
+        Edit a NAT group.
+
+        Nat Group Structure
+
+
+        id - The unique id of the NAT group in the deployment.
+        name - The unique name of the NAT group in the deployment.
+
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl, 'deployment/staged_natgroups/{id}'.format(id=id))
+        return self._call('POST', function_endpoint, headers=headers, **kwargs)
 
     @request_vars('fields')
     def get_deployment_summary(self, *, fields=None, **kwargs):
@@ -970,8 +937,8 @@ class Config(QRadarAPIEndpoint):
         return self._call('POST', function_endpoint, json=domain, **kwargs)
 
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_domain_management_domains(self, *, filter=None, Range=None, fields=None, **kwargs):
+    @request_vars('fields', 'filter')
+    def get_domain_management_domains(self, *, fields=None, filter=None, Range=None, **kwargs):
         """
         GET /config/domain_management/domains
         Gets the list of domains.
@@ -1007,13 +974,22 @@ class Config(QRadarAPIEndpoint):
         return self._call('POST', function_endpoint, json=domain, **kwargs)
 
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_event_retention_buckets(self, *, filter=None, Range=None, fields=None, **kwargs):
+    @request_vars('fields', 'filter')
+    def get_event_retention_buckets(self, *, fields=None, filter=None, Range=None, **kwargs):
         """
         GET /config/event_retention_buckets
         Retrieves a list of event retention buckets.
         """
         function_endpoint = urljoin(self._baseurl, 'event_retention_buckets')
+        return self._call('GET', function_endpoint, **kwargs)
+
+    @request_vars('fields')
+    def get_event_retention_buckets_by_id(self, id, *, fields=None, **kwargs):
+        """
+        GET /config/event_retention_buckets/{id}
+        Retrieves an event retention bucket.
+        """
+        function_endpoint = urljoin(self._baseurl, 'event_retention_buckets/{id}'.format(id=id))
         return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('fields')
@@ -1032,15 +1008,6 @@ class Config(QRadarAPIEndpoint):
         """
         function_endpoint = urljoin(self._baseurl, 'event_retention_buckets/{id}'.format(id=id))
         return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
-
-    @request_vars('fields')
-    def get_event_retention_buckets_by_id(self, id, *, fields=None, **kwargs):
-        """
-        GET /config/event_retention_buckets/{id}
-        Retrieves an event retention bucket.
-        """
-        function_endpoint = urljoin(self._baseurl, 'event_retention_buckets/{id}'.format(id=id))
-        return self._call('GET', function_endpoint, **kwargs)
 
     @request_vars('fields')
     def get_event_sources_custom_properties_aql_properties_dep_by_aql_property_id(self, aql_property_id, *, fields=None,
@@ -1114,9 +1081,9 @@ class Config(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_event_sources_custom_properties_aql_property_by_aql_property_name(self, aql_property_name, *, filter=None,
-                                                                              Range=None, fields=None, **kwargs):
+    @request_vars('fields', 'filter')
+    def get_event_sources_custom_properties_aql_property_by_aql_property_name(self, aql_property_name, *, fields=None,
+                                                                              Range=None, filter=None, **kwargs):
         """
         GET /config/event_sources/custom_properties/aql_property/{aql_property_name}
         Retrieves  an event AQL property by it's name.
@@ -1126,6 +1093,20 @@ class Config(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl,
                                     'event_sources/custom_properties/aql_property/{aql_property_name}'.format(
                                         aql_property_name=aql_property_name))
+        return self._call('GET', function_endpoint, headers=headers, **kwargs)
+
+    @request_vars('fields')
+    def get_event_sources_custom_properties_aql_property_dependent_tasks_disable_by_task_id(self, task_id, *,
+                                                                                            fields=None, **kwargs):
+        """
+        GET /config/event_sources/custom_properties/aql_property_dependent_tasks/disable/{task_id}
+        Retrieves the status of the event AQL property dependents task.
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl,
+                                    'event_sources/custom_properties/aql_property_dependent_tasks/disable/{task_id}'.format(
+                                        task_id=task_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
     @header_vars('fields')
@@ -1141,20 +1122,6 @@ class Config(QRadarAPIEndpoint):
                                     'event_sources/custom_properties/aql_property_dependent_tasks/disable/{task_id}'.format(
                                         task_id=task_id))
         return self._call('POST', function_endpoint, json=task, headers=headers, **kwargs)
-
-    @request_vars('fields')
-    def get_event_sources_custom_properties_aql_property_dependent_tasks_disable_by_task_id(self, task_id, *,
-                                                                                            fields=None, **kwargs):
-        """
-        GET /config/event_sources/custom_properties/aql_property_dependent_tasks/disable/{task_id}
-        Retrieves the status of the event AQL property dependents task.
-        UNDOCUMENTED
-        """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
-        function_endpoint = urljoin(self._baseurl,
-                                    'event_sources/custom_properties/aql_property_dependent_tasks/disable/{task_id}'.format(
-                                        task_id=task_id))
-        return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
     @request_vars('fields')
     def get_event_sources_custom_properties_aql_property_dependent_tasks_disable_results_by_task_id(self, task_id, *,
@@ -1223,8 +1190,8 @@ class Config(QRadarAPIEndpoint):
         return self._call('POST', function_endpoint, json=data, **kwargs)
 
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_event_sources_custom_properties_calculated_properties(self, *, filter=None, Range=None, fields=None,
+    @request_vars('fields', 'filter')
+    def get_event_sources_custom_properties_calculated_properties(self, *, fields=None, Range=None, filter=None,
                                                                   **kwargs):
         """
         GET /config/event_sources/custom_properties/calculated_properties
@@ -1247,18 +1214,19 @@ class Config(QRadarAPIEndpoint):
                                         calculated_property_id=calculated_property_id))
         return self._call('GET', function_endpoint, **kwargs)
 
-    @request_vars('fields')
-    def get_event_sources_custom_properties_calculated_properties_by_calculated_property_id(self,
-                                                                                            calculated_property_id, *,
-                                                                                            fields=None, **kwargs):
+    @header_vars('fields')
+    def post_event_sources_custom_properties_calculated_properties_by_calculated_property_id(self,
+                                                                                             calculated_property_id, *,
+                                                                                             data, fields=None,
+                                                                                             **kwargs):
         """
-        GET /config/event_sources/custom_properties/calculated_properties/{calculated_property_id}
-        Retrieves a calculated event property based on the supplied calculated property identifier.
+        POST /config/event_sources/custom_properties/calculated_properties/{calculated_property_id}
+        Updates an existing calculated event property.
         """
         function_endpoint = urljoin(self._baseurl,
                                     'event_sources/custom_properties/calculated_properties/{calculated_property_id}'.format(
                                         calculated_property_id=calculated_property_id))
-        return self._call('GET', function_endpoint, **kwargs)
+        return self._call('POST', function_endpoint, json=data, **kwargs)
 
     @request_vars('fields')
     def delete_event_sources_custom_properties_calculated_properties_by_calculated_property_id(self,
@@ -1274,19 +1242,18 @@ class Config(QRadarAPIEndpoint):
                                         calculated_property_id=calculated_property_id))
         return self._call('DELETE', function_endpoint, **kwargs)
 
-    @header_vars('fields')
-    def post_event_sources_custom_properties_calculated_properties_by_calculated_property_id(self,
-                                                                                             calculated_property_id, *,
-                                                                                             data, fields=None,
-                                                                                             **kwargs):
+    @request_vars('fields')
+    def get_event_sources_custom_properties_calculated_properties_by_calculated_property_id(self,
+                                                                                            calculated_property_id, *,
+                                                                                            fields=None, **kwargs):
         """
-        POST /config/event_sources/custom_properties/calculated_properties/{calculated_property_id}
-        Updates an existing calculated event property.
+        GET /config/event_sources/custom_properties/calculated_properties/{calculated_property_id}
+        Retrieves a calculated event property based on the supplied calculated property identifier.
         """
         function_endpoint = urljoin(self._baseurl,
                                     'event_sources/custom_properties/calculated_properties/{calculated_property_id}'.format(
                                         calculated_property_id=calculated_property_id))
-        return self._call('POST', function_endpoint, json=data, **kwargs)
+        return self._call('GET', function_endpoint, **kwargs)
 
     @request_vars('fields')
     def get_event_sources_custom_properties_calculated_properties_dependents_by_calculated_property_id(self,
@@ -1332,11 +1299,11 @@ class Config(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('Range')
-    @request_vars('filter', 'fields')
+    @request_vars('fields', 'filter')
     def get_event_sources_custom_properties_calculated_property_by_calculated_property_name(self,
                                                                                             calculated_property_name, *,
-                                                                                            filter=None, Range=None,
-                                                                                            fields=None, **kwargs):
+                                                                                            fields=None, Range=None,
+                                                                                            filter=None, **kwargs):
         """
         GET /config/event_sources/custom_properties/calculated_property/{calculated_property_name}
         Retrieves a list of event calculated properties.
@@ -1358,6 +1325,22 @@ class Config(QRadarAPIEndpoint):
                                         task_id=task_id))
         return self._call('GET', function_endpoint, **kwargs)
 
+    @request_vars('fields')
+    def get_event_sources_custom_properties_calculated_property_dependent_tasks_change_field_type_by_task_id(self,
+                                                                                                             task_id, *,
+                                                                                                             fields=None,
+                                                                                                             **kwargs):
+        """
+        GET /config/event_sources/custom_properties/calculated_property_dependent_tasks/change_field_type/{task_id}
+        No summary provided
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl,
+                                    'event_sources/custom_properties/calculated_property_dependent_tasks/change_field_type/{task_id}'.format(
+                                        task_id=task_id))
+        return self._call('GET', function_endpoint, headers=headers, **kwargs)
+
     @header_vars('fields')
     def post_event_sources_custom_properties_calculated_property_dependent_tasks_change_field_type_by_task_id(self,
                                                                                                               task_id,
@@ -1374,22 +1357,6 @@ class Config(QRadarAPIEndpoint):
                                     'event_sources/custom_properties/calculated_property_dependent_tasks/change_field_type/{task_id}'.format(
                                         task_id=task_id))
         return self._call('POST', function_endpoint, json=task, headers=headers, **kwargs)
-
-    @request_vars('fields')
-    def get_event_sources_custom_properties_calculated_property_dependent_tasks_change_field_type_by_task_id(self,
-                                                                                                             task_id, *,
-                                                                                                             fields=None,
-                                                                                                             **kwargs):
-        """
-        GET /config/event_sources/custom_properties/calculated_property_dependent_tasks/change_field_type/{task_id}
-        No summary provided
-        UNDOCUMENTED
-        """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
-        function_endpoint = urljoin(self._baseurl,
-                                    'event_sources/custom_properties/calculated_property_dependent_tasks/change_field_type/{task_id}'.format(
-                                        task_id=task_id))
-        return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
     @request_vars('fields')
     def get_event_sources_custom_properties_calculated_property_dependent_tasks_change_field_type_results_by_task_id(
@@ -1445,18 +1412,6 @@ class Config(QRadarAPIEndpoint):
                                         task_id=task_id))
         return self._call('GET', function_endpoint, **kwargs)
 
-    @header_vars('fields')
-    def post_event_sources_custom_properties_calculated_property_dependent_tasks_by_task_id(self, task_id, *, task,
-                                                                                            fields=None, **kwargs):
-        """
-        POST /config/event_sources/custom_properties/calculated_property_dependent_tasks/{task_id}
-        Cancels the event calculated property dependent task.
-        """
-        function_endpoint = urljoin(self._baseurl,
-                                    'event_sources/custom_properties/calculated_property_dependent_tasks/{task_id}'.format(
-                                        task_id=task_id))
-        return self._call('POST', function_endpoint, json=task, **kwargs)
-
     @request_vars('fields')
     def get_event_sources_custom_properties_calculated_property_dependent_tasks_by_task_id(self, task_id, *,
                                                                                            fields=None, **kwargs):
@@ -1468,6 +1423,18 @@ class Config(QRadarAPIEndpoint):
                                     'event_sources/custom_properties/calculated_property_dependent_tasks/{task_id}'.format(
                                         task_id=task_id))
         return self._call('GET', function_endpoint, **kwargs)
+
+    @header_vars('fields')
+    def post_event_sources_custom_properties_calculated_property_dependent_tasks_by_task_id(self, task_id, *, task,
+                                                                                            fields=None, **kwargs):
+        """
+        POST /config/event_sources/custom_properties/calculated_property_dependent_tasks/{task_id}
+        Cancels the event calculated property dependent task.
+        """
+        function_endpoint = urljoin(self._baseurl,
+                                    'event_sources/custom_properties/calculated_property_dependent_tasks/{task_id}'.format(
+                                        task_id=task_id))
+        return self._call('POST', function_endpoint, json=task, **kwargs)
 
     @request_vars('fields')
     def get_event_sources_custom_properties_calculated_property_dependent_tasks_results_by_task_id(self, task_id, *,
@@ -1484,7 +1451,7 @@ class Config(QRadarAPIEndpoint):
 
     @header_vars('Range')
     @request_vars('filter')
-    def get_event_sources_custom_properties_calculated_property_operands(self, *, filter=None, Range=None, **kwargs):
+    def get_event_sources_custom_properties_calculated_property_operands(self, *, Range=None, filter=None, **kwargs):
         """
         GET /config/event_sources/custom_properties/calculated_property_operands
         Retrieves the list of available options for calculated event property operand.
@@ -1492,9 +1459,119 @@ class Config(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'event_sources/custom_properties/calculated_property_operands')
         return self._call('GET', function_endpoint, **kwargs)
 
+    @header_vars('fields')
+    def post_event_sources_custom_properties_property_aql_expressions(self, *, data, fields=None, **kwargs):
+        """
+        POST /config/event_sources/custom_properties/property_aql_expressions
+        Creates a new Custom Property AQL expression. Requires the System Administrator, Security Admin or User Defined Event Properties permission.
+        """
+        function_endpoint = urljoin(self._baseurl, 'event_sources/custom_properties/property_aql_expressions')
+        return self._call('POST', function_endpoint, json=data, **kwargs)
+
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_event_sources_custom_properties_property_cef_expressions(self, *, filter=None, Range=None, fields=None,
+    @request_vars('fields', 'filter')
+    def get_event_sources_custom_properties_property_aql_expressions(self, *, fields=None, Range=None, filter=None,
+                                                                     **kwargs):
+        """
+        GET /config/event_sources/custom_properties/property_aql_expressions
+        Gets the list of Custom Property AQL Expressions. Requires the System Administrator, Security Admin or User Defined Event Properties permission.
+        """
+        function_endpoint = urljoin(self._baseurl, 'event_sources/custom_properties/property_aql_expressions')
+        return self._call('GET', function_endpoint, **kwargs)
+
+    @request_vars('fields')
+    def get_event_sources_custom_properties_property_aql_expressions_by_expression_id(self, expression_id, *,
+                                                                                      fields=None, **kwargs):
+        """
+        GET /config/event_sources/custom_properties/property_aql_expressions/{expression_id}
+        Gets a Custom Property AQL Expression by ID. Requires the System Administrator, Security Admin or User Defined Event Properties permission.
+        """
+        function_endpoint = urljoin(self._baseurl,
+                                    'event_sources/custom_properties/property_aql_expressions/{expression_id}'.format(
+                                        expression_id=expression_id))
+        return self._call('GET', function_endpoint, **kwargs)
+
+    @header_vars('fields')
+    def post_event_sources_custom_properties_property_aql_expressions_by_expression_id(self, expression_id, *, data,
+                                                                                       fields=None, **kwargs):
+        """
+        POST /config/event_sources/custom_properties/property_aql_expressions/{expression_id}
+        Updates a Custom Property AQL expression. Requires the System Administrator, Security Admin or User Defined Event Properties permission.
+        """
+        function_endpoint = urljoin(self._baseurl,
+                                    'event_sources/custom_properties/property_aql_expressions/{expression_id}'.format(
+                                        expression_id=expression_id))
+        return self._call('POST', function_endpoint, json=data, **kwargs)
+
+    def delete_event_sources_custom_properties_property_aql_expressions_by_expression_id(self, expression_id, **kwargs):
+        """
+        DELETE /config/event_sources/custom_properties/property_aql_expressions/{expression_id}
+        Deletes a Custom Property AQL expression based on the supplied expression ID. Requires the System Administrator, Security Admin or User Defined Event Properties permission.
+        """
+        function_endpoint = urljoin(self._baseurl,
+                                    'event_sources/custom_properties/property_aql_expressions/{expression_id}'.format(
+                                        expression_id=expression_id))
+        return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
+
+    @header_vars('Range')
+    @request_vars('fields', 'filter')
+    def get_event_sources_custom_properties_property_calculated_expressions(self, *, fields=None, Range=None,
+                                                                            filter=None, **kwargs):
+        """
+        GET /config/event_sources/custom_properties/property_calculated_expressions
+        Gets the list of Custom Property Calculated Expressions. Requires the System Administrator, Security Admin or User Defined Event Properties permission.
+        """
+        function_endpoint = urljoin(self._baseurl, 'event_sources/custom_properties/property_calculated_expressions')
+        return self._call('GET', function_endpoint, **kwargs)
+
+    @header_vars('fields')
+    def post_event_sources_custom_properties_property_calculated_expressions(self, *, data, fields=None, **kwargs):
+        """
+        POST /config/event_sources/custom_properties/property_calculated_expressions
+        Creates a new Custom Property Calculated Expression. Requires the System Administrator, Security Admin or User Defined Event Properties permission.
+        """
+        function_endpoint = urljoin(self._baseurl, 'event_sources/custom_properties/property_calculated_expressions')
+        return self._call('POST', function_endpoint, json=data, **kwargs)
+
+    @header_vars('fields')
+    def post_event_sources_custom_properties_property_calculated_expressions_by_expression_id(self, expression_id, *,
+                                                                                              data, fields=None,
+                                                                                              **kwargs):
+        """
+        POST /config/event_sources/custom_properties/property_calculated_expressions/{expression_id}
+        Updates a Custom Property Calculated Expression. Requires the System Administrator, Security Admin or User Defined Event Properties permission.
+        """
+        function_endpoint = urljoin(self._baseurl,
+                                    'event_sources/custom_properties/property_calculated_expressions/{expression_id}'.format(
+                                        expression_id=expression_id))
+        return self._call('POST', function_endpoint, json=data, **kwargs)
+
+    def delete_event_sources_custom_properties_property_calculated_expressions_by_expression_id(self, expression_id,
+                                                                                                **kwargs):
+        """
+        DELETE /config/event_sources/custom_properties/property_calculated_expressions/{expression_id}
+        Deletes a Custom Property Calculated Expression based on the supplied expression ID. Requires the System Administrator, Security Admin or User Defined Event Properties permission.
+        """
+        function_endpoint = urljoin(self._baseurl,
+                                    'event_sources/custom_properties/property_calculated_expressions/{expression_id}'.format(
+                                        expression_id=expression_id))
+        return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
+
+    @request_vars('fields')
+    def get_event_sources_custom_properties_property_calculated_expressions_by_expression_id(self, expression_id, *,
+                                                                                             fields=None, **kwargs):
+        """
+        GET /config/event_sources/custom_properties/property_calculated_expressions/{expression_id}
+        Gets a Custom Property Calculated Expression by ID. Requires the System Administrator, Security Admin or User Defined Event Properties permission.
+        """
+        function_endpoint = urljoin(self._baseurl,
+                                    'event_sources/custom_properties/property_calculated_expressions/{expression_id}'.format(
+                                        expression_id=expression_id))
+        return self._call('GET', function_endpoint, **kwargs)
+
+    @header_vars('Range')
+    @request_vars('fields', 'filter')
+    def get_event_sources_custom_properties_property_cef_expressions(self, *, fields=None, Range=None, filter=None,
                                                                      **kwargs):
         """
         GET /config/event_sources/custom_properties/property_cef_expressions
@@ -1512,18 +1589,6 @@ class Config(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'event_sources/custom_properties/property_cef_expressions')
         return self._call('POST', function_endpoint, json=data, **kwargs)
 
-    @request_vars('fields')
-    def get_event_sources_custom_properties_property_cef_expressions_by_expression_id(self, expression_id, *,
-                                                                                      fields=None, **kwargs):
-        """
-        GET /config/event_sources/custom_properties/property_cef_expressions/{expression_id}
-        Retrieves a CEF expression based on the supplied identifier.
-        """
-        function_endpoint = urljoin(self._baseurl,
-                                    'event_sources/custom_properties/property_cef_expressions/{expression_id}'.format(
-                                        expression_id=expression_id))
-        return self._call('GET', function_endpoint, **kwargs)
-
     @header_vars('fields')
     def post_event_sources_custom_properties_property_cef_expressions_by_expression_id(self, expression_id, *, data,
                                                                                        fields=None, **kwargs):
@@ -1536,6 +1601,18 @@ class Config(QRadarAPIEndpoint):
                                         expression_id=expression_id))
         return self._call('POST', function_endpoint, json=data, **kwargs)
 
+    @request_vars('fields')
+    def get_event_sources_custom_properties_property_cef_expressions_by_expression_id(self, expression_id, *,
+                                                                                      fields=None, **kwargs):
+        """
+        GET /config/event_sources/custom_properties/property_cef_expressions/{expression_id}
+        Retrieves a CEF expression based on the supplied identifier.
+        """
+        function_endpoint = urljoin(self._baseurl,
+                                    'event_sources/custom_properties/property_cef_expressions/{expression_id}'.format(
+                                        expression_id=expression_id))
+        return self._call('GET', function_endpoint, **kwargs)
+
     def delete_event_sources_custom_properties_property_cef_expressions_by_expression_id(self, expression_id, **kwargs):
         """
         DELETE /config/event_sources/custom_properties/property_cef_expressions/{expression_id}
@@ -1546,17 +1623,6 @@ class Config(QRadarAPIEndpoint):
                                         expression_id=expression_id))
         return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
 
-    @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_event_sources_custom_properties_property_expressions(self, *, filter=None, Range=None, fields=None,
-                                                                 **kwargs):
-        """
-        GET /config/event_sources/custom_properties/property_expressions
-        Retrieves a list of event regex property expressions.
-        """
-        function_endpoint = urljoin(self._baseurl, 'event_sources/custom_properties/property_expressions')
-        return self._call('GET', function_endpoint, **kwargs)
-
     @header_vars('fields')
     def post_event_sources_custom_properties_property_expressions(self, *, data, fields=None, **kwargs):
         """
@@ -1565,6 +1631,17 @@ class Config(QRadarAPIEndpoint):
         """
         function_endpoint = urljoin(self._baseurl, 'event_sources/custom_properties/property_expressions')
         return self._call('POST', function_endpoint, json=data, **kwargs)
+
+    @header_vars('Range')
+    @request_vars('fields', 'filter')
+    def get_event_sources_custom_properties_property_expressions(self, *, fields=None, Range=None, filter=None,
+                                                                 **kwargs):
+        """
+        GET /config/event_sources/custom_properties/property_expressions
+        Retrieves a list of event regex property expressions.
+        """
+        function_endpoint = urljoin(self._baseurl, 'event_sources/custom_properties/property_expressions')
+        return self._call('GET', function_endpoint, **kwargs)
 
     def delete_event_sources_custom_properties_property_expressions_by_expression_id(self, expression_id, **kwargs):
         """
@@ -1575,18 +1652,6 @@ class Config(QRadarAPIEndpoint):
                                     'event_sources/custom_properties/property_expressions/{expression_id}'.format(
                                         expression_id=expression_id))
         return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
-
-    @header_vars('fields')
-    def post_event_sources_custom_properties_property_expressions_by_expression_id(self, expression_id, *, data,
-                                                                                   fields=None, **kwargs):
-        """
-        POST /config/event_sources/custom_properties/property_expressions/{expression_id}
-        Updates an existing event regex property expression.
-        """
-        function_endpoint = urljoin(self._baseurl,
-                                    'event_sources/custom_properties/property_expressions/{expression_id}'.format(
-                                        expression_id=expression_id))
-        return self._call('POST', function_endpoint, json=data, **kwargs)
 
     @request_vars('fields')
     def get_event_sources_custom_properties_property_expressions_by_expression_id(self, expression_id, *, fields=None,
@@ -1601,6 +1666,18 @@ class Config(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('fields')
+    def post_event_sources_custom_properties_property_expressions_by_expression_id(self, expression_id, *, data,
+                                                                                   fields=None, **kwargs):
+        """
+        POST /config/event_sources/custom_properties/property_expressions/{expression_id}
+        Updates an existing event regex property expression.
+        """
+        function_endpoint = urljoin(self._baseurl,
+                                    'event_sources/custom_properties/property_expressions/{expression_id}'.format(
+                                        expression_id=expression_id))
+        return self._call('POST', function_endpoint, json=data, **kwargs)
+
+    @header_vars('fields')
     def post_event_sources_custom_properties_property_genericlist_expressions(self, *, data, fields=None, **kwargs):
         """
         POST /config/event_sources/custom_properties/property_genericlist_expressions
@@ -1610,28 +1687,15 @@ class Config(QRadarAPIEndpoint):
         return self._call('POST', function_endpoint, json=data, **kwargs)
 
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_event_sources_custom_properties_property_genericlist_expressions(self, *, filter=None, Range=None,
-                                                                             fields=None, **kwargs):
+    @request_vars('fields', 'filter')
+    def get_event_sources_custom_properties_property_genericlist_expressions(self, *, fields=None, Range=None,
+                                                                             filter=None, **kwargs):
         """
         GET /config/event_sources/custom_properties/property_genericlist_expressions
         Retrieves a list of Generic List expressions.
         """
         function_endpoint = urljoin(self._baseurl, 'event_sources/custom_properties/property_genericlist_expressions')
         return self._call('GET', function_endpoint, **kwargs)
-
-    @header_vars('fields')
-    def post_event_sources_custom_properties_property_genericlist_expressions_by_expression_id(self, expression_id, *,
-                                                                                               data, fields=None,
-                                                                                               **kwargs):
-        """
-        POST /config/event_sources/custom_properties/property_genericlist_expressions/{expression_id}
-        Updates an existing Generic List expression.
-        """
-        function_endpoint = urljoin(self._baseurl,
-                                    'event_sources/custom_properties/property_genericlist_expressions/{expression_id}'.format(
-                                        expression_id=expression_id))
-        return self._call('POST', function_endpoint, json=data, **kwargs)
 
     def delete_event_sources_custom_properties_property_genericlist_expressions_by_expression_id(self, expression_id,
                                                                                                  **kwargs):
@@ -1656,9 +1720,22 @@ class Config(QRadarAPIEndpoint):
                                         expression_id=expression_id))
         return self._call('GET', function_endpoint, **kwargs)
 
+    @header_vars('fields')
+    def post_event_sources_custom_properties_property_genericlist_expressions_by_expression_id(self, expression_id, *,
+                                                                                               data, fields=None,
+                                                                                               **kwargs):
+        """
+        POST /config/event_sources/custom_properties/property_genericlist_expressions/{expression_id}
+        Updates an existing Generic List expression.
+        """
+        function_endpoint = urljoin(self._baseurl,
+                                    'event_sources/custom_properties/property_genericlist_expressions/{expression_id}'.format(
+                                        expression_id=expression_id))
+        return self._call('POST', function_endpoint, json=data, **kwargs)
+
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_event_sources_custom_properties_property_json_expressions(self, *, filter=None, Range=None, fields=None,
+    @request_vars('fields', 'filter')
+    def get_event_sources_custom_properties_property_json_expressions(self, *, fields=None, Range=None, filter=None,
                                                                       **kwargs):
         """
         GET /config/event_sources/custom_properties/property_json_expressions
@@ -1687,6 +1764,18 @@ class Config(QRadarAPIEndpoint):
                                         expression_id=expression_id))
         return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
 
+    @header_vars('fields')
+    def post_event_sources_custom_properties_property_json_expressions_by_expression_id(self, expression_id, *, data,
+                                                                                        fields=None, **kwargs):
+        """
+        POST /config/event_sources/custom_properties/property_json_expressions/{expression_id}
+        Updates an existing JSON expression.
+        """
+        function_endpoint = urljoin(self._baseurl,
+                                    'event_sources/custom_properties/property_json_expressions/{expression_id}'.format(
+                                        expression_id=expression_id))
+        return self._call('POST', function_endpoint, json=data, **kwargs)
+
     @request_vars('fields')
     def get_event_sources_custom_properties_property_json_expressions_by_expression_id(self, expression_id, *,
                                                                                        fields=None, **kwargs):
@@ -1700,29 +1789,6 @@ class Config(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('fields')
-    def post_event_sources_custom_properties_property_json_expressions_by_expression_id(self, expression_id, *, data,
-                                                                                        fields=None, **kwargs):
-        """
-        POST /config/event_sources/custom_properties/property_json_expressions/{expression_id}
-        Updates an existing JSON expression.
-        """
-        function_endpoint = urljoin(self._baseurl,
-                                    'event_sources/custom_properties/property_json_expressions/{expression_id}'.format(
-                                        expression_id=expression_id))
-        return self._call('POST', function_endpoint, json=data, **kwargs)
-
-    @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_event_sources_custom_properties_property_leef_expressions(self, *, filter=None, Range=None, fields=None,
-                                                                      **kwargs):
-        """
-        GET /config/event_sources/custom_properties/property_leef_expressions
-        Retrieves the list of LEEF Expressions.
-        """
-        function_endpoint = urljoin(self._baseurl, 'event_sources/custom_properties/property_leef_expressions')
-        return self._call('GET', function_endpoint, **kwargs)
-
-    @header_vars('fields')
     def post_event_sources_custom_properties_property_leef_expressions(self, *, data, fields=None, **kwargs):
         """
         POST /config/event_sources/custom_properties/property_leef_expressions
@@ -1731,16 +1797,15 @@ class Config(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'event_sources/custom_properties/property_leef_expressions')
         return self._call('POST', function_endpoint, json=data, **kwargs)
 
-    @request_vars('fields')
-    def get_event_sources_custom_properties_property_leef_expressions_by_expression_id(self, expression_id, *,
-                                                                                       fields=None, **kwargs):
+    @header_vars('Range')
+    @request_vars('fields', 'filter')
+    def get_event_sources_custom_properties_property_leef_expressions(self, *, fields=None, Range=None, filter=None,
+                                                                      **kwargs):
         """
-        GET /config/event_sources/custom_properties/property_leef_expressions/{expression_id}
-        Retrieves a LEEF Expression based on the supplied identifier.
+        GET /config/event_sources/custom_properties/property_leef_expressions
+        Retrieves the list of LEEF Expressions.
         """
-        function_endpoint = urljoin(self._baseurl,
-                                    'event_sources/custom_properties/property_leef_expressions/{expression_id}'.format(
-                                        expression_id=expression_id))
+        function_endpoint = urljoin(self._baseurl, 'event_sources/custom_properties/property_leef_expressions')
         return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('fields')
@@ -1754,6 +1819,18 @@ class Config(QRadarAPIEndpoint):
                                     'event_sources/custom_properties/property_leef_expressions/{expression_id}'.format(
                                         expression_id=expression_id))
         return self._call('POST', function_endpoint, json=data, **kwargs)
+
+    @request_vars('fields')
+    def get_event_sources_custom_properties_property_leef_expressions_by_expression_id(self, expression_id, *,
+                                                                                       fields=None, **kwargs):
+        """
+        GET /config/event_sources/custom_properties/property_leef_expressions/{expression_id}
+        Retrieves a LEEF Expression based on the supplied identifier.
+        """
+        function_endpoint = urljoin(self._baseurl,
+                                    'event_sources/custom_properties/property_leef_expressions/{expression_id}'.format(
+                                        expression_id=expression_id))
+        return self._call('GET', function_endpoint, **kwargs)
 
     def delete_event_sources_custom_properties_property_leef_expressions_by_expression_id(self, expression_id,
                                                                                           **kwargs):
@@ -1776,8 +1853,8 @@ class Config(QRadarAPIEndpoint):
         return self._call('POST', function_endpoint, json=data, **kwargs)
 
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_event_sources_custom_properties_property_nvp_expressions(self, *, filter=None, Range=None, fields=None,
+    @request_vars('fields', 'filter')
+    def get_event_sources_custom_properties_property_nvp_expressions(self, *, fields=None, Range=None, filter=None,
                                                                      **kwargs):
         """
         GET /config/event_sources/custom_properties/property_nvp_expressions
@@ -1785,16 +1862,6 @@ class Config(QRadarAPIEndpoint):
         """
         function_endpoint = urljoin(self._baseurl, 'event_sources/custom_properties/property_nvp_expressions')
         return self._call('GET', function_endpoint, **kwargs)
-
-    def delete_event_sources_custom_properties_property_nvp_expressions_by_expression_id(self, expression_id, **kwargs):
-        """
-        DELETE /config/event_sources/custom_properties/property_nvp_expressions/{expression_id}
-        Deletes a Name Value Pair expression based on the supplied identifier.
-        """
-        function_endpoint = urljoin(self._baseurl,
-                                    'event_sources/custom_properties/property_nvp_expressions/{expression_id}'.format(
-                                        expression_id=expression_id))
-        return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
 
     @request_vars('fields')
     def get_event_sources_custom_properties_property_nvp_expressions_by_expression_id(self, expression_id, *,
@@ -1820,6 +1887,27 @@ class Config(QRadarAPIEndpoint):
                                         expression_id=expression_id))
         return self._call('POST', function_endpoint, json=data, **kwargs)
 
+    def delete_event_sources_custom_properties_property_nvp_expressions_by_expression_id(self, expression_id, **kwargs):
+        """
+        DELETE /config/event_sources/custom_properties/property_nvp_expressions/{expression_id}
+        Deletes a Name Value Pair expression based on the supplied identifier.
+        """
+        function_endpoint = urljoin(self._baseurl,
+                                    'event_sources/custom_properties/property_nvp_expressions/{expression_id}'.format(
+                                        expression_id=expression_id))
+        return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
+
+    @header_vars('Range')
+    @request_vars('fields', 'filter')
+    def get_event_sources_custom_properties_property_xml_expressions(self, *, fields=None, Range=None, filter=None,
+                                                                     **kwargs):
+        """
+        GET /config/event_sources/custom_properties/property_xml_expressions
+        Retrieves a list of XML expressions.
+        """
+        function_endpoint = urljoin(self._baseurl, 'event_sources/custom_properties/property_xml_expressions')
+        return self._call('GET', function_endpoint, **kwargs)
+
     @header_vars('fields')
     def post_event_sources_custom_properties_property_xml_expressions(self, *, data, fields=None, **kwargs):
         """
@@ -1829,15 +1917,26 @@ class Config(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'event_sources/custom_properties/property_xml_expressions')
         return self._call('POST', function_endpoint, json=data, **kwargs)
 
-    @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_event_sources_custom_properties_property_xml_expressions(self, *, filter=None, Range=None, fields=None,
-                                                                     **kwargs):
+    def delete_event_sources_custom_properties_property_xml_expressions_by_expression_id(self, expression_id, **kwargs):
         """
-        GET /config/event_sources/custom_properties/property_xml_expressions
-        Retrieves a list of XML expressions.
+        DELETE /config/event_sources/custom_properties/property_xml_expressions/{expression_id}
+        Deletes an XML expression based on the supplied identifier.
         """
-        function_endpoint = urljoin(self._baseurl, 'event_sources/custom_properties/property_xml_expressions')
+        function_endpoint = urljoin(self._baseurl,
+                                    'event_sources/custom_properties/property_xml_expressions/{expression_id}'.format(
+                                        expression_id=expression_id))
+        return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
+
+    @request_vars('fields')
+    def get_event_sources_custom_properties_property_xml_expressions_by_expression_id(self, expression_id, *,
+                                                                                      fields=None, **kwargs):
+        """
+        GET /config/event_sources/custom_properties/property_xml_expressions/{expression_id}
+        Retrieves a XML expression based on the supplied identifier.
+        """
+        function_endpoint = urljoin(self._baseurl,
+                                    'event_sources/custom_properties/property_xml_expressions/{expression_id}'.format(
+                                        expression_id=expression_id))
         return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('fields')
@@ -1852,31 +1951,9 @@ class Config(QRadarAPIEndpoint):
                                         expression_id=expression_id))
         return self._call('POST', function_endpoint, json=data, **kwargs)
 
-    @request_vars('fields')
-    def get_event_sources_custom_properties_property_xml_expressions_by_expression_id(self, expression_id, *,
-                                                                                      fields=None, **kwargs):
-        """
-        GET /config/event_sources/custom_properties/property_xml_expressions/{expression_id}
-        Retrieves a XML expression based on the supplied identifier.
-        """
-        function_endpoint = urljoin(self._baseurl,
-                                    'event_sources/custom_properties/property_xml_expressions/{expression_id}'.format(
-                                        expression_id=expression_id))
-        return self._call('GET', function_endpoint, **kwargs)
-
-    def delete_event_sources_custom_properties_property_xml_expressions_by_expression_id(self, expression_id, **kwargs):
-        """
-        DELETE /config/event_sources/custom_properties/property_xml_expressions/{expression_id}
-        Deletes an XML expression based on the supplied identifier.
-        """
-        function_endpoint = urljoin(self._baseurl,
-                                    'event_sources/custom_properties/property_xml_expressions/{expression_id}'.format(
-                                        expression_id=expression_id))
-        return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
-
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_event_sources_custom_properties_regex_properties(self, *, filter=None, Range=None, fields=None, **kwargs):
+    @request_vars('fields', 'filter')
+    def get_event_sources_custom_properties_regex_properties(self, *, fields=None, Range=None, filter=None, **kwargs):
         """
         GET /config/event_sources/custom_properties/regex_properties
         Retrieves a list of event regex properties.
@@ -1893,18 +1970,6 @@ class Config(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'event_sources/custom_properties/regex_properties')
         return self._call('POST', function_endpoint, json=data, **kwargs)
 
-    @request_vars('fields')
-    def get_event_sources_custom_properties_regex_properties_by_regex_property_id(self, regex_property_id, *,
-                                                                                  fields=None, **kwargs):
-        """
-        GET /config/event_sources/custom_properties/regex_properties/{regex_property_id}
-        Retrieves a event regex property based on the supplied regex property ID.
-        """
-        function_endpoint = urljoin(self._baseurl,
-                                    'event_sources/custom_properties/regex_properties/{regex_property_id}'.format(
-                                        regex_property_id=regex_property_id))
-        return self._call('GET', function_endpoint, **kwargs)
-
     @header_vars('fields')
     def post_event_sources_custom_properties_regex_properties_by_regex_property_id(self, regex_property_id, *, data,
                                                                                    fields=None, **kwargs):
@@ -1916,6 +1981,18 @@ class Config(QRadarAPIEndpoint):
                                     'event_sources/custom_properties/regex_properties/{regex_property_id}'.format(
                                         regex_property_id=regex_property_id))
         return self._call('POST', function_endpoint, json=data, **kwargs)
+
+    @request_vars('fields')
+    def get_event_sources_custom_properties_regex_properties_by_regex_property_id(self, regex_property_id, *,
+                                                                                  fields=None, **kwargs):
+        """
+        GET /config/event_sources/custom_properties/regex_properties/{regex_property_id}
+        Retrieves a event regex property based on the supplied regex property ID.
+        """
+        function_endpoint = urljoin(self._baseurl,
+                                    'event_sources/custom_properties/regex_properties/{regex_property_id}'.format(
+                                        regex_property_id=regex_property_id))
+        return self._call('GET', function_endpoint, **kwargs)
 
     @request_vars('fields')
     def delete_event_sources_custom_properties_regex_properties_by_regex_property_id(self, regex_property_id, *,
@@ -2024,18 +2101,6 @@ class Config(QRadarAPIEndpoint):
                                         task_id=task_id))
         return self._call('GET', function_endpoint, **kwargs)
 
-    @header_vars('fields')
-    def post_event_sources_custom_properties_regex_property_dependent_tasks_disable_by_task_id(self, task_id, *, task,
-                                                                                               fields=None, **kwargs):
-        """
-        POST /config/event_sources/custom_properties/regex_property_dependent_tasks/disable/{task_id}
-        Cancels the regex property dependent task.
-        """
-        function_endpoint = urljoin(self._baseurl,
-                                    'event_sources/custom_properties/regex_property_dependent_tasks/disable/{task_id}'.format(
-                                        task_id=task_id))
-        return self._call('POST', function_endpoint, json=task, **kwargs)
-
     @request_vars('fields')
     def get_event_sources_custom_properties_regex_property_dependent_tasks_disable_by_task_id(self, task_id, *,
                                                                                               fields=None, **kwargs):
@@ -2047,6 +2112,18 @@ class Config(QRadarAPIEndpoint):
                                     'event_sources/custom_properties/regex_property_dependent_tasks/disable/{task_id}'.format(
                                         task_id=task_id))
         return self._call('GET', function_endpoint, **kwargs)
+
+    @header_vars('fields')
+    def post_event_sources_custom_properties_regex_property_dependent_tasks_disable_by_task_id(self, task_id, *, task,
+                                                                                               fields=None, **kwargs):
+        """
+        POST /config/event_sources/custom_properties/regex_property_dependent_tasks/disable/{task_id}
+        Cancels the regex property dependent task.
+        """
+        function_endpoint = urljoin(self._baseurl,
+                                    'event_sources/custom_properties/regex_property_dependent_tasks/disable/{task_id}'.format(
+                                        task_id=task_id))
+        return self._call('POST', function_endpoint, json=task, **kwargs)
 
     @request_vars('fields')
     def get_event_sources_custom_properties_regex_property_dependent_tasks_disable_results_by_task_id(self, task_id, *,
@@ -2097,18 +2174,9 @@ class Config(QRadarAPIEndpoint):
                                         task_id=task_id))
         return self._call('GET', function_endpoint, **kwargs)
 
-    @header_vars('fields')
-    def post_event_sources_disconnected_log_collectors(self, *, disconnected_log_collector, fields=None, **kwargs):
-        """
-        POST /config/event_sources/disconnected_log_collectors
-        See api_mapping.xml
-        """
-        function_endpoint = urljoin(self._baseurl, 'event_sources/disconnected_log_collectors')
-        return self._call('POST', function_endpoint, json=disconnected_log_collector, **kwargs)
-
     @header_vars('Range')
-    @request_vars('filter', 'sort', 'fields')
-    def get_event_sources_disconnected_log_collectors(self, *, filter=None, sort=None, Range=None, fields=None,
+    @request_vars('fields', 'filter', 'sort')
+    def get_event_sources_disconnected_log_collectors(self, *, fields=None, Range=None, filter=None, sort=None,
                                                       **kwargs):
         """
         GET /config/event_sources/disconnected_log_collectors
@@ -2117,22 +2185,14 @@ class Config(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'event_sources/disconnected_log_collectors')
         return self._call('GET', function_endpoint, **kwargs)
 
-    def delete_event_sources_disconnected_log_collectors_by_id(self, id, **kwargs):
-        """
-        DELETE /config/event_sources/disconnected_log_collectors/{id}
-        Deletes a Disconnected Log Collector by ID.
-        """
-        function_endpoint = urljoin(self._baseurl, 'event_sources/disconnected_log_collectors/{id}'.format(id=id))
-        return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
-
     @header_vars('fields')
-    def post_event_sources_disconnected_log_collectors_by_id(self, id, *, log_source_data, fields=None, **kwargs):
+    def post_event_sources_disconnected_log_collectors(self, *, disconnected_log_collector, fields=None, **kwargs):
         """
-        POST /config/event_sources/disconnected_log_collectors/{id}
+        POST /config/event_sources/disconnected_log_collectors
         See api_mapping.xml
         """
-        function_endpoint = urljoin(self._baseurl, 'event_sources/disconnected_log_collectors/{id}'.format(id=id))
-        return self._call('POST', function_endpoint, json=log_source_data, **kwargs)
+        function_endpoint = urljoin(self._baseurl, 'event_sources/disconnected_log_collectors')
+        return self._call('POST', function_endpoint, json=disconnected_log_collector, **kwargs)
 
     @request_vars('fields')
     def get_event_sources_disconnected_log_collectors_by_id(self, id, *, fields=None, **kwargs):
@@ -2143,9 +2203,26 @@ class Config(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'event_sources/disconnected_log_collectors/{id}'.format(id=id))
         return self._call('GET', function_endpoint, **kwargs)
 
+    @header_vars('fields')
+    def post_event_sources_disconnected_log_collectors_by_id(self, id, *, log_source_data, fields=None, **kwargs):
+        """
+        POST /config/event_sources/disconnected_log_collectors/{id}
+        See api_mapping.xml
+        """
+        function_endpoint = urljoin(self._baseurl, 'event_sources/disconnected_log_collectors/{id}'.format(id=id))
+        return self._call('POST', function_endpoint, json=log_source_data, **kwargs)
+
+    def delete_event_sources_disconnected_log_collectors_by_id(self, id, **kwargs):
+        """
+        DELETE /config/event_sources/disconnected_log_collectors/{id}
+        Deletes a Disconnected Log Collector by ID.
+        """
+        function_endpoint = urljoin(self._baseurl, 'event_sources/disconnected_log_collectors/{id}'.format(id=id))
+        return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
+
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_event_sources_event_collectors(self, *, filter=None, Range=None, fields=None, **kwargs):
+    @request_vars('fields', 'filter')
+    def get_event_sources_event_collectors(self, *, fields=None, Range=None, filter=None, **kwargs):
         """
         GET /config/event_sources/event_collectors
         Retrieves a list of event collectors..
@@ -2171,18 +2248,6 @@ class Config(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'event_sources/generated_regexes')
         return self._call('POST', function_endpoint, json=payload, **kwargs)
 
-    @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_event_sources_log_source_extensions(self, *, filter=None, Range=None, fields=None, **kwargs):
-        """
-        GET /config/event_sources/log_source_extensions
-        Retrieve a list of all log source extensions.
-        UNDOCUMENTED
-        """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
-        function_endpoint = urljoin(self._baseurl, 'event_sources/log_source_extensions')
-        return self._call('GET', function_endpoint, headers=headers, **kwargs)
-
     @header_vars('fields')
     def post_event_sources_log_source_extensions(self, *, file, fields=None, **kwargs):
         """
@@ -2197,31 +2262,17 @@ class Config(QRadarAPIEndpoint):
         return self._call('POST', function_endpoint, mime_type={'Content-Type': 'multipart/form-data'}, data=file,
                           headers=headers, **kwargs)
 
-    @request_vars('fields')
-    def get_event_sources_log_source_extensions_by_log_source_extension_id(self, log_source_extension_id, *,
-                                                                           fields=None, **kwargs):
+    @header_vars('Range')
+    @request_vars('fields', 'filter')
+    def get_event_sources_log_source_extensions(self, *, fields=None, Range=None, filter=None, **kwargs):
         """
-        GET /config/event_sources/log_source_extensions/{log_source_extension_id}
-        Retrieves a log source extension associated with supplied ID.
+        GET /config/event_sources/log_source_extensions
+        Retrieve a list of all log source extensions.
         UNDOCUMENTED
         """
         headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
-        function_endpoint = urljoin(self._baseurl,
-                                    'event_sources/log_source_extensions/{log_source_extension_id}'.format(
-                                        log_source_extension_id=log_source_extension_id))
+        function_endpoint = urljoin(self._baseurl, 'event_sources/log_source_extensions')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
-
-    def delete_event_sources_log_source_extensions_by_log_source_extension_id(self, log_source_extension_id, **kwargs):
-        """
-        DELETE /config/event_sources/log_source_extensions/{log_source_extension_id}
-        Deletes a log source extension corresponding to the supplied ID.
-        UNDOCUMENTED
-        """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
-        function_endpoint = urljoin(self._baseurl,
-                                    'event_sources/log_source_extensions/{log_source_extension_id}'.format(
-                                        log_source_extension_id=log_source_extension_id))
-        return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
 
     @header_vars('fields')
     def post_event_sources_log_source_extensions_by_log_source_extension_id(self, log_source_extension_id, *, data=None,
@@ -2237,6 +2288,32 @@ class Config(QRadarAPIEndpoint):
                                         log_source_extension_id=log_source_extension_id))
         return self._call('POST', function_endpoint, json=data, headers=headers, **kwargs)
 
+    def delete_event_sources_log_source_extensions_by_log_source_extension_id(self, log_source_extension_id, **kwargs):
+        """
+        DELETE /config/event_sources/log_source_extensions/{log_source_extension_id}
+        Deletes a log source extension corresponding to the supplied ID.
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl,
+                                    'event_sources/log_source_extensions/{log_source_extension_id}'.format(
+                                        log_source_extension_id=log_source_extension_id))
+        return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
+
+    @request_vars('fields')
+    def get_event_sources_log_source_extensions_by_log_source_extension_id(self, log_source_extension_id, *,
+                                                                           fields=None, **kwargs):
+        """
+        GET /config/event_sources/log_source_extensions/{log_source_extension_id}
+        Retrieves a log source extension associated with supplied ID.
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl,
+                                    'event_sources/log_source_extensions/{log_source_extension_id}'.format(
+                                        log_source_extension_id=log_source_extension_id))
+        return self._call('GET', function_endpoint, headers=headers, **kwargs)
+
     def get_event_sources_log_source_management_autodetection_autodetection_global_enabled_check(self, **kwargs):
         """
         GET /config/event_sources/log_source_management/autodetection/autodetection_global_enabled_check
@@ -2248,6 +2325,17 @@ class Config(QRadarAPIEndpoint):
                                     'event_sources/log_source_management/autodetection/autodetection_global_enabled_check')
         return self._call('GET', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
 
+    @header_vars('Range')
+    @request_vars('fields', 'filter', 'sort')
+    def get_event_sources_log_source_management_autodetection_config_records(self, *, fields=None, Range=None,
+                                                                             filter=None, sort=None, **kwargs):
+        """
+        GET /config/event_sources/log_source_management/autodetection/config_records
+        Retrieves the list of Autodetection Config Records.
+        """
+        function_endpoint = urljoin(self._baseurl, 'event_sources/log_source_management/autodetection/config_records')
+        return self._call('GET', function_endpoint, **kwargs)
+
     @header_vars('fields')
     def post_event_sources_log_source_management_autodetection_config_records(self, *, config_record, fields=None,
                                                                               **kwargs):
@@ -2257,29 +2345,6 @@ class Config(QRadarAPIEndpoint):
         """
         function_endpoint = urljoin(self._baseurl, 'event_sources/log_source_management/autodetection/config_records')
         return self._call('POST', function_endpoint, json=config_record, **kwargs)
-
-    @header_vars('Range')
-    @request_vars('filter', 'sort', 'fields')
-    def get_event_sources_log_source_management_autodetection_config_records(self, *, filter=None, sort=None,
-                                                                             Range=None, fields=None, **kwargs):
-        """
-        GET /config/event_sources/log_source_management/autodetection/config_records
-        Retrieves the list of Autodetection Config Records.
-        """
-        function_endpoint = urljoin(self._baseurl, 'event_sources/log_source_management/autodetection/config_records')
-        return self._call('GET', function_endpoint, **kwargs)
-
-    @request_vars('fields')
-    def get_event_sources_log_source_management_autodetection_config_records_by_config_id(self, config_id, *,
-                                                                                          fields=None, **kwargs):
-        """
-        GET /config/event_sources/log_source_management/autodetection/config_records/{config_id}
-        Gets an individual Autodetection Config Record by id.
-        """
-        function_endpoint = urljoin(self._baseurl,
-                                    'event_sources/log_source_management/autodetection/config_records/{config_id}'.format(
-                                        config_id=config_id))
-        return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('fields')
     def post_event_sources_log_source_management_autodetection_config_records_by_config_id(self, config_id, *,
@@ -2293,6 +2358,18 @@ class Config(QRadarAPIEndpoint):
                                     'event_sources/log_source_management/autodetection/config_records/{config_id}'.format(
                                         config_id=config_id))
         return self._call('POST', function_endpoint, json=config_record, **kwargs)
+
+    @request_vars('fields')
+    def get_event_sources_log_source_management_autodetection_config_records_by_config_id(self, config_id, *,
+                                                                                          fields=None, **kwargs):
+        """
+        GET /config/event_sources/log_source_management/autodetection/config_records/{config_id}
+        Gets an individual Autodetection Config Record by id.
+        """
+        function_endpoint = urljoin(self._baseurl,
+                                    'event_sources/log_source_management/autodetection/config_records/{config_id}'.format(
+                                        config_id=config_id))
+        return self._call('GET', function_endpoint, **kwargs)
 
     @request_vars('fields')
     def get_event_sources_log_source_management_log_source_bulk_tasks_by_id(self, id, *, fields=None, **kwargs):
@@ -2329,8 +2406,8 @@ class Config(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
 
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_event_sources_log_source_management_log_source_extensions(self, *, filter=None, Range=None, fields=None,
+    @request_vars('fields', 'filter')
+    def get_event_sources_log_source_management_log_source_extensions(self, *, fields=None, Range=None, filter=None,
                                                                       **kwargs):
         """
         GET /config/event_sources/log_source_management/log_source_extensions
@@ -2350,8 +2427,8 @@ class Config(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_event_sources_log_source_management_log_source_groups(self, *, filter=None, Range=None, fields=None,
+    @request_vars('fields', 'filter')
+    def get_event_sources_log_source_management_log_source_groups(self, *, fields=None, Range=None, filter=None,
                                                                   **kwargs):
         """
         GET /config/event_sources/log_source_management/log_source_groups
@@ -2380,8 +2457,8 @@ class Config(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_event_sources_log_source_management_log_source_languages(self, *, filter=None, Range=None, fields=None,
+    @request_vars('fields', 'filter')
+    def get_event_sources_log_source_management_log_source_languages(self, *, fields=None, Range=None, filter=None,
                                                                      **kwargs):
         """
         GET /config/event_sources/log_source_management/log_source_languages
@@ -2420,6 +2497,18 @@ class Config(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'event_sources/log_source_management/log_source_tests')
         return self._call('POST', function_endpoint, json=test, headers=headers, **kwargs)
 
+    @request_vars('fields')
+    def get_event_sources_log_source_management_log_source_tests_by_id(self, id, *, fields=None, **kwargs):
+        """
+        GET /config/event_sources/log_source_management/log_source_tests/{id}
+        Retrieves a log source test by ID.
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl,
+                                    'event_sources/log_source_management/log_source_tests/{id}'.format(id=id))
+        return self._call('GET', function_endpoint, headers=headers, **kwargs)
+
     @header_vars('fields')
     def post_event_sources_log_source_management_log_source_tests_by_id(self, id, *, updated_log_source_test,
                                                                         fields=None, **kwargs):
@@ -2435,21 +2524,9 @@ class Config(QRadarAPIEndpoint):
                                     'event_sources/log_source_management/log_source_tests/{id}'.format(id=id))
         return self._call('POST', function_endpoint, json=updated_log_source_test, headers=headers, **kwargs)
 
-    @request_vars('fields')
-    def get_event_sources_log_source_management_log_source_tests_by_id(self, id, *, fields=None, **kwargs):
-        """
-        GET /config/event_sources/log_source_management/log_source_tests/{id}
-        Retrieves a log source test by ID.
-        UNDOCUMENTED
-        """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
-        function_endpoint = urljoin(self._baseurl,
-                                    'event_sources/log_source_management/log_source_tests/{id}'.format(id=id))
-        return self._call('GET', function_endpoint, headers=headers, **kwargs)
-
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_event_sources_log_source_management_log_source_types(self, *, filter=None, Range=None, fields=None,
+    @request_vars('fields', 'filter')
+    def get_event_sources_log_source_management_log_source_types(self, *, fields=None, Range=None, filter=None,
                                                                  **kwargs):
         """
         GET /config/event_sources/log_source_management/log_source_types
@@ -2475,11 +2552,26 @@ class Config(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'event_sources/log_source_management/log_source_types')
         return self._call('POST', function_endpoint, json=log_source_data, **kwargs)
 
-    @header_vars('filter', 'Range', 'fields')
+    @header_vars('Range')
+    @request_vars('fields', 'filter')
+    def get_event_sources_log_source_management_log_source_types_dsm_parameter_allowed_values(self, *, fields=None,
+                                                                                              Range=None, filter=None,
+                                                                                              **kwargs):
+        """
+        GET /config/event_sources/log_source_management/log_source_types/dsm_parameter_allowed_values
+        Retrieve dsm parameter allowed values.
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl,
+                                    'event_sources/log_source_management/log_source_types/dsm_parameter_allowed_values')
+        return self._call('GET', function_endpoint, headers=headers, **kwargs)
+
+    @header_vars('fields', 'Range', 'filter')
     def patch_event_sources_log_source_management_log_source_types_dsm_parameter_allowed_values(self, *,
                                                                                                 dsm_paramater_allowed_values,
-                                                                                                filter=None, Range=None,
-                                                                                                fields=None, **kwargs):
+                                                                                                fields=None, Range=None,
+                                                                                                filter=None, **kwargs):
         """
         PATCH /config/event_sources/log_source_management/log_source_types/dsm_parameter_allowed_values
         Create new dsm parameter allowed values or Update available dsm parameter allowed values.
@@ -2501,36 +2593,6 @@ class Config(QRadarAPIEndpoint):
                                     'event_sources/log_source_management/log_source_types/dsm_parameter_allowed_values')
         return self._call('PATCH', function_endpoint, json=dsm_paramater_allowed_values, headers=headers, **kwargs)
 
-    @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_event_sources_log_source_management_log_source_types_dsm_parameter_allowed_values(self, *, filter=None,
-                                                                                              Range=None, fields=None,
-                                                                                              **kwargs):
-        """
-        GET /config/event_sources/log_source_management/log_source_types/dsm_parameter_allowed_values
-        Retrieve dsm parameter allowed values.
-        UNDOCUMENTED
-        """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
-        function_endpoint = urljoin(self._baseurl,
-                                    'event_sources/log_source_management/log_source_types/dsm_parameter_allowed_values')
-        return self._call('GET', function_endpoint, headers=headers, **kwargs)
-
-    @request_vars('fields')
-    def get_event_sources_log_source_management_log_source_types_dsm_parameter_allowed_values_by_id(self, id, *,
-                                                                                                    fields=None,
-                                                                                                    **kwargs):
-        """
-        GET /config/event_sources/log_source_management/log_source_types/dsm_parameter_allowed_values/{id}
-        Retrieve a dsm parameter allowed value by id.
-        UNDOCUMENTED
-        """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
-        function_endpoint = urljoin(self._baseurl,
-                                    'event_sources/log_source_management/log_source_types/dsm_parameter_allowed_values/{id}'.format(
-                                        id=id))
-        return self._call('GET', function_endpoint, headers=headers, **kwargs)
-
     @header_vars('fields')
     def post_event_sources_log_source_management_log_source_types_dsm_parameter_allowed_values_by_id(self, id, *,
                                                                                                      dsm_paramater_allowed_value,
@@ -2547,6 +2609,21 @@ class Config(QRadarAPIEndpoint):
                                         id=id))
         return self._call('POST', function_endpoint, json=dsm_paramater_allowed_value, headers=headers, **kwargs)
 
+    @request_vars('fields')
+    def get_event_sources_log_source_management_log_source_types_dsm_parameter_allowed_values_by_id(self, id, *,
+                                                                                                    fields=None,
+                                                                                                    **kwargs):
+        """
+        GET /config/event_sources/log_source_management/log_source_types/dsm_parameter_allowed_values/{id}
+        Retrieve a dsm parameter allowed value by id.
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl,
+                                    'event_sources/log_source_management/log_source_types/dsm_parameter_allowed_values/{id}'.format(
+                                        id=id))
+        return self._call('GET', function_endpoint, headers=headers, **kwargs)
+
     def delete_event_sources_log_source_management_log_source_types_dsm_parameter_allowed_values_by_id(self, id,
                                                                                                        **kwargs):
         """
@@ -2560,21 +2637,9 @@ class Config(QRadarAPIEndpoint):
                                         id=id))
         return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
 
-    @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_event_sources_log_source_management_log_source_types_dsm_parameter_configuration_dsm_parameter_allowed_values(
-            self, *, filter=None, Range=None, fields=None, **kwargs):
-        """
-        GET /config/event_sources/log_source_management/log_source_types/dsm_parameter_configuration/dsm_parameter_allowed_values
-        Retrieve dsm parameter allowed values.
-        """
-        function_endpoint = urljoin(self._baseurl,
-                                    'event_sources/log_source_management/log_source_types/dsm_parameter_configuration/dsm_parameter_allowed_values')
-        return self._call('GET', function_endpoint, **kwargs)
-
-    @header_vars('filter', 'Range', 'fields')
+    @header_vars('fields', 'Range', 'filter')
     def patch_event_sources_log_source_management_log_source_types_dsm_parameter_configuration_dsm_parameter_allowed_values(
-            self, *, dsm_paramater_allowed_values, filter=None, Range=None, fields=None, **kwargs):
+            self, *, dsm_paramater_allowed_values, fields=None, Range=None, filter=None, **kwargs):
         """
         PATCH /config/event_sources/log_source_management/log_source_types/dsm_parameter_configuration/dsm_parameter_allowed_values
         Create new dsm parameter allowed values or Update available dsm parameter allowed values.
@@ -2594,27 +2659,16 @@ class Config(QRadarAPIEndpoint):
                                     'event_sources/log_source_management/log_source_types/dsm_parameter_configuration/dsm_parameter_allowed_values')
         return self._call('PATCH', function_endpoint, json=dsm_paramater_allowed_values, **kwargs)
 
-    def delete_event_sources_log_source_management_log_source_types_dsm_parameter_configuration_dsm_parameter_allowed_values_by_id(
-            self, id, **kwargs):
+    @header_vars('Range')
+    @request_vars('fields', 'filter')
+    def get_event_sources_log_source_management_log_source_types_dsm_parameter_configuration_dsm_parameter_allowed_values(
+            self, *, fields=None, Range=None, filter=None, **kwargs):
         """
-        DELETE /config/event_sources/log_source_management/log_source_types/dsm_parameter_configuration/dsm_parameter_allowed_values/{id}
-        Deletes a dsm paramater allowed value by ID.
-        """
-        function_endpoint = urljoin(self._baseurl,
-                                    'event_sources/log_source_management/log_source_types/dsm_parameter_configuration/dsm_parameter_allowed_values/{id}'.format(
-                                        id=id))
-        return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
-
-    @request_vars('fields')
-    def get_event_sources_log_source_management_log_source_types_dsm_parameter_configuration_dsm_parameter_allowed_values_by_id(
-            self, id, *, fields=None, **kwargs):
-        """
-        GET /config/event_sources/log_source_management/log_source_types/dsm_parameter_configuration/dsm_parameter_allowed_values/{id}
-        Retrieve a dsm parameter allowed value by id.
+        GET /config/event_sources/log_source_management/log_source_types/dsm_parameter_configuration/dsm_parameter_allowed_values
+        Retrieve dsm parameter allowed values.
         """
         function_endpoint = urljoin(self._baseurl,
-                                    'event_sources/log_source_management/log_source_types/dsm_parameter_configuration/dsm_parameter_allowed_values/{id}'.format(
-                                        id=id))
+                                    'event_sources/log_source_management/log_source_types/dsm_parameter_configuration/dsm_parameter_allowed_values')
         return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('fields')
@@ -2629,10 +2683,33 @@ class Config(QRadarAPIEndpoint):
                                         id=id))
         return self._call('POST', function_endpoint, json=dsm_paramater_allowed_value, **kwargs)
 
+    @request_vars('fields')
+    def get_event_sources_log_source_management_log_source_types_dsm_parameter_configuration_dsm_parameter_allowed_values_by_id(
+            self, id, *, fields=None, **kwargs):
+        """
+        GET /config/event_sources/log_source_management/log_source_types/dsm_parameter_configuration/dsm_parameter_allowed_values/{id}
+        Retrieve a dsm parameter allowed value by id.
+        """
+        function_endpoint = urljoin(self._baseurl,
+                                    'event_sources/log_source_management/log_source_types/dsm_parameter_configuration/dsm_parameter_allowed_values/{id}'.format(
+                                        id=id))
+        return self._call('GET', function_endpoint, **kwargs)
+
+    def delete_event_sources_log_source_management_log_source_types_dsm_parameter_configuration_dsm_parameter_allowed_values_by_id(
+            self, id, **kwargs):
+        """
+        DELETE /config/event_sources/log_source_management/log_source_types/dsm_parameter_configuration/dsm_parameter_allowed_values/{id}
+        Deletes a dsm paramater allowed value by ID.
+        """
+        function_endpoint = urljoin(self._baseurl,
+                                    'event_sources/log_source_management/log_source_types/dsm_parameter_configuration/dsm_parameter_allowed_values/{id}'.format(
+                                        id=id))
+        return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
+
     @header_vars('Range')
-    @request_vars('filter', 'fields')
+    @request_vars('fields', 'filter')
     def get_event_sources_log_source_management_log_source_types_dsm_parameter_configuration_dsm_parameter_definition(
-            self, *, filter=None, Range=None, fields=None, **kwargs):
+            self, *, fields=None, Range=None, filter=None, **kwargs):
         """
         GET /config/event_sources/log_source_management/log_source_types/dsm_parameter_configuration/dsm_parameter_definition
         Retrieve dsm parameter definitions.
@@ -2641,12 +2718,12 @@ class Config(QRadarAPIEndpoint):
                                     'event_sources/log_source_management/log_source_types/dsm_parameter_configuration/dsm_parameter_definition')
         return self._call('GET', function_endpoint, **kwargs)
 
-    @header_vars('filter', 'Range', 'fields')
+    @header_vars('fields', 'Range', 'filter')
     def patch_event_sources_log_source_management_log_source_types_dsm_parameter_configuration_dsm_parameters(self, *,
                                                                                                               dsm_paramaters,
-                                                                                                              filter=None,
-                                                                                                              Range=None,
                                                                                                               fields=None,
+                                                                                                              Range=None,
+                                                                                                              filter=None,
                                                                                                               **kwargs):
         """
         PATCH /config/event_sources/log_source_management/log_source_types/dsm_parameter_configuration/dsm_parameters
@@ -2668,11 +2745,11 @@ class Config(QRadarAPIEndpoint):
         return self._call('PATCH', function_endpoint, json=dsm_paramaters, **kwargs)
 
     @header_vars('Range')
-    @request_vars('filter', 'fields')
+    @request_vars('fields', 'filter')
     def get_event_sources_log_source_management_log_source_types_dsm_parameter_configuration_dsm_parameters(self, *,
-                                                                                                            filter=None,
-                                                                                                            Range=None,
                                                                                                             fields=None,
+                                                                                                            Range=None,
+                                                                                                            filter=None,
                                                                                                             **kwargs):
         """
         GET /config/event_sources/log_source_management/log_source_types/dsm_parameter_configuration/dsm_parameters
@@ -2682,16 +2759,19 @@ class Config(QRadarAPIEndpoint):
                                     'event_sources/log_source_management/log_source_types/dsm_parameter_configuration/dsm_parameters')
         return self._call('GET', function_endpoint, **kwargs)
 
-    def delete_event_sources_log_source_management_log_source_types_dsm_parameter_configuration_dsm_parameters_by_id(
-            self, id, **kwargs):
+    @request_vars('fields')
+    def get_event_sources_log_source_management_log_source_types_dsm_parameter_configuration_dsm_parameters_by_id(self,
+                                                                                                                  id, *,
+                                                                                                                  fields=None,
+                                                                                                                  **kwargs):
         """
-        DELETE /config/event_sources/log_source_management/log_source_types/dsm_parameter_configuration/dsm_parameters/{id}
-        Deletes a dsm paramater by ID.
+        GET /config/event_sources/log_source_management/log_source_types/dsm_parameter_configuration/dsm_parameters/{id}
+        Retrieve a dsm parameter by id.
         """
         function_endpoint = urljoin(self._baseurl,
                                     'event_sources/log_source_management/log_source_types/dsm_parameter_configuration/dsm_parameters/{id}'.format(
                                         id=id))
-        return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
+        return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('fields')
     def post_event_sources_log_source_management_log_source_types_dsm_parameter_configuration_dsm_parameters_by_id(self,
@@ -2709,24 +2789,21 @@ class Config(QRadarAPIEndpoint):
                                         id=id))
         return self._call('POST', function_endpoint, json=dsm_paramaters, **kwargs)
 
-    @request_vars('fields')
-    def get_event_sources_log_source_management_log_source_types_dsm_parameter_configuration_dsm_parameters_by_id(self,
-                                                                                                                  id, *,
-                                                                                                                  fields=None,
-                                                                                                                  **kwargs):
+    def delete_event_sources_log_source_management_log_source_types_dsm_parameter_configuration_dsm_parameters_by_id(
+            self, id, **kwargs):
         """
-        GET /config/event_sources/log_source_management/log_source_types/dsm_parameter_configuration/dsm_parameters/{id}
-        Retrieve a dsm parameter by id.
+        DELETE /config/event_sources/log_source_management/log_source_types/dsm_parameter_configuration/dsm_parameters/{id}
+        Deletes a dsm paramater by ID.
         """
         function_endpoint = urljoin(self._baseurl,
                                     'event_sources/log_source_management/log_source_types/dsm_parameter_configuration/dsm_parameters/{id}'.format(
                                         id=id))
-        return self._call('GET', function_endpoint, **kwargs)
+        return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
 
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_event_sources_log_source_management_log_source_types_dsm_parameter_definition(self, *, filter=None,
-                                                                                          Range=None, fields=None,
+    @request_vars('fields', 'filter')
+    def get_event_sources_log_source_management_log_source_types_dsm_parameter_definition(self, *, fields=None,
+                                                                                          Range=None, filter=None,
                                                                                           **kwargs):
         """
         GET /config/event_sources/log_source_management/log_source_types/dsm_parameter_definition
@@ -2738,9 +2815,9 @@ class Config(QRadarAPIEndpoint):
                                     'event_sources/log_source_management/log_source_types/dsm_parameter_definition')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
-    @header_vars('filter', 'Range', 'fields')
-    def patch_event_sources_log_source_management_log_source_types_dsm_parameters(self, *, dsm_paramaters, filter=None,
-                                                                                  Range=None, fields=None, **kwargs):
+    @header_vars('fields', 'Range', 'filter')
+    def patch_event_sources_log_source_management_log_source_types_dsm_parameters(self, *, dsm_paramaters, fields=None,
+                                                                                  Range=None, filter=None, **kwargs):
         """
         PATCH /config/event_sources/log_source_management/log_source_types/dsm_parameters
         Create new dsm parameters or Update available dsm parameters.
@@ -2763,9 +2840,9 @@ class Config(QRadarAPIEndpoint):
         return self._call('PATCH', function_endpoint, json=dsm_paramaters, headers=headers, **kwargs)
 
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_event_sources_log_source_management_log_source_types_dsm_parameters(self, *, filter=None, Range=None,
-                                                                                fields=None, **kwargs):
+    @request_vars('fields', 'filter')
+    def get_event_sources_log_source_management_log_source_types_dsm_parameters(self, *, fields=None, Range=None,
+                                                                                filter=None, **kwargs):
         """
         GET /config/event_sources/log_source_management/log_source_types/dsm_parameters
         Retrieve dsm parameters.
@@ -2774,6 +2851,20 @@ class Config(QRadarAPIEndpoint):
         headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'event_sources/log_source_management/log_source_types/dsm_parameters')
+        return self._call('GET', function_endpoint, headers=headers, **kwargs)
+
+    @request_vars('fields')
+    def get_event_sources_log_source_management_log_source_types_dsm_parameters_by_id(self, id, *, fields=None,
+                                                                                      **kwargs):
+        """
+        GET /config/event_sources/log_source_management/log_source_types/dsm_parameters/{id}
+        Retrieve a dsm parameter by id.
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl,
+                                    'event_sources/log_source_management/log_source_types/dsm_parameters/{id}'.format(
+                                        id=id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
     def delete_event_sources_log_source_management_log_source_types_dsm_parameters_by_id(self, id, **kwargs):
@@ -2801,20 +2892,6 @@ class Config(QRadarAPIEndpoint):
                                     'event_sources/log_source_management/log_source_types/dsm_parameters/{id}'.format(
                                         id=id))
         return self._call('POST', function_endpoint, json=dsm_paramaters, headers=headers, **kwargs)
-
-    @request_vars('fields')
-    def get_event_sources_log_source_management_log_source_types_dsm_parameters_by_id(self, id, *, fields=None,
-                                                                                      **kwargs):
-        """
-        GET /config/event_sources/log_source_management/log_source_types/dsm_parameters/{id}
-        Retrieve a dsm parameter by id.
-        UNDOCUMENTED
-        """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
-        function_endpoint = urljoin(self._baseurl,
-                                    'event_sources/log_source_management/log_source_types/dsm_parameters/{id}'.format(
-                                        id=id))
-        return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
     @request_vars('fields')
     def get_event_sources_log_source_management_log_source_types_by_id(self, id, *, fields=None, **kwargs):
@@ -2854,17 +2931,14 @@ class Config(QRadarAPIEndpoint):
                                     'event_sources/log_source_management/log_source_types/{id}'.format(id=id))
         return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
 
-    @header_vars('x_qrd-encryption_algorithm', 'x_qrd-encryption_password', 'Range')
-    @request_vars('filter', 'sort', 'fields')
-    def get_event_sources_log_source_management_log_sources(self, *, x_qrd_encryption_algorithm=None,
-                                                            x_qrd_encryption_password=None, filter=None, sort=None,
-                                                            Range=None, fields=None, **kwargs):
+    @header_vars('fields')
+    def post_event_sources_log_source_management_log_sources(self, *, log_source_data, fields=None, **kwargs):
         """
-        GET /config/event_sources/log_source_management/log_sources
-        Retrieves a list of log sources.
+        POST /config/event_sources/log_source_management/log_sources
+        See api_mapping.xml
         """
         function_endpoint = urljoin(self._baseurl, 'event_sources/log_source_management/log_sources')
-        return self._call('GET', function_endpoint, **kwargs)
+        return self._call('POST', function_endpoint, json=log_source_data, **kwargs)
 
     def patch_event_sources_log_source_management_log_sources(self, *, log_source_data, **kwargs):
         """
@@ -2876,14 +2950,34 @@ class Config(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'event_sources/log_source_management/log_sources')
         return self._call('PATCH', function_endpoint, response_type='text/plain', json=log_source_data, **kwargs)
 
-    @header_vars('fields')
-    def post_event_sources_log_source_management_log_sources(self, *, log_source_data, fields=None, **kwargs):
+    @header_vars('x_qrd_encryption_algorithm', 'x_qrd_encryption_password', 'Range')
+    @request_vars('fields', 'filter', 'sort')
+    def get_event_sources_log_source_management_log_sources(self, *,
+                                                            x_qrd_encryption_algorithm=None,
+                                                            x_qrd_encryption_password=None, fields=None, Range=None,
+                                                            filter=None, sort=None,
+
+                                                            **kwargs):
         """
-        POST /config/event_sources/log_source_management/log_sources
-        See api_mapping.xml
+        GET /config/event_sources/log_source_management/log_sources
+        Retrieves a list of log sources.
         """
         function_endpoint = urljoin(self._baseurl, 'event_sources/log_source_management/log_sources')
-        return self._call('POST', function_endpoint, json=log_source_data, **kwargs)
+        return self._call('GET', function_endpoint, **kwargs)
+
+    @header_vars('x_qrd_encryption_algorithm', 'x_qrd_encryption_password')
+    @request_vars('fields')
+    def get_event_sources_log_source_management_log_sources_by_id(self, id, *,
+                                                                  x_qrd_encryption_algorithm=None,
+                                                                  x_qrd_encryption_password=None, fields=None,
+
+                                                                  **kwargs):
+        """
+        GET /config/event_sources/log_source_management/log_sources/{id}
+        Retrieves a log source by ID.
+        """
+        function_endpoint = urljoin(self._baseurl, 'event_sources/log_source_management/log_sources/{id}'.format(id=id))
+        return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('fields')
     def post_event_sources_log_source_management_log_sources_by_id(self, id, *, log_source_data, fields=None, **kwargs):
@@ -2894,18 +2988,6 @@ class Config(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'event_sources/log_source_management/log_sources/{id}'.format(id=id))
         return self._call('POST', function_endpoint, json=log_source_data, **kwargs)
 
-    @header_vars('x_qrd_encryption_algorithm', 'x_qrd_encryption_password')
-    @request_vars('fields')
-    def get_event_sources_log_source_management_log_sources_by_id(self, id, *, x_qrd_encryption_algorithm=None,
-                                                                  x_qrd_encryption_password=None, fields=None,
-                                                                  **kwargs):
-        """
-        GET /config/event_sources/log_source_management/log_sources/{id}
-        Retrieves a log source by ID.
-        """
-        function_endpoint = urljoin(self._baseurl, 'event_sources/log_source_management/log_sources/{id}'.format(id=id))
-        return self._call('GET', function_endpoint, **kwargs)
-
     def delete_event_sources_log_source_management_log_sources_by_id(self, id, **kwargs):
         """
         DELETE /config/event_sources/log_source_management/log_sources/{id}
@@ -2915,8 +2997,8 @@ class Config(QRadarAPIEndpoint):
         return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
 
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_event_sources_log_source_management_protocol_types(self, *, filter=None, Range=None, fields=None, **kwargs):
+    @request_vars('fields', 'filter')
+    def get_event_sources_log_source_management_protocol_types(self, *, fields=None, Range=None, filter=None, **kwargs):
         """
         GET /config/event_sources/log_source_management/protocol_types
         Retrieves the list of protocol types. Requires the System Administrator, Security Admin, or Manage Log Sources permission.
@@ -2934,16 +3016,6 @@ class Config(QRadarAPIEndpoint):
                                     'event_sources/log_source_management/protocol_types/{id}'.format(id=id))
         return self._call('GET', function_endpoint, **kwargs)
 
-    @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_event_sources_property_discovery_profiles(self, *, filter=None, Range=None, fields=None, **kwargs):
-        """
-        GET /config/event_sources/property_discovery_profiles
-        Gets all PropertyDiscoveryProfiles currently in the system.
-        """
-        function_endpoint = urljoin(self._baseurl, 'event_sources/property_discovery_profiles')
-        return self._call('GET', function_endpoint, **kwargs)
-
     @header_vars('fields')
     def post_event_sources_property_discovery_profiles(self, *, data, fields=None, **kwargs):
         """
@@ -2952,6 +3024,16 @@ class Config(QRadarAPIEndpoint):
         """
         function_endpoint = urljoin(self._baseurl, 'event_sources/property_discovery_profiles')
         return self._call('POST', function_endpoint, json=data, **kwargs)
+
+    @header_vars('Range')
+    @request_vars('fields', 'filter')
+    def get_event_sources_property_discovery_profiles(self, *, fields=None, Range=None, filter=None, **kwargs):
+        """
+        GET /config/event_sources/property_discovery_profiles
+        Gets all PropertyDiscoveryProfiles currently in the system.
+        """
+        function_endpoint = urljoin(self._baseurl, 'event_sources/property_discovery_profiles')
+        return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('fields')
     def post_event_sources_property_discovery_profiles_by_id(self, id, *, data, fields=None, **kwargs):
@@ -2962,14 +3044,6 @@ class Config(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'event_sources/property_discovery_profiles/{id}'.format(id=id))
         return self._call('POST', function_endpoint, json=data, **kwargs)
 
-    def delete_event_sources_property_discovery_profiles_by_id(self, id, **kwargs):
-        """
-        DELETE /config/event_sources/property_discovery_profiles/{id}
-        Deletes the specified PropertyDiscoveryProfile.
-        """
-        function_endpoint = urljoin(self._baseurl, 'event_sources/property_discovery_profiles/{id}'.format(id=id))
-        return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
-
     @request_vars('fields')
     def get_event_sources_property_discovery_profiles_by_id(self, id, *, fields=None, **kwargs):
         """
@@ -2979,9 +3053,17 @@ class Config(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'event_sources/property_discovery_profiles/{id}'.format(id=id))
         return self._call('GET', function_endpoint, **kwargs)
 
+    def delete_event_sources_property_discovery_profiles_by_id(self, id, **kwargs):
+        """
+        DELETE /config/event_sources/property_discovery_profiles/{id}
+        Deletes the specified PropertyDiscoveryProfile.
+        """
+        function_endpoint = urljoin(self._baseurl, 'event_sources/property_discovery_profiles/{id}'.format(id=id))
+        return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
+
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_event_sources_wincollect_wincollect_agents(self, *, filter=None, Range=None, fields=None, **kwargs):
+    @request_vars('fields', 'filter')
+    def get_event_sources_wincollect_wincollect_agents(self, *, fields=None, Range=None, filter=None, **kwargs):
         """
         GET /config/event_sources/wincollect/wincollect_agents
         Retrieves a list of WinCollect agents.
@@ -2999,8 +3081,8 @@ class Config(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_event_sources_wincollect_wincollect_destinations(self, *, filter=None, Range=None, fields=None, **kwargs):
+    @request_vars('fields', 'filter')
+    def get_event_sources_wincollect_wincollect_destinations(self, *, fields=None, Range=None, filter=None, **kwargs):
         """
         GET /config/event_sources/wincollect/wincollect_destinations
         Retrieves a list of WinCollect destinations.
@@ -3069,8 +3151,8 @@ class Config(QRadarAPIEndpoint):
                           **kwargs)
 
     @header_vars('Range')
-    @request_vars('filter', 'sort', 'fields')
-    def get_extension_management_extensions(self, *, filter=None, sort=None, Range=None, fields=None, **kwargs):
+    @request_vars('fields', 'filter', 'sort')
+    def get_extension_management_extensions(self, *, fields=None, Range=None, filter=None, sort=None, **kwargs):
         """
         GET /config/extension_management/extensions
         Retrieve a list of extensions.
@@ -3079,14 +3161,14 @@ class Config(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, **kwargs)
 
     @request_vars('action_type', 'overwrite', 'fields')
-    def post_extension_management_extensions_v2_by_extension_id(self, extension_id, *, action_type, overwrite=None,
-                                                                fields=None, **kwargs):
+    def post_extension_management_extensions_by_extension_id(self, extension_id, *, action_type, overwrite=None,
+                                                             fields=None, **kwargs):
         """
-        POST /config/extension_management/extensions/v2/{extension_id}
+        POST /config/extension_management/extensions/{extension_id}
         Install an extension based on the supplied extension_id. This is an asynchronous action.
         """
-        function_endpoint = urljoin(self._baseurl, 'extension_management/extensions/v2/{extension_id}'.format(
-            extension_id=extension_id))
+        function_endpoint = urljoin(self._baseurl,
+                                    'extension_management/extensions/{extension_id}'.format(extension_id=extension_id))
         return self._call('POST', function_endpoint, **kwargs)
 
     @header_vars('fields')
@@ -3099,17 +3181,6 @@ class Config(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl,
                                     'extension_management/extensions/{extension_id}'.format(extension_id=extension_id))
         return self._call('DELETE', function_endpoint, **kwargs)
-
-    @request_vars('action_type', 'overwrite', 'fields')
-    def post_extension_management_extensions_by_extension_id(self, extension_id, *, action_type, overwrite=None,
-                                                             fields=None, **kwargs):
-        """
-        POST /config/extension_management/extensions/{extension_id}
-        Install an extension based on the supplied extension_id. This is an asynchronous action.
-        """
-        function_endpoint = urljoin(self._baseurl,
-                                    'extension_management/extensions/{extension_id}'.format(extension_id=extension_id))
-        return self._call('POST', function_endpoint, **kwargs)
 
     @request_vars('fields')
     def get_extension_management_extensions_by_extension_id(self, extension_id, *, fields=None, **kwargs):
@@ -3154,8 +3225,117 @@ class Config(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_flow_retention_buckets(self, *, filter=None, Range=None, fields=None, **kwargs):
+    @request_vars('filter', 'fields', 'sort')
+    def get_flow_applications_active_applications(self, *, Range=None, filter=None, fields=None, sort=None, **kwargs):
+        """
+        GET /config/flow/applications/active_applications
+        Gets the list of active flow applications.
+        """
+        function_endpoint = urljoin(self._baseurl, 'flow/applications/active_applications')
+        return self._call('GET', function_endpoint, **kwargs)
+
+    @request_vars('fields')
+    def get_flow_applications_active_applications_by_id(self, id, *, fields=None, **kwargs):
+        """
+        GET /config/flow/applications/active_applications/{id}
+        Gets an individual active flow application that is currently deployed in the system, as specified by the application ID.
+
+        Active applications are flow applications that are currently in-use by the system.
+        Changes or modifications to a flow application should always be made to the active applications list. Do not update the default applications.
+
+        You must have System Administrator or Security Administrator permissions to use this endpoint.
+        """
+        function_endpoint = urljoin(self._baseurl, 'flow/applications/active_applications/{id}'.format(id=id))
+        return self._call('GET', function_endpoint, **kwargs)
+
+    @header_vars('Range')
+    @request_vars('filter', 'fields', 'sort')
+    def get_flow_applications_default_applications(self, *, Range=None, filter=None, fields=None, sort=None, **kwargs):
+        """
+        GET /config/flow/applications/default_applications
+        Gets the list of default flow applications.
+        """
+        function_endpoint = urljoin(self._baseurl, 'flow/applications/default_applications')
+        return self._call('GET', function_endpoint, **kwargs)
+
+    @request_vars('fields')
+    def get_flow_applications_default_applications_by_id(self, id, *, fields=None, **kwargs):
+        """
+        GET /config/flow/applications/default_applications/{id}
+        Gets an individual default flow application, as specified by an ID.
+        """
+        function_endpoint = urljoin(self._baseurl, 'flow/applications/default_applications/{id}'.format(id=id))
+        return self._call('GET', function_endpoint, **kwargs)
+
+    def post_flow_common_destination_ports_active_configurations(self, *, body, **kwargs):
+        """
+        POST /config/flow/common_destination_ports/active_configurations
+        Creates a new active configuration.
+        """
+        function_endpoint = urljoin(self._baseurl, 'flow/common_destination_ports/active_configurations')
+        return self._call('POST', function_endpoint, json=body, **kwargs)
+
+    @header_vars('Range')
+    @request_vars('filter', 'fields', 'sort')
+    def get_flow_common_destination_ports_active_configurations(self, *, Range=None, filter=None, fields=None,
+                                                                sort=None, **kwargs):
+        """
+        GET /config/flow/common_destination_ports/active_configurations
+        Gets the list of active configurations for common destination ports.
+        """
+        function_endpoint = urljoin(self._baseurl, 'flow/common_destination_ports/active_configurations')
+        return self._call('GET', function_endpoint, **kwargs)
+
+    def get_flow_common_destination_ports_active_configurations_by_id(self, id, **kwargs):
+        """
+        GET /config/flow/common_destination_ports/active_configurations/{id}
+        Gets the active configuration for a common destination port, as specified by an ID.
+        """
+        function_endpoint = urljoin(self._baseurl,
+                                    'flow/common_destination_ports/active_configurations/{id}'.format(id=id))
+        return self._call('GET', function_endpoint, **kwargs)
+
+    def delete_flow_common_destination_ports_active_configurations_by_id(self, id, **kwargs):
+        """
+        DELETE /config/flow/common_destination_ports/active_configurations/{id}
+        Removes the active configuration for the specified ID from the system.
+        """
+        function_endpoint = urljoin(self._baseurl,
+                                    'flow/common_destination_ports/active_configurations/{id}'.format(id=id))
+        return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
+
+    def post_flow_common_destination_ports_active_configurations_by_id(self, id, *, body, **kwargs):
+        """
+        POST /config/flow/common_destination_ports/active_configurations/{id}
+        Updates the active configuration for a common destination port, as specified by the ID.
+        """
+        function_endpoint = urljoin(self._baseurl,
+                                    'flow/common_destination_ports/active_configurations/{id}'.format(id=id))
+        return self._call('POST', function_endpoint, json=body, **kwargs)
+
+    @header_vars('Range')
+    @request_vars('filter', 'fields', 'sort')
+    def get_flow_common_destination_ports_default_configurations(self, *, Range=None, filter=None, fields=None,
+                                                                 sort=None, **kwargs):
+        """
+        GET /config/flow/common_destination_ports/default_configurations
+        Gets the list of default configurations for common destination ports.
+        """
+        function_endpoint = urljoin(self._baseurl, 'flow/common_destination_ports/default_configurations')
+        return self._call('GET', function_endpoint, **kwargs)
+
+    def get_flow_common_destination_ports_default_configurations_by_id(self, id, **kwargs):
+        """
+        GET /config/flow/common_destination_ports/default_configurations/{id}
+        Gets the default configuration for a common destination port, as specified by an ID.
+        """
+        function_endpoint = urljoin(self._baseurl,
+                                    'flow/common_destination_ports/default_configurations/{id}'.format(id=id))
+        return self._call('GET', function_endpoint, **kwargs)
+
+    @header_vars('Range')
+    @request_vars('fields', 'filter')
+    def get_flow_retention_buckets(self, *, fields=None, filter=None, Range=None, **kwargs):
         """
         GET /config/flow_retention_buckets
         Retrieves a list of flow retention buckets.
@@ -3247,9 +3427,9 @@ class Config(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_flow_sources_custom_properties_aql_property_by_aql_property_name(self, aql_property_name, *, filter=None,
-                                                                             Range=None, fields=None, **kwargs):
+    @request_vars('fields', 'filter')
+    def get_flow_sources_custom_properties_aql_property_by_aql_property_name(self, aql_property_name, *, fields=None,
+                                                                             Range=None, filter=None, **kwargs):
         """
         GET /config/flow_sources/custom_properties/aql_property/{aql_property_name}
         Retrieves a flow AQL property by it's name.
@@ -3259,20 +3439,6 @@ class Config(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl,
                                     'flow_sources/custom_properties/aql_property/{aql_property_name}'.format(
                                         aql_property_name=aql_property_name))
-        return self._call('GET', function_endpoint, headers=headers, **kwargs)
-
-    @request_vars('fields')
-    def get_flow_sources_custom_properties_aql_property_dependent_tasks_disable_by_task_id(self, task_id, *,
-                                                                                           fields=None, **kwargs):
-        """
-        GET /config/flow_sources/custom_properties/aql_property_dependent_tasks/disable/{task_id}
-        Retrieves the status of the flow AQL property dependents task.
-        UNDOCUMENTED
-        """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
-        function_endpoint = urljoin(self._baseurl,
-                                    'flow_sources/custom_properties/aql_property_dependent_tasks/disable/{task_id}'.format(
-                                        task_id=task_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
     @header_vars('fields')
@@ -3290,6 +3456,20 @@ class Config(QRadarAPIEndpoint):
         return self._call('POST', function_endpoint, json=task, headers=headers, **kwargs)
 
     @request_vars('fields')
+    def get_flow_sources_custom_properties_aql_property_dependent_tasks_disable_by_task_id(self, task_id, *,
+                                                                                           fields=None, **kwargs):
+        """
+        GET /config/flow_sources/custom_properties/aql_property_dependent_tasks/disable/{task_id}
+        Retrieves the status of the flow AQL property dependents task.
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl,
+                                    'flow_sources/custom_properties/aql_property_dependent_tasks/disable/{task_id}'.format(
+                                        task_id=task_id))
+        return self._call('GET', function_endpoint, headers=headers, **kwargs)
+
+    @request_vars('fields')
     def get_flow_sources_custom_properties_aql_property_dependent_tasks_disable_results_by_task_id(self, task_id, *,
                                                                                                    fields=None,
                                                                                                    **kwargs):
@@ -3301,6 +3481,20 @@ class Config(QRadarAPIEndpoint):
         headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'flow_sources/custom_properties/aql_property_dependent_tasks/disable/{task_id}/results'.format(
+                                        task_id=task_id))
+        return self._call('GET', function_endpoint, headers=headers, **kwargs)
+
+    @request_vars('fields')
+    def get_flow_sources_custom_properties_aql_property_dependent_tasks_by_task_id(self, task_id, *, fields=None,
+                                                                                   **kwargs):
+        """
+        GET /config/flow_sources/custom_properties/aql_property_dependent_tasks/{task_id}
+        Retrieves the status of the flow AQL property dependents task.
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl,
+                                    'flow_sources/custom_properties/aql_property_dependent_tasks/{task_id}'.format(
                                         task_id=task_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -3319,20 +3513,6 @@ class Config(QRadarAPIEndpoint):
         return self._call('POST', function_endpoint, json=task, headers=headers, **kwargs)
 
     @request_vars('fields')
-    def get_flow_sources_custom_properties_aql_property_dependent_tasks_by_task_id(self, task_id, *, fields=None,
-                                                                                   **kwargs):
-        """
-        GET /config/flow_sources/custom_properties/aql_property_dependent_tasks/{task_id}
-        Retrieves the status of the flow AQL property dependents task.
-        UNDOCUMENTED
-        """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
-        function_endpoint = urljoin(self._baseurl,
-                                    'flow_sources/custom_properties/aql_property_dependent_tasks/{task_id}'.format(
-                                        task_id=task_id))
-        return self._call('GET', function_endpoint, headers=headers, **kwargs)
-
-    @request_vars('fields')
     def get_flow_sources_custom_properties_aql_property_dependent_tasks_results_by_task_id(self, task_id, *,
                                                                                            fields=None, **kwargs):
         """
@@ -3346,6 +3526,17 @@ class Config(QRadarAPIEndpoint):
                                         task_id=task_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
+    @header_vars('Range')
+    @request_vars('fields', 'filter')
+    def get_flow_sources_custom_properties_calculated_properties(self, *, fields=None, Range=None, filter=None,
+                                                                 **kwargs):
+        """
+        GET /config/flow_sources/custom_properties/calculated_properties
+        Retrieves a list of calculated flow properties.
+        """
+        function_endpoint = urljoin(self._baseurl, 'flow_sources/custom_properties/calculated_properties')
+        return self._call('GET', function_endpoint, **kwargs)
+
     @header_vars('fields')
     def post_flow_sources_custom_properties_calculated_properties(self, *, data, fields=None, **kwargs):
         """
@@ -3354,17 +3545,6 @@ class Config(QRadarAPIEndpoint):
         """
         function_endpoint = urljoin(self._baseurl, 'flow_sources/custom_properties/calculated_properties')
         return self._call('POST', function_endpoint, json=data, **kwargs)
-
-    @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_flow_sources_custom_properties_calculated_properties(self, *, filter=None, Range=None, fields=None,
-                                                                 **kwargs):
-        """
-        GET /config/flow_sources/custom_properties/calculated_properties
-        Retrieves a list of calculated flow properties.
-        """
-        function_endpoint = urljoin(self._baseurl, 'flow_sources/custom_properties/calculated_properties')
-        return self._call('GET', function_endpoint, **kwargs)
 
     @request_vars('fields')
     def get_flow_sources_custom_properties_calculated_properties_dep_by_calculated_property_id(self,
@@ -3379,19 +3559,6 @@ class Config(QRadarAPIEndpoint):
                                     'flow_sources/custom_properties/calculated_properties/dep/{calculated_property_id}'.format(
                                         calculated_property_id=calculated_property_id))
         return self._call('GET', function_endpoint, **kwargs)
-
-    @request_vars('fields')
-    def delete_flow_sources_custom_properties_calculated_properties_by_calculated_property_id(self,
-                                                                                              calculated_property_id, *,
-                                                                                              fields=None, **kwargs):
-        """
-        DELETE /config/flow_sources/custom_properties/calculated_properties/{calculated_property_id}
-        Deletes the flow calculated property. To ensure safe deletion, a dependency check is carried out. This check might take some time. An asynchronous task to do is started for this check.
-        """
-        function_endpoint = urljoin(self._baseurl,
-                                    'flow_sources/custom_properties/calculated_properties/{calculated_property_id}'.format(
-                                        calculated_property_id=calculated_property_id))
-        return self._call('DELETE', function_endpoint, **kwargs)
 
     @request_vars('fields')
     def get_flow_sources_custom_properties_calculated_properties_by_calculated_property_id(self, calculated_property_id,
@@ -3418,6 +3585,19 @@ class Config(QRadarAPIEndpoint):
                                     'flow_sources/custom_properties/calculated_properties/{calculated_property_id}'.format(
                                         calculated_property_id=calculated_property_id))
         return self._call('POST', function_endpoint, json=data, **kwargs)
+
+    @request_vars('fields')
+    def delete_flow_sources_custom_properties_calculated_properties_by_calculated_property_id(self,
+                                                                                              calculated_property_id, *,
+                                                                                              fields=None, **kwargs):
+        """
+        DELETE /config/flow_sources/custom_properties/calculated_properties/{calculated_property_id}
+        Deletes the flow calculated property. To ensure safe deletion, a dependency check is carried out. This check might take some time. An asynchronous task to do is started for this check.
+        """
+        function_endpoint = urljoin(self._baseurl,
+                                    'flow_sources/custom_properties/calculated_properties/{calculated_property_id}'.format(
+                                        calculated_property_id=calculated_property_id))
+        return self._call('DELETE', function_endpoint, **kwargs)
 
     @request_vars('fields')
     def get_flow_sources_custom_properties_calculated_properties_dependents_by_calculated_property_id(self,
@@ -3463,11 +3643,11 @@ class Config(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('Range')
-    @request_vars('filter', 'fields')
+    @request_vars('fields', 'filter')
     def get_flow_sources_custom_properties_calculated_property_by_calculated_property_name(self,
                                                                                            calculated_property_name, *,
-                                                                                           filter=None, Range=None,
-                                                                                           fields=None, **kwargs):
+                                                                                           fields=None, Range=None,
+                                                                                           filter=None, **kwargs):
         """
         GET /config/flow_sources/custom_properties/calculated_property/{calculated_property_name}
         Retrieves a list of flow calculated properties.
@@ -3576,18 +3756,6 @@ class Config(QRadarAPIEndpoint):
                                         task_id=task_id))
         return self._call('GET', function_endpoint, **kwargs)
 
-    @header_vars('fields')
-    def post_flow_sources_custom_properties_calculated_property_dependent_tasks_by_task_id(self, task_id, *, task,
-                                                                                           fields=None, **kwargs):
-        """
-        POST /config/flow_sources/custom_properties/calculated_property_dependent_tasks/{task_id}
-        Cancels the flow calculated property dependent task.
-        """
-        function_endpoint = urljoin(self._baseurl,
-                                    'flow_sources/custom_properties/calculated_property_dependent_tasks/{task_id}'.format(
-                                        task_id=task_id))
-        return self._call('POST', function_endpoint, json=task, **kwargs)
-
     @request_vars('fields')
     def get_flow_sources_custom_properties_calculated_property_dependent_tasks_by_task_id(self, task_id, *, fields=None,
                                                                                           **kwargs):
@@ -3599,6 +3767,18 @@ class Config(QRadarAPIEndpoint):
                                     'flow_sources/custom_properties/calculated_property_dependent_tasks/{task_id}'.format(
                                         task_id=task_id))
         return self._call('GET', function_endpoint, **kwargs)
+
+    @header_vars('fields')
+    def post_flow_sources_custom_properties_calculated_property_dependent_tasks_by_task_id(self, task_id, *, task,
+                                                                                           fields=None, **kwargs):
+        """
+        POST /config/flow_sources/custom_properties/calculated_property_dependent_tasks/{task_id}
+        Cancels the flow calculated property dependent task.
+        """
+        function_endpoint = urljoin(self._baseurl,
+                                    'flow_sources/custom_properties/calculated_property_dependent_tasks/{task_id}'.format(
+                                        task_id=task_id))
+        return self._call('POST', function_endpoint, json=task, **kwargs)
 
     @request_vars('fields')
     def get_flow_sources_custom_properties_calculated_property_dependent_tasks_results_by_task_id(self, task_id, *,
@@ -3615,7 +3795,7 @@ class Config(QRadarAPIEndpoint):
 
     @header_vars('Range')
     @request_vars('filter')
-    def get_flow_sources_custom_properties_calculated_property_operands(self, *, filter=None, Range=None, **kwargs):
+    def get_flow_sources_custom_properties_calculated_property_operands(self, *, Range=None, filter=None, **kwargs):
         """
         GET /config/flow_sources/custom_properties/calculated_property_operands
         Retrieves the list of available options for calculated flow property operand.
@@ -3633,14 +3813,36 @@ class Config(QRadarAPIEndpoint):
         return self._call('POST', function_endpoint, json=data, **kwargs)
 
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_flow_sources_custom_properties_property_expressions(self, *, filter=None, Range=None, fields=None,
+    @request_vars('fields', 'filter')
+    def get_flow_sources_custom_properties_property_expressions(self, *, fields=None, Range=None, filter=None,
                                                                 **kwargs):
         """
         GET /config/flow_sources/custom_properties/property_expressions
         Retrieve a list of flow regex property expressions.
         """
         function_endpoint = urljoin(self._baseurl, 'flow_sources/custom_properties/property_expressions')
+        return self._call('GET', function_endpoint, **kwargs)
+
+    def delete_flow_sources_custom_properties_property_expressions_by_expression_id(self, expression_id, **kwargs):
+        """
+        DELETE /config/flow_sources/custom_properties/property_expressions/{expression_id}
+        Deletes a flow regex property expression based on the supplied expression ID.
+        """
+        function_endpoint = urljoin(self._baseurl,
+                                    'flow_sources/custom_properties/property_expressions/{expression_id}'.format(
+                                        expression_id=expression_id))
+        return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
+
+    @request_vars('fields')
+    def get_flow_sources_custom_properties_property_expressions_by_expression_id(self, expression_id, *, fields=None,
+                                                                                 **kwargs):
+        """
+        GET /config/flow_sources/custom_properties/property_expressions/{expression_id}
+        Retrieves a flow regex property expression based on the supplied expression ID.
+        """
+        function_endpoint = urljoin(self._baseurl,
+                                    'flow_sources/custom_properties/property_expressions/{expression_id}'.format(
+                                        expression_id=expression_id))
         return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('fields')
@@ -3655,31 +3857,9 @@ class Config(QRadarAPIEndpoint):
                                         expression_id=expression_id))
         return self._call('POST', function_endpoint, json=data, **kwargs)
 
-    @request_vars('fields')
-    def get_flow_sources_custom_properties_property_expressions_by_expression_id(self, expression_id, *, fields=None,
-                                                                                 **kwargs):
-        """
-        GET /config/flow_sources/custom_properties/property_expressions/{expression_id}
-        Retrieves a flow regex property expression based on the supplied expression ID.
-        """
-        function_endpoint = urljoin(self._baseurl,
-                                    'flow_sources/custom_properties/property_expressions/{expression_id}'.format(
-                                        expression_id=expression_id))
-        return self._call('GET', function_endpoint, **kwargs)
-
-    def delete_flow_sources_custom_properties_property_expressions_by_expression_id(self, expression_id, **kwargs):
-        """
-        DELETE /config/flow_sources/custom_properties/property_expressions/{expression_id}
-        Deletes a flow regex property expression based on the supplied expression ID.
-        """
-        function_endpoint = urljoin(self._baseurl,
-                                    'flow_sources/custom_properties/property_expressions/{expression_id}'.format(
-                                        expression_id=expression_id))
-        return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
-
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_flow_sources_custom_properties_regex_properties(self, *, filter=None, Range=None, fields=None, **kwargs):
+    @request_vars('fields', 'filter')
+    def get_flow_sources_custom_properties_regex_properties(self, *, fields=None, Range=None, filter=None, **kwargs):
         """
         GET /config/flow_sources/custom_properties/regex_properties
         Retrieves a list of flow regex properties.
@@ -3695,6 +3875,18 @@ class Config(QRadarAPIEndpoint):
         """
         function_endpoint = urljoin(self._baseurl, 'flow_sources/custom_properties/regex_properties')
         return self._call('POST', function_endpoint, json=data, **kwargs)
+
+    @request_vars('fields')
+    def delete_flow_sources_custom_properties_regex_properties_by_regex_property_id(self, regex_property_id, *,
+                                                                                    fields=None, **kwargs):
+        """
+        DELETE /config/flow_sources/custom_properties/regex_properties/{regex_property_id}
+        Deletes a flow regex property. To ensure safe deletion, a dependency check is carried out. This check might take some time. An asynchronous task is started to do this check.
+        """
+        function_endpoint = urljoin(self._baseurl,
+                                    'flow_sources/custom_properties/regex_properties/{regex_property_id}'.format(
+                                        regex_property_id=regex_property_id))
+        return self._call('DELETE', function_endpoint, **kwargs)
 
     @header_vars('fields')
     def post_flow_sources_custom_properties_regex_properties_by_regex_property_id(self, regex_property_id, *, data,
@@ -3719,18 +3911,6 @@ class Config(QRadarAPIEndpoint):
                                     'flow_sources/custom_properties/regex_properties/{regex_property_id}'.format(
                                         regex_property_id=regex_property_id))
         return self._call('GET', function_endpoint, **kwargs)
-
-    @request_vars('fields')
-    def delete_flow_sources_custom_properties_regex_properties_by_regex_property_id(self, regex_property_id, *,
-                                                                                    fields=None, **kwargs):
-        """
-        DELETE /config/flow_sources/custom_properties/regex_properties/{regex_property_id}
-        Deletes a flow regex property. To ensure safe deletion, a dependency check is carried out. This check might take some time. An asynchronous task is started to do this check.
-        """
-        function_endpoint = urljoin(self._baseurl,
-                                    'flow_sources/custom_properties/regex_properties/{regex_property_id}'.format(
-                                        regex_property_id=regex_property_id))
-        return self._call('DELETE', function_endpoint, **kwargs)
 
     @request_vars('fields')
     def get_flow_sources_custom_properties_regex_properties_dependents_by_regex_property_id(self, regex_property_id, *,
@@ -3785,6 +3965,19 @@ class Config(QRadarAPIEndpoint):
                                         task_id=task_id))
         return self._call('GET', function_endpoint, **kwargs)
 
+    @request_vars('fields')
+    def get_flow_sources_custom_properties_regex_property_dependent_tasks_change_field_type_by_task_id(self, task_id, *,
+                                                                                                       fields=None,
+                                                                                                       **kwargs):
+        """
+        GET /config/flow_sources/custom_properties/regex_property_dependent_tasks/change_field_type/{task_id}
+        Retrieves the flow regex property dependent task status.
+        """
+        function_endpoint = urljoin(self._baseurl,
+                                    'flow_sources/custom_properties/regex_property_dependent_tasks/change_field_type/{task_id}'.format(
+                                        task_id=task_id))
+        return self._call('GET', function_endpoint, **kwargs)
+
     @header_vars('fields')
     def post_flow_sources_custom_properties_regex_property_dependent_tasks_change_field_type_by_task_id(self, task_id,
                                                                                                         *, task,
@@ -3798,19 +3991,6 @@ class Config(QRadarAPIEndpoint):
                                     'flow_sources/custom_properties/regex_property_dependent_tasks/change_field_type/{task_id}'.format(
                                         task_id=task_id))
         return self._call('POST', function_endpoint, json=task, **kwargs)
-
-    @request_vars('fields')
-    def get_flow_sources_custom_properties_regex_property_dependent_tasks_change_field_type_by_task_id(self, task_id, *,
-                                                                                                       fields=None,
-                                                                                                       **kwargs):
-        """
-        GET /config/flow_sources/custom_properties/regex_property_dependent_tasks/change_field_type/{task_id}
-        Retrieves the flow regex property dependent task status.
-        """
-        function_endpoint = urljoin(self._baseurl,
-                                    'flow_sources/custom_properties/regex_property_dependent_tasks/change_field_type/{task_id}'.format(
-                                        task_id=task_id))
-        return self._call('GET', function_endpoint, **kwargs)
 
     @request_vars('fields')
     def get_flow_sources_custom_properties_regex_property_dependent_tasks_change_field_type_results_by_task_id(self,
@@ -3864,18 +4044,6 @@ class Config(QRadarAPIEndpoint):
                                         task_id=task_id))
         return self._call('GET', function_endpoint, **kwargs)
 
-    @request_vars('fields')
-    def get_flow_sources_custom_properties_regex_property_dependent_tasks_by_task_id(self, task_id, *, fields=None,
-                                                                                     **kwargs):
-        """
-        GET /config/flow_sources/custom_properties/regex_property_dependent_tasks/{task_id}
-        Retrieves the flow regex property dependent task status.
-        """
-        function_endpoint = urljoin(self._baseurl,
-                                    'flow_sources/custom_properties/regex_property_dependent_tasks/{task_id}'.format(
-                                        task_id=task_id))
-        return self._call('GET', function_endpoint, **kwargs)
-
     @header_vars('fields')
     def post_flow_sources_custom_properties_regex_property_dependent_tasks_by_task_id(self, task_id, *, task,
                                                                                       fields=None, **kwargs):
@@ -3887,6 +4055,18 @@ class Config(QRadarAPIEndpoint):
                                     'flow_sources/custom_properties/regex_property_dependent_tasks/{task_id}'.format(
                                         task_id=task_id))
         return self._call('POST', function_endpoint, json=task, **kwargs)
+
+    @request_vars('fields')
+    def get_flow_sources_custom_properties_regex_property_dependent_tasks_by_task_id(self, task_id, *, fields=None,
+                                                                                     **kwargs):
+        """
+        GET /config/flow_sources/custom_properties/regex_property_dependent_tasks/{task_id}
+        Retrieves the flow regex property dependent task status.
+        """
+        function_endpoint = urljoin(self._baseurl,
+                                    'flow_sources/custom_properties/regex_property_dependent_tasks/{task_id}'.format(
+                                        task_id=task_id))
+        return self._call('GET', function_endpoint, **kwargs)
 
     @request_vars('fields')
     def get_flow_sources_custom_properties_regex_property_dependent_tasks_results_by_task_id(self, task_id, *,
@@ -3901,17 +4081,6 @@ class Config(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, **kwargs)
 
     @request_vars('fields')
-    def get_gatewaytoken_client_configurations(self, *, fields=None, **kwargs):
-        """
-        GET /config/gatewaytoken/client_configurations
-        No summary provided
-        UNDOCUMENTED
-        """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
-        function_endpoint = urljoin(self._baseurl, 'gatewaytoken/client_configurations')
-        return self._call('GET', function_endpoint, headers=headers, **kwargs)
-
-    @request_vars('fields')
     def get_log_sources_log_source_group_delete_tasks_by_task_id(self, task_id, *, fields=None, **kwargs):
         """
         GET /config/log_sources/log_source_group_delete_tasks/{task_id}
@@ -3921,18 +4090,6 @@ class Config(QRadarAPIEndpoint):
         headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'log_sources/log_source_group_delete_tasks/{task_id}'.format(task_id=task_id))
-        return self._call('GET', function_endpoint, headers=headers, **kwargs)
-
-    @request_vars('fields')
-    def get_log_sources_log_source_group_dependent_tasks_by_task_id(self, task_id, *, fields=None, **kwargs):
-        """
-        GET /config/log_sources/log_source_group_dependent_tasks/{task_id}
-        Retrieves the dependent log source group task status.
-        UNDOCUMENTED
-        """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
-        function_endpoint = urljoin(self._baseurl,
-                                    'log_sources/log_source_group_dependent_tasks/{task_id}'.format(task_id=task_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
     @header_vars('fields')
@@ -3948,6 +4105,18 @@ class Config(QRadarAPIEndpoint):
         return self._call('POST', function_endpoint, json=task, headers=headers, **kwargs)
 
     @request_vars('fields')
+    def get_log_sources_log_source_group_dependent_tasks_by_task_id(self, task_id, *, fields=None, **kwargs):
+        """
+        GET /config/log_sources/log_source_group_dependent_tasks/{task_id}
+        Retrieves the dependent log source group task status.
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl,
+                                    'log_sources/log_source_group_dependent_tasks/{task_id}'.format(task_id=task_id))
+        return self._call('GET', function_endpoint, headers=headers, **kwargs)
+
+    @request_vars('fields')
     def get_log_sources_log_source_group_dependent_tasks_results_by_task_id(self, task_id, *, fields=None, **kwargs):
         """
         GET /config/log_sources/log_source_group_dependent_tasks/{task_id}/results
@@ -3961,8 +4130,8 @@ class Config(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_log_sources_log_source_groups(self, *, filter=None, Range=None, fields=None, **kwargs):
+    @request_vars('fields', 'filter')
+    def get_log_sources_log_source_groups(self, *, fields=None, Range=None, filter=None, **kwargs):
         """
         GET /config/log_sources/log_source_groups
         Retrieves a list of log source groups.
@@ -3981,17 +4150,6 @@ class Config(QRadarAPIEndpoint):
         """
         headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'log_sources/log_source_groups')
-        return self._call('POST', function_endpoint, json=log_source_group, headers=headers, **kwargs)
-
-    @header_vars('fields')
-    def post_log_sources_log_source_groups_by_group_id(self, group_id, *, log_source_group, fields=None, **kwargs):
-        """
-        POST /config/log_sources/log_source_groups/{group_id}
-        Updates a log source group.
-        UNDOCUMENTED
-        """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
-        function_endpoint = urljoin(self._baseurl, 'log_sources/log_source_groups/{group_id}'.format(group_id=group_id))
         return self._call('POST', function_endpoint, json=log_source_group, headers=headers, **kwargs)
 
     @request_vars('fields')
@@ -4016,6 +4174,17 @@ class Config(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'log_sources/log_source_groups/{group_id}'.format(group_id=group_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
+    @header_vars('fields')
+    def post_log_sources_log_source_groups_by_group_id(self, group_id, *, log_source_group, fields=None, **kwargs):
+        """
+        POST /config/log_sources/log_source_groups/{group_id}
+        Updates a log source group.
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl, 'log_sources/log_source_groups/{group_id}'.format(group_id=group_id))
+        return self._call('POST', function_endpoint, json=log_source_group, headers=headers, **kwargs)
+
     @request_vars('fields')
     def get_log_sources_log_source_groups_dependents_by_group_id(self, group_id, *, fields=None, **kwargs):
         """
@@ -4037,15 +4206,6 @@ class Config(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'network_hierarchy/networks')
         return self._call('GET', function_endpoint, **kwargs)
 
-    @request_vars('fields')
-    def get_network_hierarchy_staged_networks(self, *, fields=None, **kwargs):
-        """
-        GET /config/network_hierarchy/staged_networks
-        Retrieves the staged network hierarchy.
-        """
-        function_endpoint = urljoin(self._baseurl, 'network_hierarchy/staged_networks')
-        return self._call('GET', function_endpoint, **kwargs)
-
     @header_vars('fields')
     def put_network_hierarchy_staged_networks(self, *, network_hierarchy, fields=None, **kwargs):
         """
@@ -4055,9 +4215,18 @@ class Config(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'network_hierarchy/staged_networks')
         return self._call('PUT', function_endpoint, **kwargs)
 
+    @request_vars('fields')
+    def get_network_hierarchy_staged_networks(self, *, fields=None, **kwargs):
+        """
+        GET /config/network_hierarchy/staged_networks
+        Retrieves the staged network hierarchy.
+        """
+        function_endpoint = urljoin(self._baseurl, 'network_hierarchy/staged_networks')
+        return self._call('GET', function_endpoint, **kwargs)
+
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_remote_networks(self, *, filter=None, Range=None, fields=None, **kwargs):
+    @request_vars('fields', 'filter')
+    def get_remote_networks(self, *, fields=None, filter=None, Range=None, **kwargs):
         """
         GET /config/remote_networks
         Retrieves a list of deployed remote networks.
@@ -4075,8 +4244,8 @@ class Config(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_remote_services(self, *, filter=None, Range=None, fields=None, **kwargs):
+    @request_vars('fields', 'filter')
+    def get_remote_services(self, *, fields=None, filter=None, Range=None, **kwargs):
         """
         GET /config/remote_services
         Retrieves a list of deployed remote services.
@@ -4093,9 +4262,135 @@ class Config(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'remote_services/{service_id}'.format(service_id=service_id))
         return self._call('GET', function_endpoint, **kwargs)
 
+    @request_vars('fields')
+    def get_resilient_connections(self, *, fields=None, **kwargs):
+        """
+        GET /config/resilient/connections
+        Retrieves the deployed resilient config.
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl, 'resilient/connections')
+        return self._call('GET', function_endpoint, headers=headers, **kwargs)
+
+    @header_vars('fields')
+    def post_resilient_connections(self, *, resilientConnection, fields=None, **kwargs):
+        """
+        POST /config/resilient/connections
+        Creates a new resilient configuration.
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl, 'resilient/connections')
+        return self._call('POST', function_endpoint, json=resilientConnection, headers=headers, **kwargs)
+
+    def delete_resilient_connections_by_id(self, id, **kwargs):
+        """
+        DELETE /config/resilient/connections/{id}
+        delete the requested resilient config.
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl, 'resilient/connections/{id}'.format(id=id))
+        return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
+
+    @header_vars('fields')
+    def post_resilient_connections_by_id(self, id, *, resilientConnection, fields=None, **kwargs):
+        """
+        POST /config/resilient/connections/{id}
+        Update a new resilient configuration.
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl, 'resilient/connections/{id}'.format(id=id))
+        return self._call('POST', function_endpoint, json=resilientConnection, headers=headers, **kwargs)
+
+    @request_vars('fields')
+    def get_resilient_connections_by_id(self, id, *, fields=None, **kwargs):
+        """
+        GET /config/resilient/connections/{id}
+        Retrieves the requested resilient config.
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl, 'resilient/connections/{id}'.format(id=id))
+        return self._call('GET', function_endpoint, headers=headers, **kwargs)
+
+    @request_vars('fields')
+    def get_resilient_destinations(self, *, fields=None, **kwargs):
+        """
+        GET /config/resilient/destinations
+        Retrieves the deployed resilient_destination.
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl, 'resilient/destinations')
+        return self._call('GET', function_endpoint, headers=headers, **kwargs)
+
+    @header_vars('fields')
+    def post_resilient_destinations(self, *, resilientDestination, fields=None, **kwargs):
+        """
+        POST /config/resilient/destinations
+        Creates a new resilient_destination.
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl, 'resilient/destinations')
+        return self._call('POST', function_endpoint, json=resilientDestination, headers=headers, **kwargs)
+
+    def delete_resilient_destinations_by_id(self, id, **kwargs):
+        """
+        DELETE /config/resilient/destinations/{id}
+        delete the requested resilient_destination.
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl, 'resilient/destinations/{id}'.format(id=id))
+        return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
+
+    @request_vars('fields')
+    def get_resilient_destinations_by_id(self, id, *, fields=None, **kwargs):
+        """
+        GET /config/resilient/destinations/{id}
+        Retrieves the requested resilient_destination.
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl, 'resilient/destinations/{id}'.format(id=id))
+        return self._call('GET', function_endpoint, headers=headers, **kwargs)
+
+    @header_vars('fields')
+    def post_resilient_destinations_by_id(self, id, *, resilientDestination, fields=None, **kwargs):
+        """
+        POST /config/resilient/destinations/{id}
+        Update a resilient_destination by organization id.
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl, 'resilient/destinations/{id}'.format(id=id))
+        return self._call('POST', function_endpoint, json=resilientDestination, headers=headers, **kwargs)
+
+    @request_vars('fields')
+    def post_resilient_test(self, *, fields=None, **kwargs):
+        """
+        POST /config/resilient/test
+        Perform asynchronous test Resilient connection
+        """
+        function_endpoint = urljoin(self._baseurl, 'resilient/test')
+        return self._call('POST', function_endpoint, **kwargs)
+
+    @request_vars('fields')
+    def get_resilient_test_by_task_id(self, task_id, *, fields=None, **kwargs):
+        """
+        GET /config/resilient/test/{task_id}
+        Get the test Resilient connection task status
+        """
+        function_endpoint = urljoin(self._baseurl, 'resilient/test/{task_id}'.format(task_id=task_id))
+        return self._call('GET', function_endpoint, **kwargs)
+
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_resource_restriction_users_by_tenant_by_tenant_id(self, tenant_id, *, filter=None, Range=None, fields=None,
+    @request_vars('fields', 'filter')
+    def get_resource_restriction_users_by_tenant_by_tenant_id(self, tenant_id, *, fields=None, filter=None, Range=None,
                                                               **kwargs):
         """
         GET /config/resource_restriction/users_by_tenant/{tenant_id}
@@ -4108,8 +4403,8 @@ class Config(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_resource_restrictions(self, *, filter=None, Range=None, fields=None, **kwargs):
+    @request_vars('fields', 'filter')
+    def get_resource_restrictions(self, *, fields=None, filter=None, Range=None, **kwargs):
         """
         GET /config/resource_restrictions
         Retrieves a list of all resource restrictions.
@@ -4126,16 +4421,6 @@ class Config(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'resource_restrictions')
         return self._call('POST', function_endpoint, json=resourceRestriction, **kwargs)
 
-    @request_vars('fields')
-    def get_resource_restrictions_by_resource_restriction_id(self, resource_restriction_id, *, fields=None, **kwargs):
-        """
-        GET /config/resource_restrictions/{resource_restriction_id}
-        Retrieves a resource restriction consumer by ID.
-        """
-        function_endpoint = urljoin(self._baseurl, 'resource_restrictions/{resource_restriction_id}'.format(
-            resource_restriction_id=resource_restriction_id))
-        return self._call('GET', function_endpoint, **kwargs)
-
     @header_vars('fields')
     def put_resource_restrictions_by_resource_restriction_id(self, resource_restriction_id, *, resourceRestriction,
                                                              fields=None, **kwargs):
@@ -4147,6 +4432,16 @@ class Config(QRadarAPIEndpoint):
             resource_restriction_id=resource_restriction_id))
         return self._call('PUT', function_endpoint, **kwargs)
 
+    @request_vars('fields')
+    def get_resource_restrictions_by_resource_restriction_id(self, resource_restriction_id, *, fields=None, **kwargs):
+        """
+        GET /config/resource_restrictions/{resource_restriction_id}
+        Retrieves a resource restriction consumer by ID.
+        """
+        function_endpoint = urljoin(self._baseurl, 'resource_restrictions/{resource_restriction_id}'.format(
+            resource_restriction_id=resource_restriction_id))
+        return self._call('GET', function_endpoint, **kwargs)
+
     def delete_resource_restrictions_by_resource_restriction_id(self, resource_restriction_id, **kwargs):
         """
         DELETE /config/resource_restrictions/{resource_restriction_id}
@@ -4155,18 +4450,6 @@ class Config(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'resource_restrictions/{resource_restriction_id}'.format(
             resource_restriction_id=resource_restriction_id))
         return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
-
-    @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_selective_forwarding_destinations(self, *, filter=None, Range=None, fields=None, **kwargs):
-        """
-        GET /config/selective_forwarding/destinations
-        Get all Selective Forwarding Destinations
-        UNDOCUMENTED
-        """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
-        function_endpoint = urljoin(self._baseurl, 'selective_forwarding/destinations')
-        return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
     def post_selective_forwarding_destinations(self, *, data, **kwargs):
         """
@@ -4178,15 +4461,16 @@ class Config(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'selective_forwarding/destinations')
         return self._call('POST', function_endpoint, json=data, headers=headers, **kwargs)
 
-    @request_vars('fields')
-    def get_selective_forwarding_destinations_by_id(self, id, *, fields=None, **kwargs):
+    @header_vars('Range')
+    @request_vars('fields', 'filter')
+    def get_selective_forwarding_destinations(self, *, fields=None, filter=None, Range=None, **kwargs):
         """
-        GET /config/selective_forwarding/destinations/{id}
-        Retrieve a destination by ID
+        GET /config/selective_forwarding/destinations
+        Get all Selective Forwarding Destinations
         UNDOCUMENTED
         """
         headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
-        function_endpoint = urljoin(self._baseurl, 'selective_forwarding/destinations/{id}'.format(id=id))
+        function_endpoint = urljoin(self._baseurl, 'selective_forwarding/destinations')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
     def post_selective_forwarding_destinations_by_id(self, id, *, data, **kwargs):
@@ -4209,16 +4493,15 @@ class Config(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'selective_forwarding/destinations/{id}'.format(id=id))
         return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
 
-    @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_selective_forwarding_routes(self, *, filter=None, Range=None, fields=None, **kwargs):
+    @request_vars('fields')
+    def get_selective_forwarding_destinations_by_id(self, id, *, fields=None, **kwargs):
         """
-        GET /config/selective_forwarding/routes
-        Returns all Routing Rules in the system, ordered by creation date
+        GET /config/selective_forwarding/destinations/{id}
+        Retrieve a destination by ID
         UNDOCUMENTED
         """
         headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
-        function_endpoint = urljoin(self._baseurl, 'selective_forwarding/routes')
+        function_endpoint = urljoin(self._baseurl, 'selective_forwarding/destinations/{id}'.format(id=id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
     def post_selective_forwarding_routes(self, *, data, **kwargs):
@@ -4231,25 +4514,16 @@ class Config(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'selective_forwarding/routes')
         return self._call('POST', function_endpoint, json=data, headers=headers, **kwargs)
 
-    def delete_selective_forwarding_routes_by_id(self, id, **kwargs):
+    @header_vars('Range')
+    @request_vars('fields', 'filter')
+    def get_selective_forwarding_routes(self, *, fields=None, filter=None, Range=None, **kwargs):
         """
-        DELETE /config/selective_forwarding/routes/{id}
-        Deletes a Routing Rule with the the given ID
+        GET /config/selective_forwarding/routes
+        Returns all Routing Rules in the system, ordered by creation date
         UNDOCUMENTED
         """
         headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
-        function_endpoint = urljoin(self._baseurl, 'selective_forwarding/routes/{id}'.format(id=id))
-        return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
-
-    @request_vars('fields')
-    def get_selective_forwarding_routes_by_id(self, id, *, fields=None, **kwargs):
-        """
-        GET /config/selective_forwarding/routes/{id}
-        retrieve route by ID
-        UNDOCUMENTED
-        """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
-        function_endpoint = urljoin(self._baseurl, 'selective_forwarding/routes/{id}'.format(id=id))
+        function_endpoint = urljoin(self._baseurl, 'selective_forwarding/routes')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
     def post_selective_forwarding_routes_by_id(self, id, *, data, **kwargs):
@@ -4262,9 +4536,30 @@ class Config(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'selective_forwarding/routes/{id}'.format(id=id))
         return self._call('POST', function_endpoint, json=data, headers=headers, **kwargs)
 
+    @request_vars('fields')
+    def get_selective_forwarding_routes_by_id(self, id, *, fields=None, **kwargs):
+        """
+        GET /config/selective_forwarding/routes/{id}
+        retrieve route by ID
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl, 'selective_forwarding/routes/{id}'.format(id=id))
+        return self._call('GET', function_endpoint, headers=headers, **kwargs)
+
+    def delete_selective_forwarding_routes_by_id(self, id, **kwargs):
+        """
+        DELETE /config/selective_forwarding/routes/{id}
+        Deletes a Routing Rule with the the given ID
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl, 'selective_forwarding/routes/{id}'.format(id=id))
+        return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
+
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_store_and_forward_policies(self, *, filter=None, Range=None, fields=None, **kwargs):
+    @request_vars('fields', 'filter')
+    def get_store_and_forward_policies(self, *, fields=None, filter=None, Range=None, **kwargs):
         """
         GET /config/store_and_forward/policies
         Retrieves a list of store and forward policies.
@@ -4310,7 +4605,7 @@ class Config(QRadarAPIEndpoint):
 
     @header_vars('Range')
     @request_vars('filter', 'fields')
-    def get_vpn_client_configurations(self, *, filter=None, Range=None, fields=None, **kwargs):
+    def get_vpn_client_configurations(self, *, Range=None, filter=None, fields=None, **kwargs):
         """
         GET /config/vpn/client_configurations
         No summary provided

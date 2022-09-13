@@ -16,16 +16,6 @@ class DynamicSearch(QRadarAPIEndpoint):
                          header,
                          verify)
 
-    @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_saved_queries(self, *, filter=None, Range=None, fields=None, **kwargs):
-        """
-        GET /dynamic_search/saved_queries
-        Returns a list of all queries to which the caller has access.
-        """
-        function_endpoint = urljoin(self._baseurl, 'saved_queries')
-        return self._call('GET', function_endpoint, **kwargs)
-
     def post_saved_queries(self, *, query, **kwargs):
         """
         POST /dynamic_search/saved_queries
@@ -33,6 +23,16 @@ class DynamicSearch(QRadarAPIEndpoint):
         """
         function_endpoint = urljoin(self._baseurl, 'saved_queries')
         return self._call('POST', function_endpoint, json=query, **kwargs)
+
+    @header_vars('Range')
+    @request_vars('fields', 'filter')
+    def get_saved_queries(self, *, fields=None, filter=None, Range=None, **kwargs):
+        """
+        GET /dynamic_search/saved_queries
+        Returns a list of all queries to which the caller has access.
+        """
+        function_endpoint = urljoin(self._baseurl, 'saved_queries')
+        return self._call('GET', function_endpoint, **kwargs)
 
     @request_vars('fields')
     def get_saved_queries_by_id(self, id, *, fields=None, **kwargs):
@@ -52,8 +52,8 @@ class DynamicSearch(QRadarAPIEndpoint):
         return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
 
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_schemas(self, *, filter=None, Range=None, fields=None, **kwargs):
+    @request_vars('fields', 'filter')
+    def get_schemas(self, *, fields=None, filter=None, Range=None, **kwargs):
         """
         GET /dynamic_search/schemas
         Gets the list of all schemas available to the user.
@@ -71,8 +71,8 @@ class DynamicSearch(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_schemas_fields_by_name(self, name, *, filter=None, Range=None, fields=None, **kwargs):
+    @request_vars('fields', 'filter')
+    def get_schemas_fields_by_name(self, name, *, fields=None, filter=None, Range=None, **kwargs):
         """
         GET /dynamic_search/schemas/{name}/fields
         Gets the list of all available Fields
@@ -81,8 +81,8 @@ class DynamicSearch(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_schemas_functions_by_name(self, name, *, filter=None, Range=None, fields=None, **kwargs):
+    @request_vars('fields', 'filter')
+    def get_schemas_functions_by_name(self, name, *, fields=None, filter=None, Range=None, **kwargs):
         """
         GET /dynamic_search/schemas/{name}/functions
         Gets the list of all available Functions
@@ -91,8 +91,8 @@ class DynamicSearch(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_schemas_operators_by_name(self, name, *, filter=None, Range=None, fields=None, **kwargs):
+    @request_vars('fields', 'filter')
+    def get_schemas_operators_by_name(self, name, *, fields=None, filter=None, Range=None, **kwargs):
         """
         GET /dynamic_search/schemas/{name}/operators
         Gets the list of all available relational Operators
@@ -109,22 +109,13 @@ class DynamicSearch(QRadarAPIEndpoint):
         return self._call('POST', function_endpoint, json=search, **kwargs)
 
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_searches(self, *, filter=None, Range=None, fields=None, **kwargs):
+    @request_vars('fields', 'filter')
+    def get_searches(self, *, fields=None, filter=None, Range=None, **kwargs):
         """
         GET /dynamic_search/searches
         Gets the list of all searches performed by this user.
         """
         function_endpoint = urljoin(self._baseurl, 'searches')
-        return self._call('GET', function_endpoint, **kwargs)
-
-    @request_vars('fields')
-    def get_searches_by_handle(self, handle, *, fields=None, **kwargs):
-        """
-        GET /dynamic_search/searches/{handle}
-        Gets the specific search performed by this user.
-        """
-        function_endpoint = urljoin(self._baseurl, 'searches/{handle}'.format(handle=handle))
         return self._call('GET', function_endpoint, **kwargs)
 
     def delete_searches_by_handle(self, handle, **kwargs):
@@ -135,7 +126,18 @@ class DynamicSearch(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'searches/{handle}'.format(handle=handle))
         return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
 
-    def get_searches_results_by_handle(self, handle, **kwargs):
+    @request_vars('fields')
+    def get_searches_by_handle(self, handle, *, fields=None, **kwargs):
+        """
+        GET /dynamic_search/searches/{handle}
+        Gets the specific search performed by this user.
+        """
+        function_endpoint = urljoin(self._baseurl, 'searches/{handle}'.format(handle=handle))
+        return self._call('GET', function_endpoint, **kwargs)
+
+    @header_vars('Range')
+    @request_vars('filter', 'sort')
+    def get_searches_results_by_handle(self, handle, *, filter=None, sort=None, Range=None, **kwargs):
         """
         GET /dynamic_search/searches/{handle}/results
         Gets the specific search performed by this user.
