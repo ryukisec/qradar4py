@@ -1,3 +1,4 @@
+from qradar4py.endpoints.access import Access
 from qradar4py.endpoints.analytics import Analytics
 from qradar4py.endpoints.application import Application
 from qradar4py.endpoints.ariel import Ariel
@@ -33,8 +34,8 @@ from qradar4py.endpoints.staged_config import StagedConfig
 from qradar4py.endpoints.support import Support
 from qradar4py.endpoints.usermanagement import Usermanagement
 
-__all__ = ['Analytics', 'Application', 'Ariel', 'AssetModel', 'Auth', 'BackupAndRestore', 'BandwidthManager', 'Config',
-           'Configservices', 'Configuration', 'Dashboards', 'DataClassification', 'DisasterRecovery', 'DynamicSearch',
-           'Forensics', 'G11n', 'GuiAppFramework', 'Health', 'HealthData', 'Help', 'HistoricalCorrelation', 'Internal',
-           'Qni', 'Qvm', 'ReferenceData', 'ReferenceDataCollections', 'Reporting', 'Reports', 'Scanner', 'Services',
-           'Siem', 'StagedConfig', 'Support', 'Usermanagement']
+__all__ = ['Access', 'Analytics', 'Application', 'Ariel', 'AssetModel', 'Auth', 'BackupAndRestore', 'BandwidthManager',
+           'Config', 'Configservices', 'Configuration', 'Dashboards', 'DataClassification', 'DisasterRecovery',
+           'DynamicSearch', 'Forensics', 'G11n', 'GuiAppFramework', 'Health', 'HealthData', 'Help',
+           'HistoricalCorrelation', 'Internal', 'Qni', 'Qvm', 'ReferenceData', 'ReferenceDataCollections', 'Reporting',
+           'Reports', 'Scanner', 'Services', 'Siem', 'StagedConfig', 'Support', 'Usermanagement']

@@ -27,6 +27,7 @@ class QRadarApi:
             from requests.packages.urllib3.exceptions import InsecureRequestWarning
             requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
+        self.access = Access(self.__baseurl, self.__header, self.__verify)
         self.analytics = Analytics(self.__baseurl, self.__header, self.__verify)
         self.application = Application(self.__baseurl, self.__header, self.__verify)
         self.ariel = Ariel(self.__baseurl, self.__header, self.__verify)
