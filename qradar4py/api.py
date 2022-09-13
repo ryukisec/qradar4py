@@ -52,6 +52,7 @@ class QRadarApi:
         self.qni = Qni(self.__baseurl, self.__header, self.__verify)
         self.qvm = Qvm(self.__baseurl, self.__header, self.__verify)
         self.referencedata = ReferenceData(self.__baseurl, self.__header, self.__verify)
+        self.referencedatacollections = ReferenceDataCollections(self.__baseurl, self.__header, self.__verify)
         self.reporting = Reporting(self.__baseurl, self.__header, self.__verify)
         self.reports = Reports(self.__baseurl, self.__header, self.__verify)
         self.scanner = Scanner(self.__baseurl, self.__header, self.__verify)

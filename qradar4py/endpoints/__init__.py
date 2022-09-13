@@ -23,6 +23,7 @@ from qradar4py.endpoints.internal import Internal
 from qradar4py.endpoints.qni import Qni
 from qradar4py.endpoints.qvm import Qvm
 from qradar4py.endpoints.reference_data import ReferenceData
+from qradar4py.endpoints.reference_data_collections import ReferenceDataCollections
 from qradar4py.endpoints.reporting import Reporting
 from qradar4py.endpoints.reports import Reports
 from qradar4py.endpoints.scanner import Scanner
@@ -35,5 +36,5 @@ from qradar4py.endpoints.usermanagement import Usermanagement
 __all__ = ['Analytics', 'Application', 'Ariel', 'AssetModel', 'Auth', 'BackupAndRestore', 'BandwidthManager', 'Config',
            'Configservices', 'Configuration', 'Dashboards', 'DataClassification', 'DisasterRecovery', 'DynamicSearch',
            'Forensics', 'G11n', 'GuiAppFramework', 'Health', 'HealthData', 'Help', 'HistoricalCorrelation', 'Internal',
-           'Qni', 'Qvm', 'ReferenceData', 'Reporting', 'Reports', 'Scanner', 'Services', 'Siem', 'StagedConfig',
-           'Support', 'Usermanagement']
+           'Qni', 'Qvm', 'ReferenceData', 'ReferenceDataCollections', 'Reporting', 'Reports', 'Scanner', 'Services',
+           'Siem', 'StagedConfig', 'Support', 'Usermanagement']
