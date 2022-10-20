@@ -25,7 +25,8 @@ class Configuration(QRadarAPIEndpoint):
         Retrieve a list of all log source groups
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'log_source_groups')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -36,7 +37,8 @@ class Configuration(QRadarAPIEndpoint):
         Retrieve a specific log source group
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'log_source_groups/{id}'.format(id=id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -48,7 +50,8 @@ class Configuration(QRadarAPIEndpoint):
         Retrieves all log source Protocol
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'log_source_protocols')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -62,7 +65,8 @@ class Configuration(QRadarAPIEndpoint):
         parsing intelligence must be supplied via log-source-extensions or custom event properties.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'log_source_types')
         return self._call('POST', function_endpoint, json=data, headers=headers, **kwargs)
 
@@ -75,7 +79,8 @@ class Configuration(QRadarAPIEndpoint):
         Retrieve a list of all log source types
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'log_source_types')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -86,7 +91,8 @@ class Configuration(QRadarAPIEndpoint):
         Retrieve a single log source type using ID
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'log_source_types/{id}'.format(id=id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -98,7 +104,8 @@ class Configuration(QRadarAPIEndpoint):
         to update.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'log_source_types/{id}'.format(id=id))
         return self._call('POST', function_endpoint, json=data, headers=headers, **kwargs)
 
@@ -110,7 +117,8 @@ class Configuration(QRadarAPIEndpoint):
         Retrieve a set of all log sources
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'log_sources')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -121,7 +129,8 @@ class Configuration(QRadarAPIEndpoint):
         Update the properties of the log source using id.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'log_sources/{id}'.format(id=id))
         return self._call('POST', function_endpoint, json=data, headers=headers, **kwargs)
 
@@ -132,7 +141,8 @@ class Configuration(QRadarAPIEndpoint):
         Return the log source identified by id.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'log_sources/{id}'.format(id=id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -143,6 +153,7 @@ class Configuration(QRadarAPIEndpoint):
         Create a Health Log Source to pull in health data
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'log_sources_health')
         return self._call('POST', function_endpoint, headers=headers, **kwargs)

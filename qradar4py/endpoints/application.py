@@ -24,7 +24,8 @@ class Application(QRadarAPIEndpoint):
         No summary provided
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'data_ingestion/configuration')
         return self._call('POST', function_endpoint, json=data, headers=headers, **kwargs)
 
@@ -35,7 +36,8 @@ class Application(QRadarAPIEndpoint):
         endpoint to clean up the temp mapping entries in the staging table (dsmevent_stage)
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'data_ingestion/custom_event_mapping')
         return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
 
@@ -46,7 +48,8 @@ class Application(QRadarAPIEndpoint):
         Creates a new event regex property.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'data_ingestion/custom_property_definitions')
         return self._call('POST', function_endpoint, json=data, headers=headers, **kwargs)
 
@@ -57,7 +60,8 @@ class Application(QRadarAPIEndpoint):
         Retrieves a event regex property based on the supplied regex property ID.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'data_ingestion/event/regex_properties/{regex_property_id}'.format(regex_property_id=regex_property_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -68,7 +72,8 @@ class Application(QRadarAPIEndpoint):
         Retrieves the objects that depend on the event regex property.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'data_ingestion/event/regex_properties/{regex_property_id}/dependents'.format(regex_property_id=regex_property_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -79,7 +84,8 @@ class Application(QRadarAPIEndpoint):
         Retrieves the event regex property dependent task status.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'data_ingestion/event/regex_property_dependent_tasks/{task_id}'.format(task_id=task_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -90,7 +96,8 @@ class Application(QRadarAPIEndpoint):
         Cancels the regex property dependent task.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'data_ingestion/event/regex_property_dependent_tasks/{task_id}'.format(task_id=task_id))
         return self._call('POST', function_endpoint, json=task, headers=headers, **kwargs)
 
@@ -101,7 +108,8 @@ class Application(QRadarAPIEndpoint):
         Retrieves the regex property dependent task results.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'data_ingestion/event/regex_property_dependent_tasks/{task_id}/results'.format(task_id=task_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -112,7 +120,8 @@ class Application(QRadarAPIEndpoint):
         Retrieves a flow regex property based on the supplied regex property ID.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'data_ingestion/flow/regex_properties/{regex_property_id}'.format(regex_property_id=regex_property_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -123,7 +132,8 @@ class Application(QRadarAPIEndpoint):
         Retrieves the objects that depend on the flow regex property.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'data_ingestion/flow/regex_properties/{regex_property_id}/dependents'.format(regex_property_id=regex_property_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -134,7 +144,8 @@ class Application(QRadarAPIEndpoint):
         Cancels the flow regex property dependent task.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'data_ingestion/flow/regex_property_dependent_tasks/{task_id}'.format(task_id=task_id))
         return self._call('POST', function_endpoint, json=task, headers=headers, **kwargs)
 
@@ -145,7 +156,8 @@ class Application(QRadarAPIEndpoint):
         Retrieves the flow regex property dependent task status.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'data_ingestion/flow/regex_property_dependent_tasks/{task_id}'.format(task_id=task_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -156,7 +168,8 @@ class Application(QRadarAPIEndpoint):
         Retrieves the regex property dependent task results.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'data_ingestion/flow/regex_property_dependent_tasks/{task_id}/results'.format(task_id=task_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -167,7 +180,8 @@ class Application(QRadarAPIEndpoint):
         Gets the list of identity fields that can be populated for a normalized event
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'data_ingestion/identity_fields')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -179,7 +193,8 @@ class Application(QRadarAPIEndpoint):
         No summary provided
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'data_ingestion/keyNameMappings')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -191,7 +206,8 @@ class Application(QRadarAPIEndpoint):
         Retrieves a list of mappings.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'data_ingestion/mappings/{log_source_type_id}'.format(log_source_type_id=log_source_type_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -201,7 +217,8 @@ class Application(QRadarAPIEndpoint):
         No summary provided
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'data_ingestion/mappings/{log_source_type_id}'.format(log_source_type_id=log_source_type_id))
         return self._call('POST', function_endpoint, json=data, headers=headers, **kwargs)
 
@@ -213,7 +230,8 @@ class Application(QRadarAPIEndpoint):
         requirement (i.e., needed so some widget has a place to call the delete endpoint).
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'data_ingestion/mappings/{log_source_type_id}/{id}'.format(log_source_type_id=log_source_type_id, id=id))
         return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
 
@@ -223,7 +241,8 @@ class Application(QRadarAPIEndpoint):
         This endpoint updates an existing temp mapping entry in the staging table (dsmevent_staging).
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'data_ingestion/mappings/{log_source_type_id}/{id}'.format(log_source_type_id=log_source_type_id, id=id))
         return self._call('PUT', function_endpoint, headers=headers, **kwargs)
 
@@ -235,7 +254,8 @@ class Application(QRadarAPIEndpoint):
         No summary provided
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'data_ingestion/payloads')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -246,7 +266,8 @@ class Application(QRadarAPIEndpoint):
         Retrieves a list of properties belonging to a certain log source type.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'data_ingestion/properties/{log_source_type_id}'.format(log_source_type_id=log_source_type_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -258,7 +279,8 @@ class Application(QRadarAPIEndpoint):
         Retrieves a list of qid records.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'data_ingestion/qid_records')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -269,7 +291,8 @@ class Application(QRadarAPIEndpoint):
         Retrieves a qid record based on supplied qid_record_id.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'data_ingestion/qid_records/{qid_record_id}'.format(qid_record_id=qid_record_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -281,7 +304,8 @@ class Application(QRadarAPIEndpoint):
         list of event mappings.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'data_ingestion/simulate')
         return self._call('POST', function_endpoint, json=data, headers=headers, **kwargs)
 
@@ -293,7 +317,8 @@ class Application(QRadarAPIEndpoint):
         Returns a list of NTA hierarchical clustering algorithms.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'network_threat_analytics/hierarchical_clustering_algorithms')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -304,7 +329,8 @@ class Application(QRadarAPIEndpoint):
         Create a NTA hierarchical clustering algorithm.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'network_threat_analytics/hierarchical_clustering_algorithms')
         return self._call('POST', function_endpoint, json=body, headers=headers, **kwargs)
 
@@ -315,7 +341,8 @@ class Application(QRadarAPIEndpoint):
         Partially update a NTA hierarchical clustering algorithm.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'network_threat_analytics/hierarchical_clustering_algorithms/{id}'.format(id=id))
         return self._call('POST', function_endpoint, json=body, headers=headers, **kwargs)
 
@@ -326,7 +353,8 @@ class Application(QRadarAPIEndpoint):
         Returns a single NTA hierarchical clustering algorithm
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'network_threat_analytics/hierarchical_clustering_algorithms/{id}'.format(id=id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -336,7 +364,8 @@ class Application(QRadarAPIEndpoint):
         Delete a NTA hierarchical clustering algorithm.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'network_threat_analytics/hierarchical_clustering_algorithms/{id}'.format(id=id))
         return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
 
@@ -348,7 +377,8 @@ class Application(QRadarAPIEndpoint):
         Gets the list of NTA models associated with a hierarchical clustering algorithm.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'network_threat_analytics/hierarchical_clustering_algorithms/{id}/models'.format(id=id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -359,7 +389,8 @@ class Application(QRadarAPIEndpoint):
         Update multiple NTA models for a specified hierarchical clustering algorithm.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         if not isinstance(body, list):
             body = [body]
         function_endpoint = urljoin(self._baseurl, 'network_threat_analytics/hierarchical_clustering_algorithms/{id}/models'.format(id=id))
@@ -372,7 +403,8 @@ class Application(QRadarAPIEndpoint):
         Gets a single model by hierarchical clustering algorithm id and model index.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'network_threat_analytics/hierarchical_clustering_algorithms/{id}/models/{model_index}'.format(id=id, model_index=model_index))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -383,6 +415,7 @@ class Application(QRadarAPIEndpoint):
         Update a NTA model for a specified hierarchical clustering algorithm.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'network_threat_analytics/hierarchical_clustering_algorithms/{id}/models/{model_index}'.format(id=id, model_index=model_index))
         return self._call('POST', function_endpoint, json=model, headers=headers, **kwargs)

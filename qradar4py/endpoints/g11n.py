@@ -25,6 +25,7 @@ class G11n(QRadarAPIEndpoint):
         No summary provided
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'locale')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)

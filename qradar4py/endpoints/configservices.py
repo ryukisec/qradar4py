@@ -24,7 +24,8 @@ class Configservices(QRadarAPIEndpoint):
         Getting hdeploymentost token.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'deployment/token')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -35,7 +36,8 @@ class Configservices(QRadarAPIEndpoint):
         Host Capabilities report to Console.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'host_capabilities/report')
         return self._call('POST', function_endpoint, json=hostcapabilities, headers=headers, **kwargs)
 
@@ -46,6 +48,7 @@ class Configservices(QRadarAPIEndpoint):
         Getting status of the Host Capabilities reporting task.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'host_capabilities/report/{task_id}'.format(task_id=task_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)

@@ -44,7 +44,8 @@ class Ariel(QRadarAPIEndpoint):
         Get all datanode cluster ids
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'datanode/clusters')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -55,7 +56,8 @@ class Ariel(QRadarAPIEndpoint):
         Get datanode cluster by id
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'datanode/clusters/{id}'.format(id=id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -67,7 +69,8 @@ class Ariel(QRadarAPIEndpoint):
         Get all datanode node ids
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'datanode/nodes')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -78,7 +81,8 @@ class Ariel(QRadarAPIEndpoint):
         Get datanode node by id
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'datanode/nodes/{id}'.format(id=id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -198,7 +202,8 @@ class Ariel(QRadarAPIEndpoint):
         Retrieve the columns defined for a specific Ariel function
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'function/{function_name}'.format(function_name=function_name))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -437,7 +442,8 @@ class Ariel(QRadarAPIEndpoint):
         Get all ariel server ids
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'servers')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -448,7 +454,8 @@ class Ariel(QRadarAPIEndpoint):
         Get ariel server by id
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'servers/{id}'.format(id=id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 

@@ -70,7 +70,8 @@ class Config(QRadarAPIEndpoint):
         No summary provided
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'access/roles')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -81,7 +82,8 @@ class Config(QRadarAPIEndpoint):
         No summary provided
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'access/roles/{id}'.format(id=id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -112,7 +114,8 @@ class Config(QRadarAPIEndpoint):
         No summary provided
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'access/staged_roles')
         return self._call('POST', function_endpoint, headers=headers, **kwargs)
 
@@ -124,7 +127,8 @@ class Config(QRadarAPIEndpoint):
         No summary provided
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'access/staged_roles')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -135,7 +139,8 @@ class Config(QRadarAPIEndpoint):
         No summary provided
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'access/staged_roles/{id}'.format(id=id))
         return self._call('DELETE', function_endpoint, headers=headers, **kwargs)
 
@@ -146,7 +151,8 @@ class Config(QRadarAPIEndpoint):
         No summary provided
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'access/staged_roles/{id}'.format(id=id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -262,7 +268,8 @@ class Config(QRadarAPIEndpoint):
         Create (and deploy) a single QRadar user.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'access/users')
         return self._call('POST', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
 
@@ -301,7 +308,8 @@ class Config(QRadarAPIEndpoint):
         Retrieves a list of deployed users.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'access/users_with_capability_filter')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -313,7 +321,8 @@ class Config(QRadarAPIEndpoint):
         Retrieves a list of a list of deployed roles that are currently in the system.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'access_control/roles')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -324,7 +333,8 @@ class Config(QRadarAPIEndpoint):
         Retrieves a deployed role that is currently in the system by its ID.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'access_control/roles/{id}'.format(id=id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -335,7 +345,8 @@ class Config(QRadarAPIEndpoint):
         Retrieve the dependent the User task status.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'access_control/user_dependent_tasks/{task_id}'.format(task_id=task_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
@@ -347,7 +358,8 @@ class Config(QRadarAPIEndpoint):
         Cancel the dependent the User task.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'access_control/user_dependent_tasks/{task_id}'.format(task_id=task_id))
         return self._call('POST', function_endpoint, json=task, headers=headers, **kwargs)
@@ -359,7 +371,8 @@ class Config(QRadarAPIEndpoint):
         Retrieve the User Dependent Task Results
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'access_control/user_dependent_tasks/{task_id}/results'.format(task_id=task_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
@@ -372,7 +385,8 @@ class Config(QRadarAPIEndpoint):
         Retrieve the Deployed Users
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'access_control/users')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -383,7 +397,8 @@ class Config(QRadarAPIEndpoint):
         Retrieve the Deployed User
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'access_control/users/{id}'.format(id=id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -394,7 +409,8 @@ class Config(QRadarAPIEndpoint):
         Find the objects that depend on the User
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'access_control/users/{id}/dependents'.format(id=id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -494,7 +510,8 @@ class Config(QRadarAPIEndpoint):
         Create a new Data Lake Property
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'data_lake/properties')
         return self._call('POST', function_endpoint, json=data_lake_property, headers=headers, **kwargs)
 
@@ -506,7 +523,8 @@ class Config(QRadarAPIEndpoint):
         Retrieves a list of Data Lake Properties.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'data_lake/properties')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -517,7 +535,8 @@ class Config(QRadarAPIEndpoint):
         Updates the Data Lake Property configuration.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'data_lake/properties/{name}'.format(name=name))
         return self._call('POST', function_endpoint, json=data_lake_property, headers=headers, **kwargs)
 
@@ -528,7 +547,8 @@ class Config(QRadarAPIEndpoint):
         Retrieves a single Data Lake Property by Name.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'data_lake/properties/{name}'.format(name=name))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -538,7 +558,8 @@ class Config(QRadarAPIEndpoint):
         Deletes a single Data Lake Property by Name.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'data_lake/properties/{name}'.format(name=name))
         return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
 
@@ -549,7 +570,8 @@ class Config(QRadarAPIEndpoint):
         No summary provided
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'deploy_action')
         return self._call('POST', function_endpoint, headers=headers, **kwargs)
 
@@ -559,7 +581,8 @@ class Config(QRadarAPIEndpoint):
         No summary provided
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'deploy_action')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -571,7 +594,8 @@ class Config(QRadarAPIEndpoint):
         See api_mapping.xml
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'deployment/components')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -582,7 +606,8 @@ class Config(QRadarAPIEndpoint):
         See api_mapping.xml
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'deployment/components/{id}'.format(id=id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -621,7 +646,8 @@ class Config(QRadarAPIEndpoint):
         Gets the EPS, FPS, EPSLimit, FPSLimit, and Max Log Source for a managed host
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'deployment/hosts/{id}/capabilities'.format(id=id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -652,7 +678,8 @@ class Config(QRadarAPIEndpoint):
         Get a list of License and information form the encrypted file.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'deployment/licenses')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -671,7 +698,8 @@ class Config(QRadarAPIEndpoint):
 
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'deployment/natgroups')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -689,7 +717,8 @@ class Config(QRadarAPIEndpoint):
 
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'deployment/natgroups/{id}'.format(id=id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -700,7 +729,8 @@ class Config(QRadarAPIEndpoint):
         See api_mapping.xml
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'deployment/staged_components')
         return self._call('POST', function_endpoint, headers=headers, **kwargs)
 
@@ -712,7 +742,8 @@ class Config(QRadarAPIEndpoint):
         See api_mapping.xml
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'deployment/staged_components')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -723,7 +754,8 @@ class Config(QRadarAPIEndpoint):
         See api_mapping.xml
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'deployment/staged_components/{id}'.format(id=id))
         return self._call('DELETE', function_endpoint, headers=headers, **kwargs)
 
@@ -735,7 +767,8 @@ class Config(QRadarAPIEndpoint):
         See api_mapping.xml
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'deployment/staged_components/{id}'.format(id=id))
         return self._call('POST', function_endpoint, headers=headers, **kwargs)
 
@@ -746,7 +779,8 @@ class Config(QRadarAPIEndpoint):
         See api_mapping.xml
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'deployment/staged_components/{id}'.format(id=id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -757,7 +791,8 @@ class Config(QRadarAPIEndpoint):
         Add a deployment host.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'deployment/staged_hosts')
         return self._call('POST', function_endpoint, json=deploymentHost, headers=headers, **kwargs)
 
@@ -769,7 +804,8 @@ class Config(QRadarAPIEndpoint):
         See api_mapping.xml
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'deployment/staged_hosts')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -781,7 +817,8 @@ class Config(QRadarAPIEndpoint):
         Availability Pair, the console host, or the hosts with failed license pool validation.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'deployment/staged_hosts/{id}'.format(id=id))
         return self._call('DELETE', function_endpoint, headers=headers, **kwargs)
 
@@ -792,7 +829,8 @@ class Config(QRadarAPIEndpoint):
         See api_mapping.xml
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'deployment/staged_hosts/{id}'.format(id=id))
         return self._call('POST', function_endpoint, json=deploymentHost, headers=headers, **kwargs)
 
@@ -803,7 +841,8 @@ class Config(QRadarAPIEndpoint):
         See api_mapping.xml
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'deployment/staged_hosts/{id}'.format(id=id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -823,7 +862,8 @@ class Config(QRadarAPIEndpoint):
 
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'deployment/staged_natgroups')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -841,7 +881,8 @@ class Config(QRadarAPIEndpoint):
 
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'deployment/staged_natgroups')
         return self._call('POST', function_endpoint, headers=headers, **kwargs)
 
@@ -859,7 +900,8 @@ class Config(QRadarAPIEndpoint):
 
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'deployment/staged_natgroups/{id}'.format(id=id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -877,7 +919,8 @@ class Config(QRadarAPIEndpoint):
 
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'deployment/staged_natgroups/{id}'.format(id=id))
         return self._call('DELETE', function_endpoint, headers=headers, **kwargs)
 
@@ -895,7 +938,8 @@ class Config(QRadarAPIEndpoint):
 
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'deployment/staged_natgroups/{id}'.format(id=id))
         return self._call('POST', function_endpoint, headers=headers, **kwargs)
 
@@ -912,7 +956,8 @@ class Config(QRadarAPIEndpoint):
 
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'deployment/summary')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -923,7 +968,8 @@ class Config(QRadarAPIEndpoint):
         Retrieves the Deployed Disaster Recovery Config.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'disaster_recovery/disaster_recovery_config')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -1017,7 +1063,8 @@ class Config(QRadarAPIEndpoint):
         Retrieves a AQL event property based on the supplied AQL property aql_property_id.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'event_sources/custom_properties/aql_properties/dep/{aql_property_id}'.format(
                                         aql_property_id=aql_property_id))
@@ -1031,7 +1078,8 @@ class Config(QRadarAPIEndpoint):
         Updates an existing custom AQL property.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'event_sources/custom_properties/aql_properties/{aql_property_id}'.format(
                                         aql_property_id=aql_property_id))
@@ -1045,7 +1093,8 @@ class Config(QRadarAPIEndpoint):
         Retrieves a AQL event property based on the supplied AQL property ID.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'event_sources/custom_properties/aql_properties/{aql_property_id}'.format(
                                         aql_property_id=aql_property_id))
@@ -1059,7 +1108,8 @@ class Config(QRadarAPIEndpoint):
         Retrieves the objects that depend on the event AQL property.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'event_sources/custom_properties/aql_properties/{aql_property_id}/dependents'.format(
                                         aql_property_id=aql_property_id))
@@ -1074,7 +1124,8 @@ class Config(QRadarAPIEndpoint):
         Retrieves the objects that depend on the event AQL property.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'event_sources/custom_properties/aql_properties/{aql_property_id}/dependents/disable'.format(
                                         aql_property_id=aql_property_id))
@@ -1089,7 +1140,8 @@ class Config(QRadarAPIEndpoint):
         Retrieves  an event AQL property by it's name.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'event_sources/custom_properties/aql_property/{aql_property_name}'.format(
                                         aql_property_name=aql_property_name))
@@ -1103,7 +1155,8 @@ class Config(QRadarAPIEndpoint):
         Retrieves the status of the event AQL property dependents task.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'event_sources/custom_properties/aql_property_dependent_tasks/disable/{task_id}'.format(
                                         task_id=task_id))
@@ -1117,7 +1170,8 @@ class Config(QRadarAPIEndpoint):
         Cancels the event AQL property dependent task.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'event_sources/custom_properties/aql_property_dependent_tasks/disable/{task_id}'.format(
                                         task_id=task_id))
@@ -1132,7 +1186,8 @@ class Config(QRadarAPIEndpoint):
         Retrieves the aql property dependent task results.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'event_sources/custom_properties/aql_property_dependent_tasks/disable/{task_id}/results'.format(
                                         task_id=task_id))
@@ -1146,7 +1201,8 @@ class Config(QRadarAPIEndpoint):
         Cancels the event AQL property dependent task.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'event_sources/custom_properties/aql_property_dependent_tasks/{task_id}'.format(
                                         task_id=task_id))
@@ -1160,7 +1216,8 @@ class Config(QRadarAPIEndpoint):
         Retrieves the status of the event AQL property dependents task.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'event_sources/custom_properties/aql_property_dependent_tasks/{task_id}'.format(
                                         task_id=task_id))
@@ -1174,7 +1231,8 @@ class Config(QRadarAPIEndpoint):
         Retrieves the aql property dependent task results.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'event_sources/custom_properties/aql_property_dependent_tasks/{task_id}/results'.format(
                                         task_id=task_id))
@@ -1277,7 +1335,8 @@ class Config(QRadarAPIEndpoint):
         No summary provided
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'event_sources/custom_properties/calculated_properties/{calculated_property_id}/dependents/change_field_type'.format(
                                         calculated_property_id=calculated_property_id))
@@ -1335,7 +1394,8 @@ class Config(QRadarAPIEndpoint):
         No summary provided
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'event_sources/custom_properties/calculated_property_dependent_tasks/change_field_type/{task_id}'.format(
                                         task_id=task_id))
@@ -1352,7 +1412,8 @@ class Config(QRadarAPIEndpoint):
         No summary provided
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'event_sources/custom_properties/calculated_property_dependent_tasks/change_field_type/{task_id}'.format(
                                         task_id=task_id))
@@ -1366,7 +1427,8 @@ class Config(QRadarAPIEndpoint):
         No summary provided
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'event_sources/custom_properties/calculated_property_dependent_tasks/change_field_type/{task_id}/results'.format(
                                         task_id=task_id))
@@ -2257,7 +2319,8 @@ class Config(QRadarAPIEndpoint):
         A single FilePart that is the Log Source Extension XML file.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'event_sources/log_source_extensions')
         return self._call('POST', function_endpoint, mime_type={'Content-Type': 'multipart/form-data'}, data=file,
                           headers=headers, **kwargs)
@@ -2270,7 +2333,8 @@ class Config(QRadarAPIEndpoint):
         Retrieve a list of all log source extensions.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'event_sources/log_source_extensions')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -2282,7 +2346,8 @@ class Config(QRadarAPIEndpoint):
         Updates a log source extension.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'event_sources/log_source_extensions/{log_source_extension_id}'.format(
                                         log_source_extension_id=log_source_extension_id))
@@ -2294,7 +2359,8 @@ class Config(QRadarAPIEndpoint):
         Deletes a log source extension corresponding to the supplied ID.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'event_sources/log_source_extensions/{log_source_extension_id}'.format(
                                         log_source_extension_id=log_source_extension_id))
@@ -2308,7 +2374,8 @@ class Config(QRadarAPIEndpoint):
         Retrieves a log source extension associated with supplied ID.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'event_sources/log_source_extensions/{log_source_extension_id}'.format(
                                         log_source_extension_id=log_source_extension_id))
@@ -2320,7 +2387,8 @@ class Config(QRadarAPIEndpoint):
         No summary provided
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'event_sources/log_source_management/autodetection/autodetection_global_enabled_check')
         return self._call('GET', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
@@ -2400,7 +2468,8 @@ class Config(QRadarAPIEndpoint):
         Undocumented endpoint to get the number of log sources for a given log source type.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'event_sources/log_source_management/log_source_counter/{id}'.format(id=id))
         return self._call('GET', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
@@ -2493,7 +2562,8 @@ class Config(QRadarAPIEndpoint):
         See api_mapping.xml
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'event_sources/log_source_management/log_source_tests')
         return self._call('POST', function_endpoint, json=test, headers=headers, **kwargs)
 
@@ -2504,7 +2574,8 @@ class Config(QRadarAPIEndpoint):
         Retrieves a log source test by ID.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'event_sources/log_source_management/log_source_tests/{id}'.format(id=id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
@@ -2519,7 +2590,8 @@ class Config(QRadarAPIEndpoint):
         The only field that can be updated is the 'status' field, and the only allowed value is 'CANCELLED'.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'event_sources/log_source_management/log_source_tests/{id}'.format(id=id))
         return self._call('POST', function_endpoint, json=updated_log_source_test, headers=headers, **kwargs)
@@ -2562,7 +2634,8 @@ class Config(QRadarAPIEndpoint):
         Retrieve dsm parameter allowed values.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'event_sources/log_source_management/log_source_types/dsm_parameter_allowed_values')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
@@ -2586,7 +2659,8 @@ class Config(QRadarAPIEndpoint):
 
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         if not isinstance(dsm_paramater_allowed_values, list):
             dsm_paramater_allowed_values = [dsm_paramater_allowed_values]
         function_endpoint = urljoin(self._baseurl,
@@ -2603,7 +2677,8 @@ class Config(QRadarAPIEndpoint):
         Update a dsm parameter allowed value by id.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'event_sources/log_source_management/log_source_types/dsm_parameter_allowed_values/{id}'.format(
                                         id=id))
@@ -2618,7 +2693,8 @@ class Config(QRadarAPIEndpoint):
         Retrieve a dsm parameter allowed value by id.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'event_sources/log_source_management/log_source_types/dsm_parameter_allowed_values/{id}'.format(
                                         id=id))
@@ -2631,7 +2707,8 @@ class Config(QRadarAPIEndpoint):
         Deletes a dsm paramater allowed value by ID.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'event_sources/log_source_management/log_source_types/dsm_parameter_allowed_values/{id}'.format(
                                         id=id))
@@ -2810,7 +2887,8 @@ class Config(QRadarAPIEndpoint):
         Retrieve dsm parameter definitions.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'event_sources/log_source_management/log_source_types/dsm_parameter_definition')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
@@ -2832,7 +2910,8 @@ class Config(QRadarAPIEndpoint):
 
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         if not isinstance(dsm_paramaters, list):
             dsm_paramaters = [dsm_paramaters]
         function_endpoint = urljoin(self._baseurl,
@@ -2848,7 +2927,8 @@ class Config(QRadarAPIEndpoint):
         Retrieve dsm parameters.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'event_sources/log_source_management/log_source_types/dsm_parameters')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
@@ -2861,7 +2941,8 @@ class Config(QRadarAPIEndpoint):
         Retrieve a dsm parameter by id.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'event_sources/log_source_management/log_source_types/dsm_parameters/{id}'.format(
                                         id=id))
@@ -2873,7 +2954,8 @@ class Config(QRadarAPIEndpoint):
         Deletes a dsm paramater by ID.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'event_sources/log_source_management/log_source_types/dsm_parameters/{id}'.format(
                                         id=id))
@@ -2887,7 +2969,8 @@ class Config(QRadarAPIEndpoint):
         Update a dsm parameter by id.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'event_sources/log_source_management/log_source_types/dsm_parameters/{id}'.format(
                                         id=id))
@@ -3377,7 +3460,8 @@ class Config(QRadarAPIEndpoint):
         Retrieves a AQL flow property based on the supplied AQL property ID.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'flow_sources/custom_properties/aql_properties/dep/{aql_property_id}'.format(
                                         aql_property_id=aql_property_id))
@@ -3391,7 +3475,8 @@ class Config(QRadarAPIEndpoint):
         Retrieves a AQL flow property based on the supplied AQL property ID.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'flow_sources/custom_properties/aql_properties/{aql_property_id}'.format(
                                         aql_property_id=aql_property_id))
@@ -3405,7 +3490,8 @@ class Config(QRadarAPIEndpoint):
         Retrieves the objects that depend on the flow AQL property.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'flow_sources/custom_properties/aql_properties/{aql_property_id}/dependents'.format(
                                         aql_property_id=aql_property_id))
@@ -3420,7 +3506,8 @@ class Config(QRadarAPIEndpoint):
         Retrieves the objects that depend on the flow AQL property.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'flow_sources/custom_properties/aql_properties/{aql_property_id}/dependents/disable'.format(
                                         aql_property_id=aql_property_id))
@@ -3435,7 +3522,8 @@ class Config(QRadarAPIEndpoint):
         Retrieves a flow AQL property by it's name.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'flow_sources/custom_properties/aql_property/{aql_property_name}'.format(
                                         aql_property_name=aql_property_name))
@@ -3449,7 +3537,8 @@ class Config(QRadarAPIEndpoint):
         Cancels the flow AQL property dependent task.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'flow_sources/custom_properties/aql_property_dependent_tasks/disable/{task_id}'.format(
                                         task_id=task_id))
@@ -3463,7 +3552,8 @@ class Config(QRadarAPIEndpoint):
         Retrieves the status of the flow AQL property dependents task.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'flow_sources/custom_properties/aql_property_dependent_tasks/disable/{task_id}'.format(
                                         task_id=task_id))
@@ -3478,7 +3568,8 @@ class Config(QRadarAPIEndpoint):
         Retrieves the aql property dependent task results.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'flow_sources/custom_properties/aql_property_dependent_tasks/disable/{task_id}/results'.format(
                                         task_id=task_id))
@@ -3492,7 +3583,8 @@ class Config(QRadarAPIEndpoint):
         Retrieves the status of the flow AQL property dependents task.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'flow_sources/custom_properties/aql_property_dependent_tasks/{task_id}'.format(
                                         task_id=task_id))
@@ -3506,7 +3598,8 @@ class Config(QRadarAPIEndpoint):
         Cancels the flow AQL property dependent task.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'flow_sources/custom_properties/aql_property_dependent_tasks/{task_id}'.format(
                                         task_id=task_id))
@@ -3520,7 +3613,8 @@ class Config(QRadarAPIEndpoint):
         Retrieves the aql property dependent task results.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'flow_sources/custom_properties/aql_property_dependent_tasks/{task_id}/results'.format(
                                         task_id=task_id))
@@ -3621,7 +3715,8 @@ class Config(QRadarAPIEndpoint):
         No summary provided
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'flow_sources/custom_properties/calculated_properties/{calculated_property_id}/dependents/change_field_type'.format(
                                         calculated_property_id=calculated_property_id))
@@ -3680,7 +3775,8 @@ class Config(QRadarAPIEndpoint):
         No summary provided
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'flow_sources/custom_properties/calculated_property_dependent_tasks/change_field_type/{task_id}'.format(
                                         task_id=task_id))
@@ -3696,7 +3792,8 @@ class Config(QRadarAPIEndpoint):
         No summary provided
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'flow_sources/custom_properties/calculated_property_dependent_tasks/change_field_type/{task_id}'.format(
                                         task_id=task_id))
@@ -3710,7 +3807,8 @@ class Config(QRadarAPIEndpoint):
         No summary provided
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'flow_sources/custom_properties/calculated_property_dependent_tasks/change_field_type/{task_id}/results'.format(
                                         task_id=task_id))
@@ -4087,7 +4185,8 @@ class Config(QRadarAPIEndpoint):
         Retrieves the delete log source group task status.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'log_sources/log_source_group_delete_tasks/{task_id}'.format(task_id=task_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
@@ -4099,7 +4198,8 @@ class Config(QRadarAPIEndpoint):
         Cancels the dependent the log source group task.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'log_sources/log_source_group_dependent_tasks/{task_id}'.format(task_id=task_id))
         return self._call('POST', function_endpoint, json=task, headers=headers, **kwargs)
@@ -4111,7 +4211,8 @@ class Config(QRadarAPIEndpoint):
         Retrieves the dependent log source group task status.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'log_sources/log_source_group_dependent_tasks/{task_id}'.format(task_id=task_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
@@ -4123,7 +4224,8 @@ class Config(QRadarAPIEndpoint):
         Retrieves the log source group dependent task results.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'log_sources/log_source_group_dependent_tasks/{task_id}/results'.format(
                                         task_id=task_id))
@@ -4137,7 +4239,8 @@ class Config(QRadarAPIEndpoint):
         Retrieves a list of log source groups.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'log_sources/log_source_groups')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -4148,7 +4251,8 @@ class Config(QRadarAPIEndpoint):
         Creates a log source group.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'log_sources/log_source_groups')
         return self._call('POST', function_endpoint, json=log_source_group, headers=headers, **kwargs)
 
@@ -4159,7 +4263,8 @@ class Config(QRadarAPIEndpoint):
         Deletes a log source group. To ensure safe deletion, a dependency check is carried out. This check might take some time. An asynchronous task is started to do this check.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'log_sources/log_source_groups/{group_id}'.format(group_id=group_id))
         return self._call('DELETE', function_endpoint, headers=headers, **kwargs)
 
@@ -4170,7 +4275,8 @@ class Config(QRadarAPIEndpoint):
         Retrieves a log source group.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'log_sources/log_source_groups/{group_id}'.format(group_id=group_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -4181,7 +4287,8 @@ class Config(QRadarAPIEndpoint):
         Updates a log source group.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'log_sources/log_source_groups/{group_id}'.format(group_id=group_id))
         return self._call('POST', function_endpoint, json=log_source_group, headers=headers, **kwargs)
 
@@ -4192,7 +4299,8 @@ class Config(QRadarAPIEndpoint):
         Retrieves the objects that depend on the log source group.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'log_sources/log_source_groups/{group_id}/dependents'.format(group_id=group_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
@@ -4269,7 +4377,8 @@ class Config(QRadarAPIEndpoint):
         Retrieves the deployed resilient config.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'resilient/connections')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -4280,7 +4389,8 @@ class Config(QRadarAPIEndpoint):
         Creates a new resilient configuration.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'resilient/connections')
         return self._call('POST', function_endpoint, json=resilientConnection, headers=headers, **kwargs)
 
@@ -4290,7 +4400,8 @@ class Config(QRadarAPIEndpoint):
         delete the requested resilient config.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'resilient/connections/{id}'.format(id=id))
         return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
 
@@ -4301,7 +4412,8 @@ class Config(QRadarAPIEndpoint):
         Update a new resilient configuration.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'resilient/connections/{id}'.format(id=id))
         return self._call('POST', function_endpoint, json=resilientConnection, headers=headers, **kwargs)
 
@@ -4312,7 +4424,8 @@ class Config(QRadarAPIEndpoint):
         Retrieves the requested resilient config.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'resilient/connections/{id}'.format(id=id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -4323,7 +4436,8 @@ class Config(QRadarAPIEndpoint):
         Retrieves the deployed resilient_destination.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'resilient/destinations')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -4334,7 +4448,8 @@ class Config(QRadarAPIEndpoint):
         Creates a new resilient_destination.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'resilient/destinations')
         return self._call('POST', function_endpoint, json=resilientDestination, headers=headers, **kwargs)
 
@@ -4344,7 +4459,8 @@ class Config(QRadarAPIEndpoint):
         delete the requested resilient_destination.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'resilient/destinations/{id}'.format(id=id))
         return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
 
@@ -4355,7 +4471,8 @@ class Config(QRadarAPIEndpoint):
         Retrieves the requested resilient_destination.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'resilient/destinations/{id}'.format(id=id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -4366,7 +4483,8 @@ class Config(QRadarAPIEndpoint):
         Update a resilient_destination by organization id.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'resilient/destinations/{id}'.format(id=id))
         return self._call('POST', function_endpoint, json=resilientDestination, headers=headers, **kwargs)
 
@@ -4397,7 +4515,8 @@ class Config(QRadarAPIEndpoint):
         Retrieve a list of all resource restrictions
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'resource_restriction/users_by_tenant/{tenant_id}'.format(tenant_id=tenant_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
@@ -4457,7 +4576,8 @@ class Config(QRadarAPIEndpoint):
         Creates a new Destination with the fields supplied in the body parameter
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'selective_forwarding/destinations')
         return self._call('POST', function_endpoint, json=data, headers=headers, **kwargs)
 
@@ -4469,7 +4589,8 @@ class Config(QRadarAPIEndpoint):
         Get all Selective Forwarding Destinations
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'selective_forwarding/destinations')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -4479,7 +4600,8 @@ class Config(QRadarAPIEndpoint):
         delete a Selective Forwarding Destination
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'selective_forwarding/destinations/{id}'.format(id=id))
         return self._call('POST', function_endpoint, json=data, headers=headers, **kwargs)
 
@@ -4489,7 +4611,8 @@ class Config(QRadarAPIEndpoint):
         delete a Selective Forwarding Destination
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'selective_forwarding/destinations/{id}'.format(id=id))
         return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
 
@@ -4500,7 +4623,8 @@ class Config(QRadarAPIEndpoint):
         Retrieve a destination by ID
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'selective_forwarding/destinations/{id}'.format(id=id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -4510,7 +4634,8 @@ class Config(QRadarAPIEndpoint):
         Creates a new Routing Rule with the fields supplied in the body parameter
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'selective_forwarding/routes')
         return self._call('POST', function_endpoint, json=data, headers=headers, **kwargs)
 
@@ -4522,7 +4647,8 @@ class Config(QRadarAPIEndpoint):
         Returns all Routing Rules in the system, ordered by creation date
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'selective_forwarding/routes')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -4532,7 +4658,8 @@ class Config(QRadarAPIEndpoint):
         Updates a Routing Rule based on ID with the fields supplied in the body parameter
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'selective_forwarding/routes/{id}'.format(id=id))
         return self._call('POST', function_endpoint, json=data, headers=headers, **kwargs)
 
@@ -4543,7 +4670,8 @@ class Config(QRadarAPIEndpoint):
         retrieve route by ID
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'selective_forwarding/routes/{id}'.format(id=id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -4553,7 +4681,8 @@ class Config(QRadarAPIEndpoint):
         Deletes a Routing Rule with the the given ID
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'selective_forwarding/routes/{id}'.format(id=id))
         return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
 
@@ -4599,7 +4728,8 @@ class Config(QRadarAPIEndpoint):
         No summary provided
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'vpn/client_configuration')
         return self._call('GET', function_endpoint, response_type='application/zip', headers=headers, **kwargs)
 
@@ -4611,6 +4741,7 @@ class Config(QRadarAPIEndpoint):
         No summary provided
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'vpn/client_configurations')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)

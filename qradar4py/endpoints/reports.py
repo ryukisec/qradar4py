@@ -25,7 +25,8 @@ class Reports(QRadarAPIEndpoint):
         Retrieve a list of securities associated to the shared groups available in the system
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'groups')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -36,7 +37,8 @@ class Reports(QRadarAPIEndpoint):
         Update the security structure associated to a shared group
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'groups/{id}'.format(id=id))
         return self._call('POST', function_endpoint, json=data, headers=headers, **kwargs)
 
@@ -47,6 +49,7 @@ class Reports(QRadarAPIEndpoint):
         Retrieve a security structure associated to a shared group
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'groups/{id}'.format(id=id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)

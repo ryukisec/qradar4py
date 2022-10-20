@@ -25,7 +25,8 @@ class Reporting(QRadarAPIEndpoint):
         Get a list the Report Groups
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'groups')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -36,7 +37,8 @@ class Reporting(QRadarAPIEndpoint):
         Update the owner of an Report Group
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'groups/{group_id}'.format(group_id=group_id))
         return self._call('POST', function_endpoint, json=group, headers=headers, **kwargs)
 
@@ -47,7 +49,8 @@ class Reporting(QRadarAPIEndpoint):
         Get the Report Group
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'groups/{group_id}'.format(group_id=group_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -57,7 +60,8 @@ class Reporting(QRadarAPIEndpoint):
         Delete the Report Group
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'groups/{group_id}'.format(group_id=group_id))
         return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
 
@@ -69,7 +73,8 @@ class Reporting(QRadarAPIEndpoint):
         Retrieve the Report Templates
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'templates')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -80,7 +85,8 @@ class Reporting(QRadarAPIEndpoint):
         Retrieve the Report Template
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'templates/{template_id}'.format(template_id=template_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -91,7 +97,8 @@ class Reporting(QRadarAPIEndpoint):
         Update the Report Template owner only.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'templates/{template_id}'.format(template_id=template_id))
         return self._call('POST', function_endpoint, json=report_template, headers=headers, **kwargs)
 
@@ -101,7 +108,8 @@ class Reporting(QRadarAPIEndpoint):
         Delete the Report Template.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'templates/{template_id}'.format(template_id=template_id))
         return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
 
@@ -111,7 +119,8 @@ class Reporting(QRadarAPIEndpoint):
         Retrieve the Report Template's latest generated content
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'templates/{template_id}/output_type/{output_type}'.format(template_id=template_id,
                                                                                                output_type=output_type))

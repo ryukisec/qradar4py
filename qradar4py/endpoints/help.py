@@ -24,7 +24,8 @@ class Help(QRadarAPIEndpoint):
         List all QRadar API capabilities.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'capabilities')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -36,7 +37,8 @@ class Help(QRadarAPIEndpoint):
         category. Endpoints which your user account do not have access to use will not be displayed.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'capabilities/{version}'.format(version=version))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -49,7 +51,8 @@ class Help(QRadarAPIEndpoint):
         displayed.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'capabilities/{version}/{path}'.format(version=version, path=path))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -62,7 +65,8 @@ class Help(QRadarAPIEndpoint):
         If you do not have access to the endpoint, nothing will be displayed.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'capabilities/{version}/{path}/{request_type}'.format(version=version, path=path,
                                                                                           request_type=request_type))

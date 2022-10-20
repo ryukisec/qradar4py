@@ -195,7 +195,8 @@ class Analytics(QRadarAPIEndpoint):
         Creates a building block with supplied rule_data xml
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'building_blocks_with_data')
         return self._call('POST', function_endpoint, json=building_block, headers=headers, **kwargs)
 
@@ -207,7 +208,8 @@ class Analytics(QRadarAPIEndpoint):
         Retrieves a list of building block rules.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'building_blocks_with_data')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -218,7 +220,8 @@ class Analytics(QRadarAPIEndpoint):
         Same as com.q1labs.core.api.R1_2017.customrule.BuildingBlockAPI.updateBuildingBlock(IFrameworkServices, ISessionContext, ILogger, Long, BuildingBlockDTO) but updates rule_data xml as well
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'building_blocks_with_data/{id}'.format(id=id))
         return self._call('POST', function_endpoint, json=building_block, headers=headers, **kwargs)
 
@@ -229,7 +232,8 @@ class Analytics(QRadarAPIEndpoint):
         Retrieves a building block rule.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'building_blocks_with_data/{id}'.format(id=id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -352,7 +356,8 @@ class Analytics(QRadarAPIEndpoint):
         Hidden end-point to perform a test execution of a custom action
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'custom_actions/test')
         return self._call('POST', function_endpoint, json=custom_action_test_request, headers=headers, **kwargs)
 
@@ -494,7 +499,8 @@ class Analytics(QRadarAPIEndpoint):
         Creates a CRE rule with supplied rule_data xml
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'rules_with_data')
         return self._call('POST', function_endpoint, json=rule, headers=headers, **kwargs)
 
@@ -506,7 +512,8 @@ class Analytics(QRadarAPIEndpoint):
         Retrieves a list of rules.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'rules_with_data')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -517,7 +524,8 @@ class Analytics(QRadarAPIEndpoint):
         Updates a CRE rule with supplied rule_data xml
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'rules_with_data/{id}'.format(id=id))
         return self._call('POST', function_endpoint, json=rule, headers=headers, **kwargs)
 
@@ -528,6 +536,7 @@ class Analytics(QRadarAPIEndpoint):
         Retrieves a rule.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'rules_with_data/{id}'.format(id=id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)

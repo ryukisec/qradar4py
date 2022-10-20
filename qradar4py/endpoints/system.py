@@ -33,7 +33,8 @@ class System(QRadarAPIEndpoint):
         Retrieves a list of capabilities that are currently in the system.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'authorization/capabilities')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -199,7 +200,8 @@ class System(QRadarAPIEndpoint):
         Retrieves notifications
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'notifications')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -210,7 +212,8 @@ class System(QRadarAPIEndpoint):
         Retrieves notification by QID
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'notifications/{qid}'.format(qid=qid))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -220,7 +223,8 @@ class System(QRadarAPIEndpoint):
         dismisses a notification
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'notifications/{qid}'.format(qid=qid))
         return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
 
@@ -372,7 +376,8 @@ class System(QRadarAPIEndpoint):
         Retrieves a list of DAG network interfaces based on the supplied server ID.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'servers/{server_id}/network_interfaces/dag'.format(server_id=server_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
@@ -384,7 +389,8 @@ class System(QRadarAPIEndpoint):
         Updates an existing DAG network interface.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'servers/{server_id}/network_interfaces/dag/{device_name}'.format(
             server_id=server_id, device_name=device_name))
         return self._call('POST', function_endpoint, json=details, headers=headers, **kwargs)
@@ -448,7 +454,8 @@ class System(QRadarAPIEndpoint):
         Retrieves notifications summary
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'summary')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -460,7 +467,8 @@ class System(QRadarAPIEndpoint):
         executed on Completion or Exception of the Task
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'task_management/email_action')
         return self._call('POST', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
 
@@ -481,7 +489,8 @@ class System(QRadarAPIEndpoint):
         Updates a TaskStatus
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'task_management/internal_tasks/{id}'.format(id=id))
         return self._call('POST', function_endpoint, headers=headers, **kwargs)
 
@@ -495,7 +504,8 @@ class System(QRadarAPIEndpoint):
         Create a TaskSubStatus
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'task_management/subtasks')
         return self._call('POST', function_endpoint, headers=headers, **kwargs)
 
@@ -507,7 +517,8 @@ class System(QRadarAPIEndpoint):
         Gets all TaskSubStatuses
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'task_management/subtasks')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -518,7 +529,8 @@ class System(QRadarAPIEndpoint):
         Gets a TaskSubStatus
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'task_management/subtasks/{id}'.format(id=id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -532,7 +544,8 @@ class System(QRadarAPIEndpoint):
         Updates a TaskSubStatus
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'task_management/subtasks/{id}'.format(id=id))
         return self._call('POST', function_endpoint, headers=headers, **kwargs)
 
@@ -542,7 +555,8 @@ class System(QRadarAPIEndpoint):
         Deletes a TaskSubStatus
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'task_management/subtasks/{id}'.format(id=id))
         return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
 
@@ -560,7 +574,8 @@ class System(QRadarAPIEndpoint):
         Create a TaskStatus
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'task_management/task')
         return self._call('POST', function_endpoint, headers=headers, **kwargs)
 
@@ -572,7 +587,8 @@ class System(QRadarAPIEndpoint):
         Gets all TaskStatuses
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'task_management/task')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -583,7 +599,8 @@ class System(QRadarAPIEndpoint):
         Gets a TaskStatus
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'task_management/task/{id}'.format(id=id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -602,7 +619,8 @@ class System(QRadarAPIEndpoint):
         Updates a TaskStatus
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'task_management/task/{id}'.format(id=id))
         return self._call('POST', function_endpoint, headers=headers, **kwargs)
 
@@ -613,7 +631,8 @@ class System(QRadarAPIEndpoint):
         Deletes a TaskStatus
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'task_management/task/{id}'.format(id=id))
         return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
 
@@ -623,7 +642,8 @@ class System(QRadarAPIEndpoint):
         Gets the result from the TaskStatus
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'task_management/task/{id}/result'.format(id=id))
         return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
 
@@ -634,7 +654,8 @@ class System(QRadarAPIEndpoint):
         Creates the result from the TaskStatus
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'task_management/task/{id}/resume_data'.format(id=id))
         return self._call('POST', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
 
@@ -644,7 +665,8 @@ class System(QRadarAPIEndpoint):
         Gets the resume from the TaskStatus
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'task_management/task/{id}/resume_data'.format(id=id))
         return self._call('GET', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
 
@@ -655,7 +677,8 @@ class System(QRadarAPIEndpoint):
         No summary provided
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'task_management/task_id/{uuid}'.format(uuid=uuid))
         return self._call('POST', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
 
@@ -665,7 +688,8 @@ class System(QRadarAPIEndpoint):
         No summary provided
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'task_management/task_id/{uuid}'.format(uuid=uuid))
         return self._call('GET', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
 
@@ -675,7 +699,8 @@ class System(QRadarAPIEndpoint):
         No summary provided
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'task_management/task_id/{uuid}'.format(uuid=uuid))
         return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
 
@@ -694,7 +719,8 @@ class System(QRadarAPIEndpoint):
         Create a TaskStatus
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'task_management/tasks')
         return self._call('POST', function_endpoint, headers=headers, **kwargs)
 
@@ -706,7 +732,8 @@ class System(QRadarAPIEndpoint):
         Gets all TaskStatuses
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'task_management/tasks')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -717,7 +744,8 @@ class System(QRadarAPIEndpoint):
         Updates a TaskStatus
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'task_management/tasks/{id}'.format(id=id))
         return self._call('POST', function_endpoint, headers=headers, **kwargs)
 
@@ -728,7 +756,8 @@ class System(QRadarAPIEndpoint):
         Gets a TaskStatus
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'task_management/tasks/{id}'.format(id=id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -739,7 +768,8 @@ class System(QRadarAPIEndpoint):
         Deletes a TaskStatus
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'task_management/tasks/{id}'.format(id=id))
         return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
 
@@ -749,7 +779,8 @@ class System(QRadarAPIEndpoint):
         Gets the result from the TaskStatus
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'task_management/tasks/{id}/result'.format(id=id))
         return self._call('GET', function_endpoint, response_type='application/octet-stream', headers=headers, **kwargs)
 
@@ -759,7 +790,8 @@ class System(QRadarAPIEndpoint):
         Creates the result from the TaskStatus
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'task_management/tasks/{id}/result'.format(id=id))
         return self._call('POST', function_endpoint, response_type='text/plain',
                           mime_type={'Content-Type': 'application/octet-stream'}, data=result, headers=headers,
@@ -771,6 +803,7 @@ class System(QRadarAPIEndpoint):
         Deletes a result
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'task_management/tasks/{id}/result'.format(id=id))
         return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)

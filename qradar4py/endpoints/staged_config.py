@@ -117,7 +117,8 @@ class StagedConfig(QRadarAPIEndpoint):
         Retrieves a list of staged users.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'access/users_with_capability_filter')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -128,7 +129,8 @@ class StagedConfig(QRadarAPIEndpoint):
         Retrieve the delete the User task status.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'access_control/user_delete_tasks/{task_id}'.format(task_id=task_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -140,7 +142,8 @@ class StagedConfig(QRadarAPIEndpoint):
         Retrieve the Staged Users
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'access_control/users')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -151,7 +154,8 @@ class StagedConfig(QRadarAPIEndpoint):
         Delete the User. To ensure safe deletion we check if anything depends on it, this may take some time. Therefore we start an asynchronous task to do this.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'access_control/users/{id}'.format(id=id))
         return self._call('DELETE', function_endpoint, headers=headers, **kwargs)
 
@@ -162,7 +166,8 @@ class StagedConfig(QRadarAPIEndpoint):
         Retrieve the Staged User
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'access_control/users/{id}'.format(id=id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -397,7 +402,8 @@ class StagedConfig(QRadarAPIEndpoint):
         Retrieves the Staged Disaster Recovery Config.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'disaster_recovery/disaster_recovery_config')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -408,7 +414,8 @@ class StagedConfig(QRadarAPIEndpoint):
         Update the Staged Disaster Recovery Config.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'disaster_recovery/disaster_recovery_config')
         return self._call('POST', function_endpoint, json=drConfig, headers=headers, **kwargs)
 

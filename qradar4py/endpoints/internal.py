@@ -25,7 +25,8 @@ class Internal(QRadarAPIEndpoint):
         Retrieves a list of historical correlation profiles without returning any rules.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'historical_correlation/hc_profiles')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -36,7 +37,8 @@ class Internal(QRadarAPIEndpoint):
         Get a Historical Search Profile by Id without returning rules
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'historical_correlation/hc_profiles/{id}'.format(id=id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -47,7 +49,8 @@ class Internal(QRadarAPIEndpoint):
         Get server by id.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'system/servers/{server_id}'.format(server_id=server_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -57,7 +60,8 @@ class Internal(QRadarAPIEndpoint):
         Set access control iptable rules.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'system/servers/{server_id}/firewall_rules'.format(server_id=server_id))
         return self._call('PUT', function_endpoint, headers=headers, **kwargs)
@@ -68,7 +72,8 @@ class Internal(QRadarAPIEndpoint):
         Get access control iptable rules by server id.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'system/servers/{server_id}/firewall_rules'.format(server_id=server_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
@@ -82,7 +87,8 @@ class Internal(QRadarAPIEndpoint):
         Get network interfaces by server id.
         UNDOCUMENTED
         """
-        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        headers = kwargs.pop('headers', {})
+        headers.update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'system/servers/{server_id}/network_interfaces'.format(server_id=server_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
