@@ -26,7 +26,7 @@ class Usermanagement(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'users')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -38,7 +38,7 @@ class Usermanagement(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'users/{username}'.format(username=username))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -49,7 +49,7 @@ class Usermanagement(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl,
                                     'users/{username}/access/cidr/{cidr}'.format(username=username, cidr=cidr))
         return self._call('GET', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
@@ -63,6 +63,6 @@ class Usermanagement(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'users/{username}/access/cidrs'.format(username=username))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)

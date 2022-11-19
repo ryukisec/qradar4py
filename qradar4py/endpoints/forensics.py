@@ -23,7 +23,7 @@ class Forensics(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'alerting_jobs/{id}'.format(id=id))
         return self._call('POST', function_endpoint, json=alerting_job, headers=headers, **kwargs)
 
@@ -123,7 +123,7 @@ class Forensics(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'managed_updates/{host}'.format(host=host))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -134,7 +134,7 @@ class Forensics(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'recovery_jobs/{id}'.format(id=id))
         return self._call('POST', function_endpoint, json=recovery_job, headers=headers, **kwargs)
 
@@ -145,7 +145,7 @@ class Forensics(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'scheduledactions/statuses/{id}/{host}'.format(id=id, host=host))
         return self._call('POST', function_endpoint, json=status, headers=headers, **kwargs)
 
@@ -157,6 +157,6 @@ class Forensics(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'usermanagement/users/{username}'.format(username=username))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)

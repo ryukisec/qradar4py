@@ -26,7 +26,7 @@ class Reporting(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'groups')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -38,7 +38,7 @@ class Reporting(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'groups/{group_id}'.format(group_id=group_id))
         return self._call('POST', function_endpoint, json=group, headers=headers, **kwargs)
 
@@ -50,7 +50,7 @@ class Reporting(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'groups/{group_id}'.format(group_id=group_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -61,7 +61,7 @@ class Reporting(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'groups/{group_id}'.format(group_id=group_id))
         return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
 
@@ -74,7 +74,7 @@ class Reporting(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'templates')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -86,7 +86,7 @@ class Reporting(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'templates/{template_id}'.format(template_id=template_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -98,7 +98,7 @@ class Reporting(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'templates/{template_id}'.format(template_id=template_id))
         return self._call('POST', function_endpoint, json=report_template, headers=headers, **kwargs)
 
@@ -109,7 +109,7 @@ class Reporting(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'templates/{template_id}'.format(template_id=template_id))
         return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
 
@@ -120,7 +120,7 @@ class Reporting(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl,
                                     'templates/{template_id}/output_type/{output_type}'.format(template_id=template_id,
                                                                                                output_type=output_type))

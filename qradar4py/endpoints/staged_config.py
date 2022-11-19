@@ -118,7 +118,7 @@ class StagedConfig(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'access/users_with_capability_filter')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -130,7 +130,7 @@ class StagedConfig(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'access_control/user_delete_tasks/{task_id}'.format(task_id=task_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -143,7 +143,7 @@ class StagedConfig(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'access_control/users')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -155,7 +155,7 @@ class StagedConfig(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'access_control/users/{id}'.format(id=id))
         return self._call('DELETE', function_endpoint, headers=headers, **kwargs)
 
@@ -167,7 +167,7 @@ class StagedConfig(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'access_control/users/{id}'.format(id=id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -403,7 +403,7 @@ class StagedConfig(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'disaster_recovery/disaster_recovery_config')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -415,7 +415,7 @@ class StagedConfig(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'disaster_recovery/disaster_recovery_config')
         return self._call('POST', function_endpoint, json=drConfig, headers=headers, **kwargs)
 

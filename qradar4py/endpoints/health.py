@@ -24,7 +24,7 @@ class Health(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'alerts')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -37,7 +37,7 @@ class Health(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'metrics/config')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -49,7 +49,7 @@ class Health(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'metrics/config/{metric_id}'.format(metric_id=metric_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -62,7 +62,7 @@ class Health(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'metrics/meta')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -74,7 +74,7 @@ class Health(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'metrics/meta/{metric_id}'.format(metric_id=metric_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 

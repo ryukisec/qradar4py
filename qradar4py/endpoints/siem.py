@@ -290,7 +290,7 @@ class Siem(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'remote_destination_addresses')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 

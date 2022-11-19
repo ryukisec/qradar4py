@@ -24,7 +24,7 @@ class GuiAppFramework(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'admin_override')
         return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
 
@@ -38,7 +38,7 @@ class GuiAppFramework(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'admin_override')
         return self._call('POST', function_endpoint, headers=headers, **kwargs)
 
@@ -49,7 +49,7 @@ class GuiAppFramework(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'admin_override')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -186,7 +186,7 @@ class GuiAppFramework(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'application_definitions/{application_definition_id}/tenants'.format(
             application_definition_id=application_definition_id))
         return self._call('POST', function_endpoint, json=tenant_id, headers=headers, **kwargs)
@@ -201,7 +201,7 @@ class GuiAppFramework(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl,
                                     'application_definitions/{application_definition_id}/tenants/{tenant_id}'.format(
                                         application_definition_id=application_definition_id, tenant_id=tenant_id))
@@ -314,7 +314,7 @@ class GuiAppFramework(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'migration/sourcehost')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -325,7 +325,7 @@ class GuiAppFramework(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'migration/status')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -336,7 +336,7 @@ class GuiAppFramework(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'migration/{type}/check'.format(type=type))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -347,7 +347,7 @@ class GuiAppFramework(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'migration/{type}/start'.format(type=type))
         return self._call('POST', function_endpoint, headers=headers, **kwargs)
 
@@ -374,7 +374,7 @@ class GuiAppFramework(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'resources')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -385,7 +385,7 @@ class GuiAppFramework(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'resources/{serviceName}'.format(serviceName=serviceName))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -397,7 +397,7 @@ class GuiAppFramework(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'runtime/status')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -409,7 +409,7 @@ class GuiAppFramework(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'runtime/{type}/enable'.format(type=type))
         return self._call('POST', function_endpoint, json=hostTypeParams, headers=headers, **kwargs)
 
@@ -421,7 +421,7 @@ class GuiAppFramework(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'runtime/{type}/exclusions'.format(type=type))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -433,7 +433,7 @@ class GuiAppFramework(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'runtime/{type}/exclusions'.format(type=type))
         return self._call('POST', function_endpoint, json=exclusion, headers=headers, **kwargs)
 
@@ -444,7 +444,7 @@ class GuiAppFramework(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'runtime/{type}/exclusions/{uuid}'.format(type=type, uuid=uuid))
         return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
 
@@ -456,7 +456,7 @@ class GuiAppFramework(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'runtime/{type}/exclusions/{uuid}'.format(type=type, uuid=uuid))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -469,7 +469,7 @@ class GuiAppFramework(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'runtime/{type}/metrics'.format(type=type))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -480,6 +480,6 @@ class GuiAppFramework(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'user/applications')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)

@@ -26,7 +26,7 @@ class Support(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'log_bundles')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -38,7 +38,7 @@ class Support(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'log_bundles')
         return self._call('POST', function_endpoint, json=get_logs_args, headers=headers, **kwargs)
 
@@ -50,7 +50,7 @@ class Support(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'log_bundles/{log_bundle_id}'.format(log_bundle_id=log_bundle_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -61,7 +61,7 @@ class Support(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'log_bundles/{log_bundle_id}'.format(log_bundle_id=log_bundle_id))
         return self._call('POST', function_endpoint, headers=headers, **kwargs)
 
@@ -72,7 +72,7 @@ class Support(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'log_bundles/{log_bundle_id}'.format(log_bundle_id=log_bundle_id))
         return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
 
@@ -83,7 +83,7 @@ class Support(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl,
                                     'log_bundles/{log_bundle_id}/result'.format(log_bundle_id=log_bundle_id))
         return self._call('GET', function_endpoint, response_type='application/octet-stream', headers=headers, **kwargs)

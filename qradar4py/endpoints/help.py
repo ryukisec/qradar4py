@@ -25,7 +25,7 @@ class Help(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'capabilities')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -38,7 +38,7 @@ class Help(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'capabilities/{version}'.format(version=version))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -52,7 +52,7 @@ class Help(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'capabilities/{version}/{path}'.format(version=version, path=path))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -66,7 +66,7 @@ class Help(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl,
                                     'capabilities/{version}/{path}/{request_type}'.format(version=version, path=path,
                                                                                           request_type=request_type))

@@ -25,7 +25,7 @@ class Application(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'data_ingestion/configuration')
         return self._call('POST', function_endpoint, json=data, headers=headers, **kwargs)
 
@@ -37,7 +37,7 @@ class Application(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'data_ingestion/custom_event_mapping')
         return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
 
@@ -49,7 +49,7 @@ class Application(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'data_ingestion/custom_property_definitions')
         return self._call('POST', function_endpoint, json=data, headers=headers, **kwargs)
 
@@ -61,7 +61,7 @@ class Application(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'data_ingestion/event/regex_properties/{regex_property_id}'.format(regex_property_id=regex_property_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -73,7 +73,7 @@ class Application(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'data_ingestion/event/regex_properties/{regex_property_id}/dependents'.format(regex_property_id=regex_property_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -85,7 +85,7 @@ class Application(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'data_ingestion/event/regex_property_dependent_tasks/{task_id}'.format(task_id=task_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -97,7 +97,7 @@ class Application(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'data_ingestion/event/regex_property_dependent_tasks/{task_id}'.format(task_id=task_id))
         return self._call('POST', function_endpoint, json=task, headers=headers, **kwargs)
 
@@ -109,7 +109,7 @@ class Application(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'data_ingestion/event/regex_property_dependent_tasks/{task_id}/results'.format(task_id=task_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -121,7 +121,7 @@ class Application(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'data_ingestion/flow/regex_properties/{regex_property_id}'.format(regex_property_id=regex_property_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -133,7 +133,7 @@ class Application(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'data_ingestion/flow/regex_properties/{regex_property_id}/dependents'.format(regex_property_id=regex_property_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -145,7 +145,7 @@ class Application(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'data_ingestion/flow/regex_property_dependent_tasks/{task_id}'.format(task_id=task_id))
         return self._call('POST', function_endpoint, json=task, headers=headers, **kwargs)
 
@@ -157,7 +157,7 @@ class Application(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'data_ingestion/flow/regex_property_dependent_tasks/{task_id}'.format(task_id=task_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -169,7 +169,7 @@ class Application(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'data_ingestion/flow/regex_property_dependent_tasks/{task_id}/results'.format(task_id=task_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -181,7 +181,7 @@ class Application(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'data_ingestion/identity_fields')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -194,7 +194,7 @@ class Application(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'data_ingestion/keyNameMappings')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -207,7 +207,7 @@ class Application(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'data_ingestion/mappings/{log_source_type_id}'.format(log_source_type_id=log_source_type_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -218,7 +218,7 @@ class Application(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'data_ingestion/mappings/{log_source_type_id}'.format(log_source_type_id=log_source_type_id))
         return self._call('POST', function_endpoint, json=data, headers=headers, **kwargs)
 
@@ -231,7 +231,7 @@ class Application(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'data_ingestion/mappings/{log_source_type_id}/{id}'.format(log_source_type_id=log_source_type_id, id=id))
         return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
 
@@ -242,7 +242,7 @@ class Application(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'data_ingestion/mappings/{log_source_type_id}/{id}'.format(log_source_type_id=log_source_type_id, id=id))
         return self._call('PUT', function_endpoint, headers=headers, **kwargs)
 
@@ -255,7 +255,7 @@ class Application(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'data_ingestion/payloads')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -267,7 +267,7 @@ class Application(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'data_ingestion/properties/{log_source_type_id}'.format(log_source_type_id=log_source_type_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -280,7 +280,7 @@ class Application(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'data_ingestion/qid_records')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -292,7 +292,7 @@ class Application(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'data_ingestion/qid_records/{qid_record_id}'.format(qid_record_id=qid_record_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -305,7 +305,7 @@ class Application(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'data_ingestion/simulate')
         return self._call('POST', function_endpoint, json=data, headers=headers, **kwargs)
 
@@ -318,7 +318,7 @@ class Application(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'network_threat_analytics/hierarchical_clustering_algorithms')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -330,7 +330,7 @@ class Application(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'network_threat_analytics/hierarchical_clustering_algorithms')
         return self._call('POST', function_endpoint, json=body, headers=headers, **kwargs)
 
@@ -342,7 +342,7 @@ class Application(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'network_threat_analytics/hierarchical_clustering_algorithms/{id}'.format(id=id))
         return self._call('POST', function_endpoint, json=body, headers=headers, **kwargs)
 
@@ -354,7 +354,7 @@ class Application(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'network_threat_analytics/hierarchical_clustering_algorithms/{id}'.format(id=id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -365,7 +365,7 @@ class Application(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'network_threat_analytics/hierarchical_clustering_algorithms/{id}'.format(id=id))
         return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
 
@@ -378,7 +378,7 @@ class Application(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'network_threat_analytics/hierarchical_clustering_algorithms/{id}/models'.format(id=id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -390,7 +390,7 @@ class Application(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         if not isinstance(body, list):
             body = [body]
         function_endpoint = urljoin(self._baseurl, 'network_threat_analytics/hierarchical_clustering_algorithms/{id}/models'.format(id=id))
@@ -404,7 +404,7 @@ class Application(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'network_threat_analytics/hierarchical_clustering_algorithms/{id}/models/{model_index}'.format(id=id, model_index=model_index))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -416,6 +416,6 @@ class Application(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'network_threat_analytics/hierarchical_clustering_algorithms/{id}/models/{model_index}'.format(id=id, model_index=model_index))
         return self._call('POST', function_endpoint, json=model, headers=headers, **kwargs)

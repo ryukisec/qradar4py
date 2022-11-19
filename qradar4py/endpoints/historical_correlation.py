@@ -25,7 +25,7 @@ class HistoricalCorrelation(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'hc_offense_info')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -39,7 +39,7 @@ class HistoricalCorrelation(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'potential_event_rules')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -53,7 +53,7 @@ class HistoricalCorrelation(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'potential_event_saved_searches')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -67,7 +67,7 @@ class HistoricalCorrelation(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'potential_flow_rules')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -81,7 +81,7 @@ class HistoricalCorrelation(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'potential_flow_saved_searches')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -93,7 +93,7 @@ class HistoricalCorrelation(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'profiles')
         return self._call('POST', function_endpoint, json=profileData, headers=headers, **kwargs)
 
@@ -106,7 +106,7 @@ class HistoricalCorrelation(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'profiles')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -118,7 +118,7 @@ class HistoricalCorrelation(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'profiles/{id}'.format(id=id))
         return self._call('POST', function_endpoint, json=profileData, headers=headers, **kwargs)
 
@@ -129,7 +129,7 @@ class HistoricalCorrelation(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'profiles/{id}'.format(id=id))
         return self._call('DELETE', function_endpoint, headers=headers, **kwargs)
 
@@ -141,7 +141,7 @@ class HistoricalCorrelation(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'profiles/{id}'.format(id=id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -153,7 +153,7 @@ class HistoricalCorrelation(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'profiles/{id}/runs'.format(id=id))
         return self._call('POST', function_endpoint, headers=headers, **kwargs)
 
@@ -166,7 +166,7 @@ class HistoricalCorrelation(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'profiles/{id}/runs'.format(id=id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -178,6 +178,6 @@ class HistoricalCorrelation(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'profiles/{id}/runs/{run_id}'.format(id=id, run_id=run_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)

@@ -144,7 +144,7 @@ class ReferenceData(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'map_of_sets/{name}/values/{key}'.format(name=name, key=key))
         return self._call('DELETE', function_endpoint, headers=headers, **kwargs)
 
@@ -287,7 +287,7 @@ class ReferenceData(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'maps/{name}/values/{key}'.format(name=name, key=key))
         return self._call('DELETE', function_endpoint, headers=headers, **kwargs)
 
@@ -390,7 +390,7 @@ class ReferenceData(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'sets/search')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -439,7 +439,7 @@ class ReferenceData(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'sets/{name}/values/{value}'.format(name=name, value=value))
         return self._call('DELETE', function_endpoint, headers=headers, **kwargs)
 
@@ -545,7 +545,7 @@ class ReferenceData(QRadarAPIEndpoint):
         UNDOCUMENTED
         """
         headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': True})
+        headers.update({'Allow-Hidden': 'True'})
         function_endpoint = urljoin(self._baseurl, 'tables/{name}/values/{outer_key}/{inner_key}'.format(name=name,
                                                                                                          outer_key=outer_key,
                                                                                                          inner_key=inner_key))
