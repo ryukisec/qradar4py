@@ -24,65 +24,72 @@ class HistoricalCorrelation(QRadarAPIEndpoint):
         Retrieves a historical correlation instance information associated with given offense
         UNDOCUMENTED
         """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'hc_offense_info')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_potential_event_rules(self, *, filter=None, fields=None, Range=None, **kwargs):
+    @request_vars('fields', 'filter')
+    def get_potential_event_rules(self, *, Range=None, fields=None, filter=None, **kwargs):
         """
         GET /historical_correlation/potential_event_rules
         Retrieves a list of common/event custom rules that can be added to a historical correlation
         profile with a network_event_type of event (0).
         UNDOCUMENTED
         """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'potential_event_rules')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_potential_event_saved_searches(self, *, filter=None, fields=None, Range=None, **kwargs):
+    @request_vars('fields', 'filter')
+    def get_potential_event_saved_searches(self, *, Range=None, fields=None, filter=None, **kwargs):
         """
         GET /historical_correlation/potential_event_saved_searches
         Retrieves a list of non-aggregated event saved searches that can be added to a historical correlation
         profile with a network_event_type of event (0).
         UNDOCUMENTED
         """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'potential_event_saved_searches')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_potential_flow_rules(self, *, filter=None, fields=None, Range=None, **kwargs):
+    @request_vars('fields', 'filter')
+    def get_potential_flow_rules(self, *, Range=None, fields=None, filter=None, **kwargs):
         """
         GET /historical_correlation/potential_flow_rules
         Retrieves a list of common/flow rules that can added to a historical correlation profile with a
         network_event_type of flow (1).
         UNDOCUMENTED
         """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'potential_flow_rules')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_potential_flow_saved_searches(self, *, filter=None, fields=None, Range=None, **kwargs):
+    @request_vars('fields', 'filter')
+    def get_potential_flow_saved_searches(self, *, Range=None, fields=None, filter=None, **kwargs):
         """
         GET /historical_correlation/potential_flow_saved_searches
         Retrieves a list of non-aggregated flow saved searches that can be added to a historical correlation
         profile with a network_event_type of flow (1).
         UNDOCUMENTED
         """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'potential_flow_saved_searches')
+        return self._call('GET', function_endpoint, headers=headers, **kwargs)
+
+    @header_vars('Range')
+    @request_vars('fields', 'sort', 'filter')
+    def get_profiles(self, *, Range=None, fields=None, sort=None, filter=None, **kwargs):
+        """
+        GET /historical_correlation/profiles
+        Retrieves a list of historical correlation profiles
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl, 'profiles')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
     @header_vars('fields')
@@ -92,34 +99,8 @@ class HistoricalCorrelation(QRadarAPIEndpoint):
         Create a new historical correlation profile
         UNDOCUMENTED
         """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'profiles')
-        return self._call('POST', function_endpoint, json=profileData, headers=headers, **kwargs)
-
-    @header_vars('Range')
-    @request_vars('filter', 'sort', 'fields')
-    def get_profiles(self, *, filter=None, sort=None, fields=None, Range=None, **kwargs):
-        """
-        GET /historical_correlation/profiles
-        Retrieves a list of historical correlation profiles
-        UNDOCUMENTED
-        """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
-        function_endpoint = urljoin(self._baseurl, 'profiles')
-        return self._call('GET', function_endpoint, headers=headers, **kwargs)
-
-    @header_vars('fields')
-    def post_profiles_by_id(self, id, *, profileData, fields=None, **kwargs):
-        """
-        POST /historical_correlation/profiles/{id}
-        Update a historical correlation profile
-        UNDOCUMENTED
-        """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
-        function_endpoint = urljoin(self._baseurl, 'profiles/{id}'.format(id=id))
         return self._call('POST', function_endpoint, json=profileData, headers=headers, **kwargs)
 
     def delete_profiles_by_id(self, id, **kwargs):
@@ -128,10 +109,20 @@ class HistoricalCorrelation(QRadarAPIEndpoint):
         Delete a Historical Correlation Profile by Id
         UNDOCUMENTED
         """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'profiles/{id}'.format(id=id))
         return self._call('DELETE', function_endpoint, headers=headers, **kwargs)
+
+    @header_vars('fields')
+    def post_profiles_by_id(self, id, *, profileData, fields=None, **kwargs):
+        """
+        POST /historical_correlation/profiles/{id}
+        Update a historical correlation profile
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl, 'profiles/{id}'.format(id=id))
+        return self._call('POST', function_endpoint, json=profileData, headers=headers, **kwargs)
 
     @request_vars('fields')
     def get_profiles_by_id(self, id, *, fields=None, **kwargs):
@@ -140,9 +131,20 @@ class HistoricalCorrelation(QRadarAPIEndpoint):
         Get a Historical Search Profile by Id
         UNDOCUMENTED
         """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'profiles/{id}'.format(id=id))
+        return self._call('GET', function_endpoint, headers=headers, **kwargs)
+
+    @header_vars('Range')
+    @request_vars('fields', 'sort', 'filter')
+    def get_profiles_runs_by_id(self, id, *, Range=None, fields=None, sort=None, filter=None, **kwargs):
+        """
+        GET /historical_correlation/profiles/{id}/runs
+        Retrieves a collection of historical correlation profile run structure for a given profile id.
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl, 'profiles/{id}/runs'.format(id=id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
     @request_vars('fields')
@@ -152,23 +154,9 @@ class HistoricalCorrelation(QRadarAPIEndpoint):
         Causes the Historical Profile server to run a given historical correlation profile.
         UNDOCUMENTED
         """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'profiles/{id}/runs'.format(id=id))
         return self._call('POST', function_endpoint, headers=headers, **kwargs)
-
-    @header_vars('Range')
-    @request_vars('filter', 'sort', 'fields')
-    def get_profiles_runs_by_id(self, id, *, filter=None, sort=None, fields=None, Range=None, **kwargs):
-        """
-        GET /historical_correlation/profiles/{id}/runs
-        Retrieves a collection of historical correlation profile run structure for a given profile id.
-        UNDOCUMENTED
-        """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
-        function_endpoint = urljoin(self._baseurl, 'profiles/{id}/runs'.format(id=id))
-        return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
     @request_vars('fields')
     def get_profiles_id_runs_by_run_id(self, id, run_id, *, fields=None, **kwargs):
@@ -177,7 +165,6 @@ class HistoricalCorrelation(QRadarAPIEndpoint):
         Retrieves a historical correlation profile run structure for a given profile running id.
         UNDOCUMENTED
         """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'profiles/{id}/runs/{run_id}'.format(id=id, run_id=run_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)

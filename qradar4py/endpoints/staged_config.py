@@ -17,8 +17,8 @@ class StagedConfig(QRadarAPIEndpoint):
                          verify)
 
     @header_vars('Range')
-    @request_vars('tenant_id', 'fields', 'filter')
-    def get_access_security_profiles(self, *, tenant_id=None, fields=None, filter=None, Range=None, **kwargs):
+    @request_vars('tenant_id', 'filter', 'fields')
+    def get_access_security_profiles(self, *, tenant_id=None, Range=None, filter=None, fields=None, **kwargs):
         """
         GET /staged_config/access/security_profiles
         Get the list of staged security profiles available in the system.
@@ -45,8 +45,8 @@ class StagedConfig(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('Range')
-    @request_vars('contains', 'fields', 'filter')
-    def get_access_user_roles(self, *, contains=None, fields=None, filter=None, Range=None, **kwargs):
+    @request_vars('contains', 'filter', 'fields')
+    def get_access_user_roles(self, *, contains=None, Range=None, filter=None, fields=None, **kwargs):
         """
         GET /staged_config/access/user_roles
         Get the list of staged user roles available in the system.
@@ -64,8 +64,8 @@ class StagedConfig(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('Range')
-    @request_vars('fields', 'filter', 'sort')
-    def get_access_users(self, *, fields=None, filter=None, sort=None, Range=None, **kwargs):
+    @request_vars('filter', 'sort', 'fields')
+    def get_access_users(self, *, Range=None, filter=None, sort=None, fields=None, **kwargs):
         """
         GET /staged_config/access/users
         Retrieves a list of all staged users.
@@ -82,15 +82,6 @@ class StagedConfig(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'access/users')
         return self._call('POST', function_endpoint, json=body, **kwargs)
 
-    @header_vars('fields')
-    def post_access_users_by_id(self, id, *, body, fields=None, **kwargs):
-        """
-        POST /staged_config/access/users/{id}
-        Update a staged user.
-        """
-        function_endpoint = urljoin(self._baseurl, 'access/users/{id}'.format(id=id))
-        return self._call('POST', function_endpoint, json=body, **kwargs)
-
     @request_vars('fields')
     def get_access_users_by_id(self, id, *, fields=None, **kwargs):
         """
@@ -99,6 +90,15 @@ class StagedConfig(QRadarAPIEndpoint):
         """
         function_endpoint = urljoin(self._baseurl, 'access/users/{id}'.format(id=id))
         return self._call('GET', function_endpoint, **kwargs)
+
+    @header_vars('fields')
+    def post_access_users_by_id(self, id, *, body, fields=None, **kwargs):
+        """
+        POST /staged_config/access/users/{id}
+        Update a staged user.
+        """
+        function_endpoint = urljoin(self._baseurl, 'access/users/{id}'.format(id=id))
+        return self._call('POST', function_endpoint, json=body, **kwargs)
 
     @request_vars('fields')
     def delete_access_users_by_id(self, id, *, fields=None, **kwargs):
@@ -110,15 +110,14 @@ class StagedConfig(QRadarAPIEndpoint):
         return self._call('DELETE', function_endpoint, **kwargs)
 
     @header_vars('Range')
-    @request_vars('capabilities', 'fields', 'filter')
-    def get_access_users_with_capability_filter(self, *, capabilities, fields=None, filter=None, Range=None, **kwargs):
+    @request_vars('capabilities', 'filter', 'fields')
+    def get_access_users_with_capability_filter(self, *, capabilities, Range=None, filter=None, fields=None, **kwargs):
         """
         GET /staged_config/access/users_with_capability_filter
         Retrieves a list of staged users.
         UNDOCUMENTED
         """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'access/users_with_capability_filter')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -129,21 +128,19 @@ class StagedConfig(QRadarAPIEndpoint):
         Retrieve the delete the User task status.
         UNDOCUMENTED
         """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'access_control/user_delete_tasks/{task_id}'.format(task_id=task_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
     @header_vars('Range')
-    @request_vars('fields', 'filter')
-    def get_access_control_users(self, *, fields=None, filter=None, Range=None, **kwargs):
+    @request_vars('filter', 'fields')
+    def get_access_control_users(self, *, Range=None, filter=None, fields=None, **kwargs):
         """
         GET /staged_config/access_control/users
         Retrieve the Staged Users
         UNDOCUMENTED
         """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'access_control/users')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -154,8 +151,7 @@ class StagedConfig(QRadarAPIEndpoint):
         Delete the User. To ensure safe deletion we check if anything depends on it, this may take some time. Therefore we start an asynchronous task to do this.
         UNDOCUMENTED
         """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'access_control/users/{id}'.format(id=id))
         return self._call('DELETE', function_endpoint, headers=headers, **kwargs)
 
@@ -166,8 +162,7 @@ class StagedConfig(QRadarAPIEndpoint):
         Retrieve the Staged User
         UNDOCUMENTED
         """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'access_control/users/{id}'.format(id=id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -178,16 +173,6 @@ class StagedConfig(QRadarAPIEndpoint):
         Retrieves a list of the Staged Backup Configurations.
         """
         function_endpoint = urljoin(self._baseurl, 'backup_and_restore/scheduled_backup_configurations')
-        return self._call('GET', function_endpoint, **kwargs)
-
-    @request_vars('fields')
-    def get_backup_and_restore_scheduled_backup_configurations_by_id(self, id, *, fields=None, **kwargs):
-        """
-        GET /staged_config/backup_and_restore/scheduled_backup_configurations/{id}
-        Retrieves a Staged Backup Configuration by ID.
-        """
-        function_endpoint = urljoin(self._baseurl,
-                                    'backup_and_restore/scheduled_backup_configurations/{id}'.format(id=id))
         return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('fields')
@@ -201,15 +186,15 @@ class StagedConfig(QRadarAPIEndpoint):
                                     'backup_and_restore/scheduled_backup_configurations/{id}'.format(id=id))
         return self._call('POST', function_endpoint, json=backupConfiguration, **kwargs)
 
-    def post_certificates_certificate_signing_request(self, *, CSRModel, **kwargs):
+    @request_vars('fields')
+    def get_backup_and_restore_scheduled_backup_configurations_by_id(self, id, *, fields=None, **kwargs):
         """
-        POST /staged_config/certificates/certificate_signing_request
-         Creates a new Certificate Signing Request (CSR) file.
-         A private key is generated and used to create the CSR file. The private key is kept secure on the Console. Use the GET call to download the CSR file.
-         You must have System Administrator or Security Administrator permissions to use this endpoint.
+        GET /staged_config/backup_and_restore/scheduled_backup_configurations/{id}
+        Retrieves a Staged Backup Configuration by ID.
         """
-        function_endpoint = urljoin(self._baseurl, 'certificates/certificate_signing_request')
-        return self._call('POST', function_endpoint, response_type='text/plain', json=CSRModel, **kwargs)
+        function_endpoint = urljoin(self._baseurl,
+                                    'backup_and_restore/scheduled_backup_configurations/{id}'.format(id=id))
+        return self._call('GET', function_endpoint, **kwargs)
 
     @request_vars('filter', 'fields')
     def get_certificates_certificate_signing_request(self, *, filter=None, fields=None, **kwargs):
@@ -219,6 +204,16 @@ class StagedConfig(QRadarAPIEndpoint):
         """
         function_endpoint = urljoin(self._baseurl, 'certificates/certificate_signing_request')
         return self._call('GET', function_endpoint, **kwargs)
+
+    def post_certificates_certificate_signing_request(self, *, CSRModel, **kwargs):
+        """
+        POST /staged_config/certificates/certificate_signing_request
+         Creates a new Certificate Signing Request (CSR) file.
+         A private key is generated and used to create the CSR file. The private key is kept secure on the Console. Use the GET call to download the CSR file.
+         You must have System Administrator or Security Administrator permissions to use this endpoint.
+        """
+        function_endpoint = urljoin(self._baseurl, 'certificates/certificate_signing_request')
+        return self._call('POST', function_endpoint, response_type='text/plain', json=CSRModel, **kwargs)
 
     def delete_certificates_certificate_signing_request_by_id(self, id, **kwargs):
         """
@@ -237,7 +232,7 @@ class StagedConfig(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, response_type='application/octet-stream', **kwargs)
 
     @header_vars('fields')
-    def post_certificates_end_certificates(self, *, CertificateDTO, fields=None, **kwargs):
+    def post_certificates_end_certificates(self, *, EndCertificateDTO, fields=None, **kwargs):
         """
         POST /staged_config/certificates/end_certificates
         Use this endpoint to create a new certificate resource on the Console.
@@ -245,7 +240,7 @@ class StagedConfig(QRadarAPIEndpoint):
         You must have System Administrator or Security Administrator permissions to use this endpoint. An administrator must deploy the configuration change.
         """
         function_endpoint = urljoin(self._baseurl, 'certificates/end_certificates')
-        return self._call('POST', function_endpoint, json=CertificateDTO, **kwargs)
+        return self._call('POST', function_endpoint, json=EndCertificateDTO, **kwargs)
 
     @header_vars('Range')
     @request_vars('filter', 'fields')
@@ -268,6 +263,18 @@ class StagedConfig(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'certificates/end_certificates/{id}'.format(id=id))
         return self._call('GET', function_endpoint, **kwargs)
 
+    @header_vars('fields')
+    def post_certificates_end_certificates_by_id(self, id, *, EndCertificateDTO, fields=None, **kwargs):
+        """
+        POST /staged_config/certificates/end_certificates/{id}
+        Use this endpoint to update an existing certificate resource.
+         The ID that is specified in the URL path indicates the target resource to be modified. The parameter to be modified on the target resource is included in the
+        body as a JSON object, with the new data value. The endpoint updates only the specified parameters. Empty values or missing parameters are ignored.
+        You must have System Administrator or Security Administrator permissions to use this endpoint. After the certificate resource is updated, an administrator must deploy the updated Keystore file.
+        """
+        function_endpoint = urljoin(self._baseurl, 'certificates/end_certificates/{id}'.format(id=id))
+        return self._call('POST', function_endpoint, json=EndCertificateDTO, **kwargs)
+
     def delete_certificates_end_certificates_by_id(self, id, **kwargs):
         """
         DELETE /staged_config/certificates/end_certificates/{id}
@@ -277,18 +284,6 @@ class StagedConfig(QRadarAPIEndpoint):
         """
         function_endpoint = urljoin(self._baseurl, 'certificates/end_certificates/{id}'.format(id=id))
         return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
-
-    @header_vars('fields')
-    def post_certificates_end_certificates_by_id(self, id, *, CertificateDTO, fields=None, **kwargs):
-        """
-        POST /staged_config/certificates/end_certificates/{id}
-        Use this endpoint to update an existing certificate resource.
-         The ID that is specified in the URL path indicates the target resource to be modified. The parameter to be modified on the target resource is included in the
-        body as a JSON object, with the new data value. The endpoint updates only the specified parameters. Empty values or missing parameters are ignored.
-        You must have System Administrator or Security Administrator permissions to use this endpoint. After the certificate resource is updated, an administrator must deploy the updated Keystore file.
-        """
-        function_endpoint = urljoin(self._baseurl, 'certificates/end_certificates/{id}'.format(id=id))
-        return self._call('POST', function_endpoint, json=CertificateDTO, **kwargs)
 
     @header_vars('fields')
     def post_certificates_root_certificates(self, *, certificate_content, fields=None, **kwargs):
@@ -319,16 +314,6 @@ class StagedConfig(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'certificates/root_certificates')
         return self._call('GET', function_endpoint, **kwargs)
 
-    def delete_certificates_root_certificates_by_id(self, id, **kwargs):
-        """
-        DELETE /staged_config/certificates/root_certificates/{id}
-        Deletes a certificate from the staged configuration folder on the Console, but does not remove the certificate from the managed host.
-        To remove the certificate from managed hosts, invoke this API and then deploy the configuration changes.
-        You must have System Administrator permissions to use this endpoint.
-        """
-        function_endpoint = urljoin(self._baseurl, 'certificates/root_certificates/{id}'.format(id=id))
-        return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
-
     @request_vars('fields')
     def get_certificates_root_certificates_by_id(self, id, *, fields=None, **kwargs):
         """
@@ -339,13 +324,15 @@ class StagedConfig(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'certificates/root_certificates/{id}'.format(id=id))
         return self._call('GET', function_endpoint, **kwargs)
 
-    def post_deploy_status(self, *, deploy_status, **kwargs):
+    def delete_certificates_root_certificates_by_id(self, id, **kwargs):
         """
-        POST /staged_config/deploy_status
-        Executes a deploy.
+        DELETE /staged_config/certificates/root_certificates/{id}
+        Deletes a certificate from the staged configuration folder on the Console, but does not remove the certificate from the managed host.
+        To remove the certificate from managed hosts, invoke this API and then deploy the configuration changes.
+        You must have System Administrator permissions to use this endpoint.
         """
-        function_endpoint = urljoin(self._baseurl, 'deploy_status')
-        return self._call('POST', function_endpoint, json=deploy_status, **kwargs)
+        function_endpoint = urljoin(self._baseurl, 'certificates/root_certificates/{id}'.format(id=id))
+        return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
 
     def get_deploy_status(self, **kwargs):
         """
@@ -354,6 +341,14 @@ class StagedConfig(QRadarAPIEndpoint):
         """
         function_endpoint = urljoin(self._baseurl, 'deploy_status')
         return self._call('GET', function_endpoint, **kwargs)
+
+    def post_deploy_status(self, *, deploy_status, **kwargs):
+        """
+        POST /staged_config/deploy_status
+        Executes a deploy.
+        """
+        function_endpoint = urljoin(self._baseurl, 'deploy_status')
+        return self._call('POST', function_endpoint, json=deploy_status, **kwargs)
 
     @header_vars('Range')
     @request_vars('filter', 'fields')
@@ -395,18 +390,6 @@ class StagedConfig(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'deployment/hosts/{id}/tunnels/{name}'.format(id=id, name=name))
         return self._call('POST', function_endpoint, json=tunnel, **kwargs)
 
-    @request_vars('fields')
-    def get_disaster_recovery_disaster_recovery_config(self, *, fields=None, **kwargs):
-        """
-        GET /staged_config/disaster_recovery/disaster_recovery_config
-        Retrieves the Staged Disaster Recovery Config.
-        UNDOCUMENTED
-        """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
-        function_endpoint = urljoin(self._baseurl, 'disaster_recovery/disaster_recovery_config')
-        return self._call('GET', function_endpoint, headers=headers, **kwargs)
-
     @header_vars('fields')
     def post_disaster_recovery_disaster_recovery_config(self, *, drConfig, fields=None, **kwargs):
         """
@@ -414,10 +397,30 @@ class StagedConfig(QRadarAPIEndpoint):
         Update the Staged Disaster Recovery Config.
         UNDOCUMENTED
         """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'disaster_recovery/disaster_recovery_config')
         return self._call('POST', function_endpoint, json=drConfig, headers=headers, **kwargs)
+
+    @request_vars('fields')
+    def get_disaster_recovery_disaster_recovery_config(self, *, fields=None, **kwargs):
+        """
+        GET /staged_config/disaster_recovery/disaster_recovery_config
+        Retrieves the Staged Disaster Recovery Config.
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl, 'disaster_recovery/disaster_recovery_config')
+        return self._call('GET', function_endpoint, headers=headers, **kwargs)
+
+    @header_vars('Range')
+    @request_vars('sort', 'filter', 'fields')
+    def get_flow_applications_active_applications(self, *, sort=None, Range=None, filter=None, fields=None, **kwargs):
+        """
+        GET /staged_config/flow/applications/active_applications
+        Gets the list of active flow applications that are in the staged configuration area.
+        """
+        function_endpoint = urljoin(self._baseurl, 'flow/applications/active_applications')
+        return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('fields')
     def post_flow_applications_active_applications(self, *, body, fields=None, **kwargs):
@@ -428,15 +431,14 @@ class StagedConfig(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'flow/applications/active_applications')
         return self._call('POST', function_endpoint, json=body, **kwargs)
 
-    @header_vars('Range')
-    @request_vars('filter', 'fields', 'sort')
-    def get_flow_applications_active_applications(self, *, Range=None, filter=None, fields=None, sort=None, **kwargs):
+    @header_vars('fields')
+    def post_flow_applications_active_applications_by_id(self, id, *, body, fields=None, **kwargs):
         """
-        GET /staged_config/flow/applications/active_applications
-        Gets the list of active flow applications that are in the staged configuration area.
+        POST /staged_config/flow/applications/active_applications/{id}
+        Updates an active flow application that is in the staged configuration area, as specified by the application ID.
         """
-        function_endpoint = urljoin(self._baseurl, 'flow/applications/active_applications')
-        return self._call('GET', function_endpoint, **kwargs)
+        function_endpoint = urljoin(self._baseurl, 'flow/applications/active_applications/{id}'.format(id=id))
+        return self._call('POST', function_endpoint, json=body, **kwargs)
 
     @request_vars('fields')
     def get_flow_applications_active_applications_by_id(self, id, *, fields=None, **kwargs):
@@ -452,15 +454,6 @@ class StagedConfig(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'flow/applications/active_applications/{id}'.format(id=id))
         return self._call('GET', function_endpoint, **kwargs)
 
-    @header_vars('fields')
-    def post_flow_applications_active_applications_by_id(self, id, *, body, fields=None, **kwargs):
-        """
-        POST /staged_config/flow/applications/active_applications/{id}
-        Updates an active flow application that is in the staged configuration area, as specified by the application ID.
-        """
-        function_endpoint = urljoin(self._baseurl, 'flow/applications/active_applications/{id}'.format(id=id))
-        return self._call('POST', function_endpoint, json=body, **kwargs)
-
     def delete_flow_applications_active_applications_by_id(self, id, **kwargs):
         """
         DELETE /staged_config/flow/applications/active_applications/{id}
@@ -470,8 +463,8 @@ class StagedConfig(QRadarAPIEndpoint):
         return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
 
     @header_vars('Range')
-    @request_vars('fields', 'filter')
-    def get_remote_networks(self, *, fields=None, filter=None, Range=None, **kwargs):
+    @request_vars('filter', 'fields')
+    def get_remote_networks(self, *, Range=None, filter=None, fields=None, **kwargs):
         """
         GET /staged_config/remote_networks
         Retrieves a list of staged remote networks.
@@ -487,15 +480,6 @@ class StagedConfig(QRadarAPIEndpoint):
         """
         function_endpoint = urljoin(self._baseurl, 'remote_networks')
         return self._call('POST', function_endpoint, json=network, **kwargs)
-
-    @request_vars('fields')
-    def get_remote_networks_by_network_id(self, network_id, *, fields=None, **kwargs):
-        """
-        GET /staged_config/remote_networks/{network_id}
-        Retrieves a staged remote network by ID.
-        """
-        function_endpoint = urljoin(self._baseurl, 'remote_networks/{network_id}'.format(network_id=network_id))
-        return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('fields')
     def post_remote_networks_by_network_id(self, network_id, *, network, fields=None, **kwargs):
@@ -514,9 +498,18 @@ class StagedConfig(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'remote_networks/{network_id}'.format(network_id=network_id))
         return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
 
+    @request_vars('fields')
+    def get_remote_networks_by_network_id(self, network_id, *, fields=None, **kwargs):
+        """
+        GET /staged_config/remote_networks/{network_id}
+        Retrieves a staged remote network by ID.
+        """
+        function_endpoint = urljoin(self._baseurl, 'remote_networks/{network_id}'.format(network_id=network_id))
+        return self._call('GET', function_endpoint, **kwargs)
+
     @header_vars('Range')
-    @request_vars('fields', 'filter')
-    def get_remote_services(self, *, fields=None, filter=None, Range=None, **kwargs):
+    @request_vars('filter', 'fields')
+    def get_remote_services(self, *, Range=None, filter=None, fields=None, **kwargs):
         """
         GET /staged_config/remote_services
         Retrieves a list of staged remote services.
@@ -559,14 +552,6 @@ class StagedConfig(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'remote_services/{service_id}'.format(service_id=service_id))
         return self._call('GET', function_endpoint, **kwargs)
 
-    def delete_yara_rules(self, **kwargs):
-        """
-        DELETE /staged_config/yara_rules
-        Deletes all Yara rules from the QRadar system.
-        """
-        function_endpoint = urljoin(self._baseurl, 'yara_rules')
-        return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
-
     def put_yara_rules(self, *, file, **kwargs):
         """
         PUT /staged_config/yara_rules
@@ -575,3 +560,11 @@ class StagedConfig(QRadarAPIEndpoint):
         """
         function_endpoint = urljoin(self._baseurl, 'yara_rules')
         return self._call('PUT', function_endpoint, response_type='text/plain', **kwargs)
+
+    def delete_yara_rules(self, **kwargs):
+        """
+        DELETE /staged_config/yara_rules
+        Deletes all Yara rules from the QRadar system.
+        """
+        function_endpoint = urljoin(self._baseurl, 'yara_rules')
+        return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)

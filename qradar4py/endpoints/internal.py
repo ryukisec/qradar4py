@@ -19,14 +19,15 @@ class Internal(QRadarAPIEndpoint):
 
     @header_vars('Range')
     @request_vars('filter', 'sort', 'fields')
-    def get_historical_correlation_hc_profiles(self, *, filter=None, sort=None, fields=None, Range=None, **kwargs):
+    @header_vars('Range')
+    @request_vars('fields', 'sort', 'filter')
+    def get_historical_correlation_hc_profiles(self, *, Range=None, fields=None, sort=None, filter=None, **kwargs):
         """
         GET /internal/historical_correlation/hc_profiles
         Retrieves a list of historical correlation profiles without returning any rules.
         UNDOCUMENTED
         """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'historical_correlation/hc_profiles')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -37,8 +38,7 @@ class Internal(QRadarAPIEndpoint):
         Get a Historical Search Profile by Id without returning rules
         UNDOCUMENTED
         """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'historical_correlation/hc_profiles/{id}'.format(id=id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -49,8 +49,7 @@ class Internal(QRadarAPIEndpoint):
         Get server by id.
         UNDOCUMENTED
         """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'system/servers/{server_id}'.format(server_id=server_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -60,8 +59,7 @@ class Internal(QRadarAPIEndpoint):
         Set access control iptable rules.
         UNDOCUMENTED
         """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'system/servers/{server_id}/firewall_rules'.format(server_id=server_id))
         return self._call('PUT', function_endpoint, headers=headers, **kwargs)
@@ -72,23 +70,21 @@ class Internal(QRadarAPIEndpoint):
         Get access control iptable rules by server id.
         UNDOCUMENTED
         """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'system/servers/{server_id}/firewall_rules'.format(server_id=server_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
     @header_vars('Range')
-    @request_vars('interface_types', 'filter', 'sort', 'fields')
-    def get_system_servers_network_interfaces_by_server_id(self, server_id, *, interface_types=None, Range=None,
-                                                           filter=None, sort=None, fields=None, **kwargs):
+    @request_vars('interface_types', 'filter', 'fields', 'sort')
+    def get_system_servers_network_interfaces_by_server_id(self, server_id, *, interface_types=None, filter=None,
+                                                           Range=None, fields=None, sort=None, **kwargs):
         """
         GET /internal/system/servers/{server_id}/network_interfaces
         Get network interfaces by server id.
         UNDOCUMENTED
         """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'system/servers/{server_id}/network_interfaces'.format(server_id=server_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)

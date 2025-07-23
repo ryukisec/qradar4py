@@ -23,8 +23,7 @@ class GuiAppFramework(QRadarAPIEndpoint):
         Deletes an augmented security profile from an user
         UNDOCUMENTED
         """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'admin_override')
         return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
 
@@ -37,8 +36,7 @@ class GuiAppFramework(QRadarAPIEndpoint):
         Supported types of user are: admin or SAAS admin
         UNDOCUMENTED
         """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'admin_override')
         return self._call('POST', function_endpoint, headers=headers, **kwargs)
 
@@ -48,8 +46,7 @@ class GuiAppFramework(QRadarAPIEndpoint):
         Retrieve list of augmented security profiles.
         UNDOCUMENTED
         """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'admin_override')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -65,7 +62,7 @@ class GuiAppFramework(QRadarAPIEndpoint):
 
     @header_vars('Range')
     @request_vars('filter', 'fields')
-    def get_application_creation_task(self, *, Range=None, filter=None, fields=None, **kwargs):
+    def get_application_creation_task(self, *, filter=None, Range=None, fields=None, **kwargs):
         """
         GET /gui_app_framework/application_creation_task
         Retrieves the status of all application installs.
@@ -93,17 +90,6 @@ class GuiAppFramework(QRadarAPIEndpoint):
                                     'application_creation_task/{application_id}'.format(application_id=application_id))
         return self._call('GET', function_endpoint, **kwargs)
 
-    @header_vars('fields')
-    def post_application_creation_task_auth_by_application_id(self, application_id, *, authorisation, fields=None,
-                                                              **kwargs):
-        """
-        POST /gui_app_framework/application_creation_task/{application_id}/auth
-        Responds to an authorisation request for an application install.
-        """
-        function_endpoint = urljoin(self._baseurl, 'application_creation_task/{application_id}/auth'.format(
-            application_id=application_id))
-        return self._call('POST', function_endpoint, json=authorisation, **kwargs)
-
     @request_vars('fields')
     def get_application_creation_task_auth_by_application_id(self, application_id, *, fields=None, **kwargs):
         """
@@ -115,10 +101,21 @@ class GuiAppFramework(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('fields')
+    def post_application_creation_task_auth_by_application_id(self, application_id, *, authorisation, fields=None,
+                                                              **kwargs):
+        """
+        POST /gui_app_framework/application_creation_task/{application_id}/auth
+        Responds to an authorisation request for an application install.
+        """
+        function_endpoint = urljoin(self._baseurl, 'application_creation_task/{application_id}/auth'.format(
+            application_id=application_id))
+        return self._call('POST', function_endpoint, json=authorisation, **kwargs)
+
+    @header_vars('fields')
     def post_application_definitions(self, *, package, fields=None, **kwargs):
         """
         POST /gui_app_framework/application_definitions
-        Installs a new application.
+        Installs a new application definition.
         """
         function_endpoint = urljoin(self._baseurl, 'application_definitions')
         return self._call('POST', function_endpoint, mime_type={'Content-Type': 'application/zip'}, data=package,
@@ -126,7 +123,7 @@ class GuiAppFramework(QRadarAPIEndpoint):
 
     @header_vars('Range')
     @request_vars('filter', 'fields')
-    def get_application_definitions(self, *, Range=None, filter=None, fields=None, **kwargs):
+    def get_application_definitions(self, *, filter=None, Range=None, fields=None, **kwargs):
         """
         GET /gui_app_framework/application_definitions
         Retrieve list of application definitions.
@@ -134,10 +131,10 @@ class GuiAppFramework(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'application_definitions')
         return self._call('GET', function_endpoint, **kwargs)
 
-    @header_vars('include_stopped_application', 'fields')
-    def put_application_definitions_by_application_definition_id(self, application_definition_id, *, package,
-                                                                 include_stopped_application=None, fields=None,
-                                                                 **kwargs):
+    @header_vars('include_stopped_application', 'use_local_zip', 'fields')
+    def put_application_definitions_by_application_definition_id(self, application_definition_id, *,
+                                                                 include_stopped_application=None, use_local_zip=None,
+                                                                 package=None, fields=None, **kwargs):
         """
         PUT /gui_app_framework/application_definitions/{application_definition_id}
         Upgrades an application definition.
@@ -145,15 +142,6 @@ class GuiAppFramework(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'application_definitions/{application_definition_id}'.format(
             application_definition_id=application_definition_id))
         return self._call('PUT', function_endpoint, **kwargs)
-
-    def delete_application_definitions_by_application_definition_id(self, application_definition_id, **kwargs):
-        """
-        DELETE /gui_app_framework/application_definitions/{application_definition_id}
-        Deletes an application definition and its associated instances.
-        """
-        function_endpoint = urljoin(self._baseurl, 'application_definitions/{application_definition_id}'.format(
-            application_definition_id=application_definition_id))
-        return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
 
     @request_vars('status', 'fields')
     def post_application_definitions_by_application_definition_id(self, application_definition_id, *, status=None,
@@ -166,6 +154,15 @@ class GuiAppFramework(QRadarAPIEndpoint):
             application_definition_id=application_definition_id))
         return self._call('POST', function_endpoint, **kwargs)
 
+    def delete_application_definitions_by_application_definition_id(self, application_definition_id, **kwargs):
+        """
+        DELETE /gui_app_framework/application_definitions/{application_definition_id}
+        Deletes an application definition and its associated instances.
+        """
+        function_endpoint = urljoin(self._baseurl, 'application_definitions/{application_definition_id}'.format(
+            application_definition_id=application_definition_id))
+        return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
+
     @request_vars('fields')
     def get_application_definitions_by_application_definition_id(self, application_definition_id, *, fields=None,
                                                                  **kwargs):
@@ -176,36 +173,6 @@ class GuiAppFramework(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'application_definitions/{application_definition_id}'.format(
             application_definition_id=application_definition_id))
         return self._call('GET', function_endpoint, **kwargs)
-
-    @header_vars('fields')
-    def post_application_definitions_tenants_by_application_definition_id(self, application_definition_id, *, tenant_id,
-                                                                          fields=None, **kwargs):
-        """
-        POST /gui_app_framework/application_definitions/{application_definition_id}/tenants
-        Associates a tenant with an application definition
-        UNDOCUMENTED
-        """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
-        function_endpoint = urljoin(self._baseurl, 'application_definitions/{application_definition_id}/tenants'.format(
-            application_definition_id=application_definition_id))
-        return self._call('POST', function_endpoint, json=tenant_id, headers=headers, **kwargs)
-
-    @request_vars('fields')
-    def delete_application_definitions_application_definition_id_tenants_by_tenant_id(self, application_definition_id,
-                                                                                      tenant_id, *, fields=None,
-                                                                                      **kwargs):
-        """
-        DELETE /gui_app_framework/application_definitions/{application_definition_id}/tenants/{tenant_id}
-        Removes the association between a tenant and an application definition
-        UNDOCUMENTED
-        """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
-        function_endpoint = urljoin(self._baseurl,
-                                    'application_definitions/{application_definition_id}/tenants/{tenant_id}'.format(
-                                        application_definition_id=application_definition_id, tenant_id=tenant_id))
-        return self._call('DELETE', function_endpoint, headers=headers, **kwargs)
 
     @request_vars('fields')
     def get_application_definitions_user_role_id_by_application_definition_id(self, application_definition_id, *,
@@ -249,7 +216,7 @@ class GuiAppFramework(QRadarAPIEndpoint):
 
     @header_vars('Range')
     @request_vars('filter', 'fields')
-    def get_applications(self, *, Range=None, filter=None, fields=None, **kwargs):
+    def get_applications(self, *, filter=None, Range=None, fields=None, **kwargs):
         """
         GET /gui_app_framework/applications
         Retrieve list of applications.
@@ -257,9 +224,9 @@ class GuiAppFramework(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'applications')
         return self._call('GET', function_endpoint, **kwargs)
 
-    @request_vars('application_definition_id', 'security_profile_id', 'force_multitenancy_safe', 'fields')
-    def post_applications(self, *, application_definition_id, security_profile_id=None, force_multitenancy_safe=None,
-                          fields=None, **kwargs):
+    @request_vars('application_definition_id', 'memory', 'security_profile_id', 'force_multitenancy_safe', 'fields')
+    def post_applications(self, *, application_definition_id, memory=None, security_profile_id=None,
+                          force_multitenancy_safe=None, fields=None, **kwargs):
         """
         POST /gui_app_framework/applications
         Creates a new application instance.
@@ -267,16 +234,14 @@ class GuiAppFramework(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'applications')
         return self._call('POST', function_endpoint, **kwargs)
 
-    @request_vars('status', 'oauth_user_id', 'security_profile_id', 'fields')
-    def post_applications_by_application_id(self, application_id, *, status=None, oauth_user_id=None,
-                                            security_profile_id=None, fields=None, **kwargs):
+    def delete_applications_by_application_id(self, application_id, **kwargs):
         """
-        POST /gui_app_framework/applications/{application_id}
-        Updates an application.
+        DELETE /gui_app_framework/applications/{application_id}
+        Deletes an application instance.
         """
         function_endpoint = urljoin(self._baseurl,
                                     'applications/{application_id}'.format(application_id=application_id))
-        return self._call('POST', function_endpoint, **kwargs)
+        return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
 
     @request_vars('fields')
     def get_applications_by_application_id(self, application_id, *, fields=None, **kwargs):
@@ -288,17 +253,9 @@ class GuiAppFramework(QRadarAPIEndpoint):
                                     'applications/{application_id}'.format(application_id=application_id))
         return self._call('GET', function_endpoint, **kwargs)
 
-    def delete_applications_by_application_id(self, application_id, **kwargs):
-        """
-        DELETE /gui_app_framework/applications/{application_id}
-        Deletes an application instance.
-        """
-        function_endpoint = urljoin(self._baseurl,
-                                    'applications/{application_id}'.format(application_id=application_id))
-        return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
-
-    @header_vars('fields')
-    def put_applications_by_application_id(self, application_id, *, package, fields=None, **kwargs):
+    @header_vars('use_local_zip', 'fields')
+    def put_applications_by_application_id(self, application_id, *, use_local_zip=None, package=None, fields=None,
+                                           **kwargs):
         """
         PUT /gui_app_framework/applications/{application_id}
         Upgrades an application.
@@ -307,14 +264,46 @@ class GuiAppFramework(QRadarAPIEndpoint):
                                     'applications/{application_id}'.format(application_id=application_id))
         return self._call('PUT', function_endpoint, **kwargs)
 
+    @request_vars('status', 'memory', 'oauth_user_id', 'security_profile_id', 'fields')
+    def post_applications_by_application_id(self, application_id, *, status=None, memory=None, oauth_user_id=None,
+                                            security_profile_id=None, fields=None, **kwargs):
+        """
+        POST /gui_app_framework/applications/{application_id}
+        Updates an application.
+        """
+        function_endpoint = urljoin(self._baseurl,
+                                    'applications/{application_id}'.format(application_id=application_id))
+        return self._call('POST', function_endpoint, **kwargs)
+
+    @request_vars('fields')
+    def get_applications_host_type_by_application_id(self, application_id, *, fields=None, **kwargs):
+        """
+        GET /gui_app_framework/applications/{application_id}/host_type
+        Retrieve a host type.
+        """
+        function_endpoint = urljoin(self._baseurl,
+                                    'applications/{application_id}/host_type'.format(application_id=application_id))
+        return self._call('GET', function_endpoint, **kwargs)
+
+    @header_vars('Range')
+    @request_vars('filter', 'fields')
+    def get_base_images(self, *, filter=None, Range=None, fields=None, **kwargs):
+        """
+        GET /gui_app_framework/base_images
+        Retrieve all application base image repositories.
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl, 'base_images')
+        return self._call('GET', function_endpoint, headers=headers, **kwargs)
+
     def get_migration_sourcehost(self, **kwargs):
         """
         GET /gui_app_framework/migration/sourcehost
         Retrieves the current application source host
         UNDOCUMENTED
         """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'migration/sourcehost')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -324,8 +313,7 @@ class GuiAppFramework(QRadarAPIEndpoint):
         Retrieves the current migration status
         UNDOCUMENTED
         """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'migration/status')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -335,8 +323,7 @@ class GuiAppFramework(QRadarAPIEndpoint):
         Invokes a 'dry run' of a migration and returns any issues found.
         UNDOCUMENTED
         """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'migration/{type}/check'.format(type=type))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -346,8 +333,7 @@ class GuiAppFramework(QRadarAPIEndpoint):
         Invokes the data migration based on the type specified.
         UNDOCUMENTED
         """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'migration/{type}/start'.format(type=type))
         return self._call('POST', function_endpoint, headers=headers, **kwargs)
 
@@ -373,8 +359,7 @@ class GuiAppFramework(QRadarAPIEndpoint):
         Returns workload resources
         UNDOCUMENTED
         """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'resources')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -384,8 +369,7 @@ class GuiAppFramework(QRadarAPIEndpoint):
         Returns service resources
         UNDOCUMENTED
         """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'resources/{serviceName}'.format(serviceName=serviceName))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -396,8 +380,7 @@ class GuiAppFramework(QRadarAPIEndpoint):
         Retrieves the status of cloud enablement.
         UNDOCUMENTED
         """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'runtime/status')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -408,8 +391,7 @@ class GuiAppFramework(QRadarAPIEndpoint):
         Responds to a request to enable cloud mode.
         UNDOCUMENTED
         """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'runtime/{type}/enable'.format(type=type))
         return self._call('POST', function_endpoint, json=hostTypeParams, headers=headers, **kwargs)
 
@@ -420,8 +402,7 @@ class GuiAppFramework(QRadarAPIEndpoint):
         Returns a collection of exclusions for the provided runtime
         UNDOCUMENTED
         """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'runtime/{type}/exclusions'.format(type=type))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -432,21 +413,9 @@ class GuiAppFramework(QRadarAPIEndpoint):
         Adds an exclusion to the provided runtime
         UNDOCUMENTED
         """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'runtime/{type}/exclusions'.format(type=type))
         return self._call('POST', function_endpoint, json=exclusion, headers=headers, **kwargs)
-
-    def delete_runtime_type_exclusions_by_uuid(self, type, uuid, **kwargs):
-        """
-        DELETE /gui_app_framework/runtime/{type}/exclusions/{uuid}
-        Removes an exclusion from a runtime based upon its applications UUID
-        UNDOCUMENTED
-        """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
-        function_endpoint = urljoin(self._baseurl, 'runtime/{type}/exclusions/{uuid}'.format(type=type, uuid=uuid))
-        return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
 
     @request_vars('fields')
     def get_runtime_type_exclusions_by_uuid(self, type, uuid, *, fields=None, **kwargs):
@@ -455,10 +424,19 @@ class GuiAppFramework(QRadarAPIEndpoint):
         Retrieves a specific exclusion based upon the supplied runtime and uuid
         UNDOCUMENTED
         """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'runtime/{type}/exclusions/{uuid}'.format(type=type, uuid=uuid))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
+
+    def delete_runtime_type_exclusions_by_uuid(self, type, uuid, **kwargs):
+        """
+        DELETE /gui_app_framework/runtime/{type}/exclusions/{uuid}
+        Removes an exclusion from a runtime based upon its applications UUID
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl, 'runtime/{type}/exclusions/{uuid}'.format(type=type, uuid=uuid))
+        return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
 
     @header_vars('Range')
     @request_vars('filter')
@@ -468,8 +446,7 @@ class GuiAppFramework(QRadarAPIEndpoint):
         Retrieves the metrics of apps in the cloud.
         UNDOCUMENTED
         """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'runtime/{type}/metrics'.format(type=type))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -479,7 +456,6 @@ class GuiAppFramework(QRadarAPIEndpoint):
         Retrieve list of user specific applications.
         UNDOCUMENTED
         """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'user/applications')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)

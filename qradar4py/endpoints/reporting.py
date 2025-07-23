@@ -18,15 +18,14 @@ class Reporting(QRadarAPIEndpoint):
                          verify)
 
     @header_vars('Range')
-    @request_vars('fields', 'filter')
-    def get_groups(self, *, Range=None, fields=None, filter=None, **kwargs):
+    @request_vars('filter', 'fields')
+    def get_groups(self, *, filter=None, Range=None, fields=None, **kwargs):
         """
         GET /reporting/groups
         Get a list the Report Groups
         UNDOCUMENTED
         """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'groups')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -37,10 +36,19 @@ class Reporting(QRadarAPIEndpoint):
         Update the owner of an Report Group
         UNDOCUMENTED
         """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'groups/{group_id}'.format(group_id=group_id))
         return self._call('POST', function_endpoint, json=group, headers=headers, **kwargs)
+
+    def delete_groups_by_group_id(self, group_id, **kwargs):
+        """
+        DELETE /reporting/groups/{group_id}
+        Delete the Report Group
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl, 'groups/{group_id}'.format(group_id=group_id))
+        return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
 
     @request_vars('fields')
     def get_groups_by_group_id(self, group_id, *, fields=None, **kwargs):
@@ -49,45 +57,20 @@ class Reporting(QRadarAPIEndpoint):
         Get the Report Group
         UNDOCUMENTED
         """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'groups/{group_id}'.format(group_id=group_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
-    def delete_groups_by_group_id(self, group_id, **kwargs):
-        """
-        DELETE /reporting/groups/{group_id}
-        Delete the Report Group
-        UNDOCUMENTED
-        """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
-        function_endpoint = urljoin(self._baseurl, 'groups/{group_id}'.format(group_id=group_id))
-        return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
-
     @header_vars('Range')
-    @request_vars('fields', 'filter')
-    def get_templates(self, *, Range=None, fields=None, filter=None, **kwargs):
+    @request_vars('filter', 'fields')
+    def get_templates(self, *, filter=None, Range=None, fields=None, **kwargs):
         """
         GET /reporting/templates
         Retrieve the Report Templates
         UNDOCUMENTED
         """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'templates')
-        return self._call('GET', function_endpoint, headers=headers, **kwargs)
-
-    @request_vars('fields')
-    def get_templates_by_template_id(self, template_id, *, fields=None, **kwargs):
-        """
-        GET /reporting/templates/{template_id}
-        Retrieve the Report Template
-        UNDOCUMENTED
-        """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
-        function_endpoint = urljoin(self._baseurl, 'templates/{template_id}'.format(template_id=template_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
     @header_vars('fields')
@@ -97,10 +80,20 @@ class Reporting(QRadarAPIEndpoint):
         Update the Report Template owner only.
         UNDOCUMENTED
         """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'templates/{template_id}'.format(template_id=template_id))
         return self._call('POST', function_endpoint, json=report_template, headers=headers, **kwargs)
+
+    @request_vars('fields')
+    def get_templates_by_template_id(self, template_id, *, fields=None, **kwargs):
+        """
+        GET /reporting/templates/{template_id}
+        Retrieve the Report Template
+        UNDOCUMENTED
+        """
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
+        function_endpoint = urljoin(self._baseurl, 'templates/{template_id}'.format(template_id=template_id))
+        return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
     def delete_templates_by_template_id(self, template_id, **kwargs):
         """
@@ -108,8 +101,7 @@ class Reporting(QRadarAPIEndpoint):
         Delete the Report Template.
         UNDOCUMENTED
         """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'templates/{template_id}'.format(template_id=template_id))
         return self._call('DELETE', function_endpoint, response_type='text/plain', headers=headers, **kwargs)
 
@@ -119,8 +111,7 @@ class Reporting(QRadarAPIEndpoint):
         Retrieve the Report Template's latest generated content
         UNDOCUMENTED
         """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl,
                                     'templates/{template_id}/output_type/{output_type}'.format(template_id=template_id,
                                                                                                output_type=output_type))

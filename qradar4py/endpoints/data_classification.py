@@ -18,7 +18,7 @@ class DataClassification(QRadarAPIEndpoint):
 
     @header_vars('Range')
     @request_vars('fields', 'filter')
-    def get_dsm_event_mappings(self, *, fields=None, Range=None, filter=None, **kwargs):
+    def get_dsm_event_mappings(self, *, Range=None, fields=None, filter=None, **kwargs):
         """
         GET /data_classification/dsm_event_mappings
         Retrieve a list of DSM event mappings.
@@ -35,16 +35,6 @@ class DataClassification(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'dsm_event_mappings')
         return self._call('POST', function_endpoint, json=data, **kwargs)
 
-    @request_vars('fields')
-    def get_dsm_event_mappings_by_dsm_event_mapping_id(self, dsm_event_mapping_id, *, fields=None, **kwargs):
-        """
-        GET /data_classification/dsm_event_mappings/{dsm_event_mapping_id}
-        Retrieves a DSM event mapping based on the supplied DSM event mapping ID.
-        """
-        function_endpoint = urljoin(self._baseurl, 'dsm_event_mappings/{dsm_event_mapping_id}'.format(
-            dsm_event_mapping_id=dsm_event_mapping_id))
-        return self._call('GET', function_endpoint, **kwargs)
-
     @header_vars('fields')
     def post_dsm_event_mappings_by_dsm_event_mapping_id(self, dsm_event_mapping_id, *, data, fields=None, **kwargs):
         """
@@ -55,9 +45,19 @@ class DataClassification(QRadarAPIEndpoint):
             dsm_event_mapping_id=dsm_event_mapping_id))
         return self._call('POST', function_endpoint, json=data, **kwargs)
 
+    @request_vars('fields')
+    def get_dsm_event_mappings_by_dsm_event_mapping_id(self, dsm_event_mapping_id, *, fields=None, **kwargs):
+        """
+        GET /data_classification/dsm_event_mappings/{dsm_event_mapping_id}
+        Retrieves a DSM event mapping based on the supplied DSM event mapping ID.
+        """
+        function_endpoint = urljoin(self._baseurl, 'dsm_event_mappings/{dsm_event_mapping_id}'.format(
+            dsm_event_mapping_id=dsm_event_mapping_id))
+        return self._call('GET', function_endpoint, **kwargs)
+
     @header_vars('Range')
-    @request_vars('fields', 'filter', 'sort')
-    def get_high_level_categories(self, *, fields=None, Range=None, filter=None, sort=None, **kwargs):
+    @request_vars('sort', 'fields', 'filter')
+    def get_high_level_categories(self, *, sort=None, Range=None, fields=None, filter=None, **kwargs):
         """
         GET /data_classification/high_level_categories
         Retrieves a list of high level categories.
@@ -76,8 +76,8 @@ class DataClassification(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('Range')
-    @request_vars('fields', 'filter', 'sort')
-    def get_low_level_categories(self, *, fields=None, Range=None, filter=None, sort=None, **kwargs):
+    @request_vars('sort', 'fields', 'filter')
+    def get_low_level_categories(self, *, sort=None, Range=None, fields=None, filter=None, **kwargs):
         """
         GET /data_classification/low_level_categories
         Retrieves a list of low level categories.
@@ -97,7 +97,7 @@ class DataClassification(QRadarAPIEndpoint):
 
     @header_vars('Range')
     @request_vars('fields', 'filter')
-    def get_qid_records(self, *, fields=None, Range=None, filter=None, **kwargs):
+    def get_qid_records(self, *, Range=None, fields=None, filter=None, **kwargs):
         """
         GET /data_classification/qid_records
         Retrieves a list of QID records.

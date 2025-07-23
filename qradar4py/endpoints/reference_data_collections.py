@@ -67,9 +67,9 @@ class ReferenceDataCollections(QRadarAPIEndpoint):
         return self._call('POST', function_endpoint, json=body, **kwargs)
 
     @header_vars('Range')
-    @request_vars('fields', 'filter')
-    def get_set_dependents_tasks_results_by_task_status_id(self, task_status_id, *, fields=None, filter=None,
-                                                           Range=None, **kwargs):
+    @request_vars('filter', 'fields')
+    def get_set_dependents_tasks_results_by_task_status_id(self, task_status_id, *, Range=None, filter=None,
+                                                           fields=None, **kwargs):
         """
         GET /reference_data_collections/set_dependents_tasks/{task_status_id}/results
         Get the results of the Get Dependents task
@@ -99,8 +99,8 @@ class ReferenceDataCollections(QRadarAPIEndpoint):
         return self._call('PATCH', function_endpoint, json=body, **kwargs)
 
     @header_vars('Range')
-    @request_vars('entry_type', 'fields', 'filter', 'sort')
-    def get_set_entries(self, *, entry_type=None, fields=None, filter=None, sort=None, Range=None, **kwargs):
+    @request_vars('entry_type', 'filter', 'sort', 'fields')
+    def get_set_entries(self, *, entry_type=None, Range=None, filter=None, sort=None, fields=None, **kwargs):
         """
         GET /reference_data_collections/set_entries
         Get a list of set entries which match a search criteria.
@@ -116,6 +116,15 @@ class ReferenceDataCollections(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'set_entries/{id}'.format(id=id))
         return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
 
+    @request_vars('fields')
+    def get_set_entries_by_id(self, id, *, fields=None, **kwargs):
+        """
+        GET /reference_data_collections/set_entries/{id}
+        Get a set entry
+        """
+        function_endpoint = urljoin(self._baseurl, 'set_entries/{id}'.format(id=id))
+        return self._call('GET', function_endpoint, **kwargs)
+
     @header_vars('fields')
     def post_set_entries_by_id(self, id, *, body, fields=None, **kwargs):
         """
@@ -127,18 +136,9 @@ class ReferenceDataCollections(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'set_entries/{id}'.format(id=id))
         return self._call('POST', function_endpoint, json=body, **kwargs)
 
-    @request_vars('fields')
-    def get_set_entries_by_id(self, id, *, fields=None, **kwargs):
-        """
-        GET /reference_data_collections/set_entries/{id}
-        Get a set entry
-        """
-        function_endpoint = urljoin(self._baseurl, 'set_entries/{id}'.format(id=id))
-        return self._call('GET', function_endpoint, **kwargs)
-
     @header_vars('Range')
-    @request_vars('fields', 'filter', 'sort')
-    def get_sets(self, *, fields=None, filter=None, sort=None, Range=None, **kwargs):
+    @request_vars('filter', 'sort', 'fields')
+    def get_sets(self, *, Range=None, filter=None, sort=None, fields=None, **kwargs):
         """
         GET /reference_data_collections/sets
         Get a list of set meta data information based on search criteria
@@ -153,6 +153,15 @@ class ReferenceDataCollections(QRadarAPIEndpoint):
         Create a set given the properties based in the body DTO
         """
         function_endpoint = urljoin(self._baseurl, 'sets')
+        return self._call('POST', function_endpoint, json=body, **kwargs)
+
+    @header_vars('fields')
+    def post_sets_by_id(self, id, *, body, fields=None, **kwargs):
+        """
+        POST /reference_data_collections/sets/{id}
+        Update a Set given the properties based in the body DTO
+        """
+        function_endpoint = urljoin(self._baseurl, 'sets/{id}'.format(id=id))
         return self._call('POST', function_endpoint, json=body, **kwargs)
 
     @request_vars('fields')
@@ -172,15 +181,6 @@ class ReferenceDataCollections(QRadarAPIEndpoint):
         """
         function_endpoint = urljoin(self._baseurl, 'sets/{id}'.format(id=id))
         return self._call('DELETE', function_endpoint, **kwargs)
-
-    @header_vars('fields')
-    def post_sets_by_id(self, id, *, body, fields=None, **kwargs):
-        """
-        POST /reference_data_collections/sets/{id}
-        Update a Set given the properties based in the body DTO
-        """
-        function_endpoint = urljoin(self._baseurl, 'sets/{id}'.format(id=id))
-        return self._call('POST', function_endpoint, json=body, **kwargs)
 
     @request_vars('fields')
     def get_sets_dependents_by_id(self, id, *, fields=None, **kwargs):

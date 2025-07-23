@@ -34,6 +34,14 @@ class DisasterRecovery(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'ariel_copy_profiles')
         return self._call('POST', function_endpoint, json=arielCopyProfileDTO, **kwargs)
 
+    def delete_ariel_copy_profiles_by_id(self, id, **kwargs):
+        """
+        DELETE /disaster_recovery/ariel_copy_profiles/{id}
+        Deletes a Ariel Copy Profile by ID.
+        """
+        function_endpoint = urljoin(self._baseurl, 'ariel_copy_profiles/{id}'.format(id=id))
+        return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
+
     @header_vars('fields')
     def post_ariel_copy_profiles_by_id(self, id, *, arielCopyProfileDTO, fields=None, **kwargs):
         """
@@ -51,11 +59,3 @@ class DisasterRecovery(QRadarAPIEndpoint):
         """
         function_endpoint = urljoin(self._baseurl, 'ariel_copy_profiles/{id}'.format(id=id))
         return self._call('GET', function_endpoint, **kwargs)
-
-    def delete_ariel_copy_profiles_by_id(self, id, **kwargs):
-        """
-        DELETE /disaster_recovery/ariel_copy_profiles/{id}
-        Deletes a Ariel Copy Profile by ID.
-        """
-        function_endpoint = urljoin(self._baseurl, 'ariel_copy_profiles/{id}'.format(id=id))
-        return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)

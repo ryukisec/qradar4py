@@ -38,6 +38,8 @@ class Scanner(QRadarAPIEndpoint):
 
         To create the scan, you will need to build up a JSON object that contains the Scan Profile name and ips to scan e.g.
         {'name':'New Scan Profile', 'ips':['10.100.85.135']}
+
+        Note: Only IP addresses and ranges are accepted. CIDR ranges are not supported.
         """
         function_endpoint = urljoin(self._baseurl, 'profiles/create')
         return self._call('POST', function_endpoint, response_type='text/plain', json=scanProfile, **kwargs)
@@ -54,20 +56,9 @@ class Scanner(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'profiles/start')
         return self._call('POST', function_endpoint, response_type='text/plain', **kwargs)
 
-    def post_scanprofiles(self, *, scanProfile, **kwargs):
-        """
-        POST /scanner/scanprofiles
-        Initiates a request to create a new scanProfile. The request takes one parameter - createScanRequest, which is just a POJO.
-
-        To create the scan, you will need to build up a JSON object that contains the Scan Profile name and hosts to scan e.g.
-        {'name':'New Scan Profile', 'hosts':['10.100.85.135']}
-        """
-        function_endpoint = urljoin(self._baseurl, 'scanprofiles')
-        return self._call('POST', function_endpoint, response_type='text/plain', json=scanProfile, **kwargs)
-
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_scanprofiles(self, *, Range=None, filter=None, fields=None, **kwargs):
+    @request_vars('fields', 'filter')
+    def get_scanprofiles(self, *, fields=None, Range=None, filter=None, **kwargs):
         """
         GET /scanner/scanprofiles
         See api_mapping.xml
@@ -75,9 +66,17 @@ class Scanner(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'scanprofiles')
         return self._call('GET', function_endpoint, **kwargs)
 
+    def delete_scanprofiles_by_profileid(self, profileid, **kwargs):
+        """
+        DELETE /scanner/scanprofiles/{profileid}
+        Initiates a request to delete a  scanProfile. The request takes one parameter - the Scan Profile ID.
+        """
+        function_endpoint = urljoin(self._baseurl, 'scanprofiles/{profileid}'.format(profileid=profileid))
+        return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
+
     @header_vars('Range')
-    @request_vars('filter', 'fields')
-    def get_scanprofiles_by_profileid(self, profileid, *, Range=None, filter=None, fields=None, **kwargs):
+    @request_vars('fields', 'filter')
+    def get_scanprofiles_by_profileid(self, profileid, *, fields=None, Range=None, filter=None, **kwargs):
         """
         GET /scanner/scanprofiles/{profileid}
         See api_mapping.xml
@@ -99,17 +98,9 @@ class Scanner(QRadarAPIEndpoint):
         function_endpoint = urljoin(self._baseurl, 'scanprofiles/{profileid}'.format(profileid=profileid))
         return self._call('POST', function_endpoint, json=scanProfile, **kwargs)
 
-    def delete_scanprofiles_by_profileid(self, profileid, **kwargs):
-        """
-        DELETE /scanner/scanprofiles/{profileid}
-        Initiates a request to delete a  scanProfile. The request takes one parameter - the Scan Profile ID.
-        """
-        function_endpoint = urljoin(self._baseurl, 'scanprofiles/{profileid}'.format(profileid=profileid))
-        return self._call('DELETE', function_endpoint, response_type='text/plain', **kwargs)
-
     @header_vars('Range')
     @request_vars('fields')
-    def get_scanprofiles_runs_by_profileid(self, profileid, *, Range=None, fields=None, **kwargs):
+    def get_scanprofiles_runs_by_profileid(self, profileid, *, fields=None, Range=None, **kwargs):
         """
         GET /scanner/scanprofiles/{profileid}/runs
         No summary provided
@@ -129,7 +120,7 @@ class Scanner(QRadarAPIEndpoint):
 
     @header_vars('Range')
     @request_vars('fields')
-    def get_scanprofiles_profileid_runs_results_by_run_id(self, profileid, run_id, *, Range=None, fields=None,
+    def get_scanprofiles_profileid_runs_results_by_run_id(self, profileid, run_id, *, fields=None, Range=None,
                                                           **kwargs):
         """
         GET /scanner/scanprofiles/{profileid}/runs/{run_id}/results

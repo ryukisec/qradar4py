@@ -17,8 +17,8 @@ class Access(QRadarAPIEndpoint):
                          verify)
 
     @header_vars('Range')
-    @request_vars('sort', 'filter', 'fields')
-    def get_login_attempts(self, *, sort=None, Range=None, filter=None, fields=None, **kwargs):
+    @request_vars('filter', 'sort', 'fields')
+    def get_login_attempts(self, *, Range=None, filter=None, sort=None, fields=None, **kwargs):
         """
         GET /access/login_attempts
         Gets the list of login attempts.

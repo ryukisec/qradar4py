@@ -23,21 +23,19 @@ class Health(QRadarAPIEndpoint):
         Retrieves all health alerts currently in the system
         UNDOCUMENTED
         """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'alerts')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
     @header_vars('Range')
-    @request_vars('fields', 'filter')
-    def get_metrics_config(self, *, fields=None, filter=None, Range=None, **kwargs):
+    @request_vars('filter', 'fields')
+    def get_metrics_config(self, *, Range=None, filter=None, fields=None, **kwargs):
         """
         GET /health/metrics/config
         No summary provided
         UNDOCUMENTED
         """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'metrics/config')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -48,21 +46,19 @@ class Health(QRadarAPIEndpoint):
         No summary provided
         UNDOCUMENTED
         """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'metrics/config/{metric_id}'.format(metric_id=metric_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
     @header_vars('Range')
-    @request_vars('fields', 'filter')
-    def get_metrics_meta(self, *, fields=None, filter=None, Range=None, **kwargs):
+    @request_vars('filter', 'fields')
+    def get_metrics_meta(self, *, Range=None, filter=None, fields=None, **kwargs):
         """
         GET /health/metrics/meta
         No summary provided
         UNDOCUMENTED
         """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'metrics/meta')
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
@@ -73,29 +69,19 @@ class Health(QRadarAPIEndpoint):
         No summary provided
         UNDOCUMENTED
         """
-        headers = kwargs.pop('headers', {})
-        headers.update({'Allow-Hidden': 'True'})
+        headers = kwargs.get('headers', {}).update({'Allow-Hidden': True})
         function_endpoint = urljoin(self._baseurl, 'metrics/meta/{metric_id}'.format(metric_id=metric_id))
         return self._call('GET', function_endpoint, headers=headers, **kwargs)
 
     @header_vars('Range')
-    @request_vars('fields', 'filter')
-    def get_metrics_qradar_metrics(self, *, fields=None, filter=None, Range=None, **kwargs):
+    @request_vars('filter', 'fields')
+    def get_metrics_qradar_metrics(self, *, Range=None, filter=None, fields=None, **kwargs):
         """
         GET /health/metrics/qradar_metrics
         Gets the list of QRadar component metrics
         """
         function_endpoint = urljoin(self._baseurl, 'metrics/qradar_metrics')
         return self._call('GET', function_endpoint, **kwargs)
-
-    @header_vars('fields')
-    def post_metrics_qradar_metrics_by_id(self, id, *, qradar_metric, fields=None, **kwargs):
-        """
-        POST /health/metrics/qradar_metrics/{id}
-        Updates the time_resolution and enable field of a QRadar metric identified by metric ID.
-        """
-        function_endpoint = urljoin(self._baseurl, 'metrics/qradar_metrics/{id}'.format(id=id))
-        return self._call('POST', function_endpoint, json=qradar_metric, **kwargs)
 
     @request_vars('fields')
     def get_metrics_qradar_metrics_by_id(self, id, *, fields=None, **kwargs):
@@ -107,6 +93,15 @@ class Health(QRadarAPIEndpoint):
         return self._call('GET', function_endpoint, **kwargs)
 
     @header_vars('fields')
+    def post_metrics_qradar_metrics_by_id(self, id, *, qradar_metric, fields=None, **kwargs):
+        """
+        POST /health/metrics/qradar_metrics/{id}
+        Updates the time_resolution and enable field of a QRadar metric identified by metric ID.
+        """
+        function_endpoint = urljoin(self._baseurl, 'metrics/qradar_metrics/{id}'.format(id=id))
+        return self._call('POST', function_endpoint, json=qradar_metric, **kwargs)
+
+    @header_vars('fields')
     def post_metrics_qradar_metrics_global_config(self, *, global_config, fields=None, **kwargs):
         """
         POST /health/metrics/qradar_metrics_global_config
@@ -116,8 +111,8 @@ class Health(QRadarAPIEndpoint):
         return self._call('POST', function_endpoint, json=global_config, **kwargs)
 
     @header_vars('Range')
-    @request_vars('fields', 'filter')
-    def get_metrics_system_metrics(self, *, fields=None, filter=None, Range=None, **kwargs):
+    @request_vars('filter', 'fields')
+    def get_metrics_system_metrics(self, *, Range=None, filter=None, fields=None, **kwargs):
         """
         GET /health/metrics/system_metrics
         Gets the list of system metrics.
