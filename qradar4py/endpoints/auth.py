@@ -9,10 +9,9 @@ class Auth(QRadarAPIEndpoint):
     """
     __baseurl = 'auth/'
 
-    def __init__(self, url, header, verify):
+    def __init__(self, url, session):
         super().__init__(urljoin(url, self.__baseurl),
-                         header,
-                         verify)
+                         session)
 
     def post_logout(self, **kwargs):
         """

@@ -11,10 +11,9 @@ class Forensics(QRadarAPIEndpoint):
     """
     __baseurl = 'forensics/'
 
-    def __init__(self, url, header, verify):
+    def __init__(self, url, session):
         super().__init__(urljoin(url, self.__baseurl),
-                         header,
-                         verify)
+                         session)
 
     def post_alerting_jobs_by_id(self, id, *, alerting_job, **kwargs):
         """

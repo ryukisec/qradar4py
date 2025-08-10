@@ -11,10 +11,9 @@ class BackupAndRestore(QRadarAPIEndpoint):
     """
     __baseurl = 'backup_and_restore/'
 
-    def __init__(self, url, header, verify):
+    def __init__(self, url, session):
         super().__init__(urljoin(url, self.__baseurl),
-                         header,
-                         verify)
+                         session)
 
     @header_vars('fields')
     def post_app_restores(self, *, restore, fields=None, **kwargs):

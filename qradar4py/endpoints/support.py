@@ -12,10 +12,9 @@ class Support(QRadarAPIEndpoint):
     """
     __baseurl = 'support/'
 
-    def __init__(self, url, header, verify):
+    def __init__(self, url, session):
         super().__init__(urljoin(url, self.__baseurl),
-                         header,
-                         verify)
+                         session)
 
     @header_vars('fields')
     def post_log_bundles(self, *, get_logs_args, fields=None, **kwargs):

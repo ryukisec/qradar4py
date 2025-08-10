@@ -12,10 +12,9 @@ class HistoricalCorrelation(QRadarAPIEndpoint):
     """
     __baseurl = 'historical_correlation/'
 
-    def __init__(self, url, header, verify):
+    def __init__(self, url, session):
         super().__init__(urljoin(url, self.__baseurl),
-                         header,
-                         verify)
+                         session)
 
     @request_vars('offense_id', 'fields')
     def get_hc_offense_info(self, *, offense_id, fields=None, **kwargs):

@@ -11,10 +11,9 @@ class Help(QRadarAPIEndpoint):
     """
     __baseurl = 'help/'
 
-    def __init__(self, url, header, verify):
+    def __init__(self, url, session):
         super().__init__(urljoin(url, self.__baseurl),
-                         header,
-                         verify)
+                         session)
 
     @header_vars('Range')
     @request_vars('full_content', 'fields')

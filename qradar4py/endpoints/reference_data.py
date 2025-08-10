@@ -11,10 +11,9 @@ class ReferenceData(QRadarAPIEndpoint):
     """
     __baseurl = 'reference_data/'
 
-    def __init__(self, url, header, verify):
+    def __init__(self, url, session):
         super().__init__(urljoin(url, self.__baseurl),
-                         header,
-                         verify)
+                         session)
 
     @request_vars('fields')
     def get_map_delete_tasks_by_task_id(self, task_id, *, fields=None, **kwargs):

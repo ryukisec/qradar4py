@@ -11,10 +11,9 @@ class ReferenceDataCollections(QRadarAPIEndpoint):
     """
     __baseurl = 'reference_data_collections/'
 
-    def __init__(self, url, header, verify):
+    def __init__(self, url, session):
         super().__init__(urljoin(url, self.__baseurl),
-                         header,
-                         verify)
+                         session)
 
     @request_vars('fields')
     def get_set_bulk_update_tasks_by_task_status_id(self, task_status_id, *, fields=None, **kwargs):

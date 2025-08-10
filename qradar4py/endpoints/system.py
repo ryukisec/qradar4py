@@ -11,10 +11,9 @@ class System(QRadarAPIEndpoint):
     """
     __baseurl = 'system/'
 
-    def __init__(self, url, header, verify):
+    def __init__(self, url, session):
         super().__init__(urljoin(url, self.__baseurl),
-                         header,
-                         verify)
+                         session)
 
     @request_vars('fields')
     def get_about(self, *, fields=None, **kwargs):

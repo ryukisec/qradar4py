@@ -10,10 +10,9 @@ class Services(QRadarAPIEndpoint):
     """
     __baseurl = 'services/'
 
-    def __init__(self, url, header, verify):
+    def __init__(self, url, session):
         super().__init__(urljoin(url, self.__baseurl),
-                         header,
-                         verify)
+                         session)
 
     @request_vars('IP', 'fields')
     def post_dig_lookups(self, *, IP, fields=None, **kwargs):

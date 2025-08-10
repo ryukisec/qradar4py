@@ -11,10 +11,9 @@ class GuiAppFramework(QRadarAPIEndpoint):
     """
     __baseurl = 'gui_app_framework/'
 
-    def __init__(self, url, header, verify):
+    def __init__(self, url, session):
         super().__init__(urljoin(url, self.__baseurl),
-                         header,
-                         verify)
+                         session)
 
     @request_vars('user_id', 'security_profile_id')
     def delete_admin_override(self, *, user_id, security_profile_id, **kwargs):

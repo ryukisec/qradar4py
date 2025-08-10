@@ -5,17 +5,9 @@ class QRadarAPIEndpoint:
     """"
     The parent class for a QRadar API endpoints providing a constructor and several classmethods.
     """
-    def __init__(self, baseurl, header, verify):
+    def __init__(self, baseurl, session):
         self._baseurl = baseurl
-        self._header = header
-        self._verify = verify
-
-    def get_header(self):
-        """
-        Return the header to use in API calls.
-        :return: The header defined while constructing the class.
-        """
-        return self._header
+        self._session = session
 
     def _call(self, method, url, response_type='json', **kwargs):
         """
@@ -25,15 +17,14 @@ class QRadarAPIEndpoint:
         :param kwargs:  The arguments to pass to requests.
         :return:        The status code and the response in JSON.
         """
-        header = self._header.copy()
-        header.update(kwargs.pop('headers', {}))
+        header = kwargs.pop('headers', {})
         header.update(kwargs.pop('mime_type', {}))
         if response_type == 'json':
-            response = requests.request(method, url, headers=header, verify=self._verify, **kwargs)
+            response = self._session.request(method, url, headers=header, **kwargs)
             return response.status_code, response.json()
 
         header.update({'Accept': response_type})
-        response = requests.request(method, url, headers=header, verify=self._verify, **kwargs)
+        response = self._session.request(method, url, headers=header, **kwargs)
         return response.status_code, response.text
 
 

@@ -11,10 +11,9 @@ class Qvm(QRadarAPIEndpoint):
     """
     __baseurl = 'qvm/'
 
-    def __init__(self, url, header, verify):
+    def __init__(self, url, session):
         super().__init__(urljoin(url, self.__baseurl),
-                         header,
-                         verify)
+                         session)
 
     @request_vars('savedSearchId', 'savedSearchName', 'filters')
     def get_assets(self, *, savedSearchId=None, savedSearchName=None, filters=None, **kwargs):
